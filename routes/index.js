@@ -4,17 +4,16 @@ var React = require('react/addons');
 var Dashboard = React.createFactory(require('../app/components/Dashboard.js'));
 
 // helper function for rendering a view with React
-function reactRender(view, res, componentClass) {
+function reactToString(componentClass) {
     var component = new componentClass();
-    var reactHTML = React.renderToString(component);
-    res.render(view, { reactOutput: reactHTML });
+    return React.renderToString(component);
+
 }
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    // var reactHTML = React.renderToString(Dashboard());
-    //res.render('index.html', { reactOutput: reactHTML });
-    reactRender('dashboard', res, Dashboard);
+    var markup = reactToString(Dashboard);
+    res.send('<!doctype html>\n' + markup);
 });
 
 module.exports = router;

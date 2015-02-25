@@ -4,8 +4,8 @@ var Dashboard = require('./components/Dashboard');
 var MessageActions = require('./actions/MessageActions');
 var PageUtility = require('./utilities/PageUtility');
 var ProgramActions = require('./actions/ProgramActions');
-var SocketService = require('./services/SocketService');
-var styles = require('../css/dashboard.less');
+// var SocketService = require('./services/SocketService');
+var styles = require('./styles/dashboard.less');
 
 MessageActions.getMessages();
 ProgramActions.getPrograms();
@@ -19,4 +19,4 @@ React.render(
     document.getElementById('dashboard')
 );
 
-SocketService.run();
+// SocketService.run();
