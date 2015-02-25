@@ -1,0 +1,81 @@
+#programs {
+    li {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin-bottom: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .info {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    .balance {
+        float: right;
+    }
+
+    .details {
+        color: #ccc;
+    }
+}
+
+.program-composer {
+    .program, .balance {
+        float: left;
+    }
+
+    .program {
+        padding-right: 1rem;
+        width: 65%;
+        .box;
+    }
+
+    .balance {
+        position: relative;
+        width: 35%;
+
+        input {
+            margin-right: 2rem;
+        }
+
+        &.errors {
+            input {
+                border-color: @red;
+            }
+        }
+    }
+
+    .admin {
+        background: #f7f7f7;
+        border-left: 0.0625rem solid @border;
+        display: block;
+        height: 2.1875rem;
+        font-size: 0.875rem;
+        line-height: 2.1875rem;
+        position: absolute;
+        right: 0.0625rem;
+        top: 0.0625rem;
+        text-align: center;
+        width: 2.25rem;
+
+        &:hover {
+            background: #fff;
+        }
+
+        &.processing {
+            cursor: wait
+        }
+    }
+
+    .add {
+        color: @green;
+    }
+
+    .del {
+        color: @red;
+    }
+}

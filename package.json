@@ -1,0 +1,39 @@
+{
+  "name": "flightfox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "flux": "^2.0.1",
+    "keymirror": "^0.1.1",
+    "object-assign": "^2.0.0",
+    "react": "^0.12.2",
+    "superagent": "^0.21.0"
+  },
+  "devDependencies": {
+    "css-loader": "^0.9.1",
+    "jest-cli": "^0.2.2",
+    "jsx-loader": "^0.12.2",
+    "less": "^2.3.1",
+    "less-loader": "^2.0.0",
+    "react-tools": "*",
+    "style-loader": "^0.8.3",
+    "webpack": "^1.5.3"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/js/utilities/JsxUtility.js",
+    "unmockedModulePathPatterns": ["<rootDir>/node_modules/react*", "invariant", "flux", "events", "object-assign", "keymirror"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/todsul/flightfox.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/todsul/flightfox/issues"
+  },
+  "homepage": "https://github.com/todsul/flightfox"
+}

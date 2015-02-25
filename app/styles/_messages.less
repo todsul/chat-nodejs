@@ -1,0 +1,55 @@
+#messages {
+    li {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin-bottom: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .info {
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    .online {
+        margin-top: 0.5rem;
+    }
+
+    .ago {
+        color: #ccc;
+        float: right;
+    }
+}
+
+#messages_composer {
+    button {
+        margin-bottom: 2rem;
+
+        &.off {
+            display: none;
+        }
+    }
+
+    textarea {
+        height: 2.3125rem;
+        .transition(all 0.25s ease);
+
+        &.focus {
+            height: 8.375rem;
+        }
+    }
+}
+
+#messages_more {
+    display: block;
+    font-size: 0.875rem;
+    margin-top: 2rem;
+    text-align: center;
+
+    &.off {
+        display: none;
+    }
+}
