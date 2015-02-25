@@ -26,23 +26,22 @@ var Page = React.createClass({
                     canonical={'https://flightfox.com/dashboard'}
                     title={'Dashboard'} />
                 <LayoutBody bundleFile={'/public/js/dashboard.bundle.js'}>
-                "__content__"
+                    __content__
                 </LayoutBody>
             </Layout>
         );
     }
 });
 
-
-function reactToString(componentClass, staticMarkup) {
+function reactToString(componentClass) {
     var component = new componentClass();
-    return staticMarkup ? React.renderToStaticMarkup(component) : React.renderToString(component);
+    return React.renderToString(component);
 }
 
 var PageFactory = React.createFactory(Page);
 var DashboardFactory = React.createFactory(require('./components/Dashboard'));
 
-var pageMarkup = reactToString(PageFactory, true);
+var pageMarkup = reactToString(PageFactory);
 var dashboardMarkup = reactToString(DashboardFactory);
 
 module.exports = {

@@ -7,8 +7,8 @@ var ProgramActions = require('./actions/ProgramActions');
 // var SocketService = require('./services/SocketService');
 var styles = require('./styles/dashboard.less');
 
-//MessageActions.getMessages();
-//ProgramActions.getPrograms();
+// MessageActions.getMessages();
+// ProgramActions.getPrograms();
 
 if (PageUtility.areProgramsEditable()) {
     ProgramActions.getProgramOptions();
