@@ -1,4 +1,4 @@
-//var container = document.getElementById('dashboard');
+var container = document.getElementById('dashboard');
 var messageCountMultiplier = 1;
 var UUID_delimiter = '_user_';
 
@@ -6,27 +6,27 @@ module.exports = {
     // GETTERS
 
     getBaseUrl: function() {
-        return 'https://flightfox.local';
+        return container.dataset.baseUrl;
     },
 
     getClientId: function() {
-        return 5;
+        return container.dataset.clientId;
     },
 
     getMessageCount: function() {
-        return 10 * messageCountMultiplier;
+        return container.dataset.messageCount * messageCountMultiplier;
     },
 
     getUserId: function() {
-        return 1;
+        return container.dataset.userId;
     },
 
     getPageSocketChannel: function() {
-        return 'abc';
+        return container.dataset.pageSocketChannel;
     },
 
     getFlightfoxPubnubSubscribeKey: function() {
-        return 'dummy_for_now';
+        return container.dataset.flightfoxPubnubSubscribeKey;
     },
 
     // SETTERS
