@@ -28,6 +28,7 @@
     "webpack": "^1.5.3"
   },
   "scripts": {
+    "debug": "DEBUG=flightfox node ./bin/www",
     "start": "node ./bin/www",
     "test": "jest"
   },
