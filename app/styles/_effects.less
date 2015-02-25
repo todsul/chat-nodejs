@@ -1,0 +1,123 @@
+.anim-name(@values) {
+    -webkit-animation-name: @values;
+    -moz-animation-name: @values;
+    -o-animation-name: @values;
+    animation-name: @values;
+}
+
+.anim-delay(@values) {
+    -webkit-animation-delay: @values;
+    -moz-animation-delay: @values;
+    -ms-animation-delay: @values;
+    -o-animation-delay: @values;
+    animation-delay: @values;
+}
+
+.anim-duration(@values) {
+    -webkit-animation-duration: @values;
+    -moz-animation-duration: @values;
+    -o-animation-duration: @values;
+    animation-duration: @values;
+}
+
+.anim-iteration-count(@values) {
+    -webkit-animation-iteration-count: @values;
+    -moz-animation-iteration-count: @values;
+    -o-animation-iteration-count: @values;
+    animation-iteration-count: @values;
+}
+
+.anim-timing-function(@values) {
+    -webkit-animation-timing-function: @values;
+    -moz-animation-timing-function: @values;
+    -o-animation-timing-function: @values;
+    animation-timing-function: @values;
+}
+
+.appearance(@values) {
+    -webkit-appearance: @values;
+    -moz-appearance: @values;
+    -ms-appearance: @values;
+    -o-appearance: @values;
+    appearance: @values;
+}
+
+.box (@sizing: border-box) {
+    -webkit-box-sizing: @sizing;
+    -moz-box-sizing: @sizing;
+    -o-box-sizing: @sizing;
+    -ms-box-sizing: @sizing;
+    box-sizing: @sizing;
+}
+
+.bgsize (@values) {
+    -webkit-background-size: @values;
+    -moz-background-size: @values;
+    -ms-background-size: @values;
+    -o-background-size: @values;
+    background-size: @values;
+}
+
+.frames-transform (@name, @from, @to) {
+    @-webkit-keyframes @name {
+        from { -webkit-transform: @from; }
+        to { -webkit-transform: @to; }
+    }
+    @-moz-keyframes @name {
+        from { -moz-transform: @from; }
+        to { -moz-transform: @to; }
+    }
+    @-ms-keyframes @name {
+        from { -ms-transform: @from; }
+        to { -ms-transform: @to; }
+    }
+    @-o-keyframes @name {
+        from { -o-transform: @from; }
+        to { -o-transform: @to; }
+    }
+    @keyframes @name {
+        from { transform: @from; }
+        to { transform: @to; }
+    }
+}
+
+.gradient (@position; ...) {
+    background-image: -webkit-linear-gradient(@arguments);
+    background-image: -moz-linear-gradient(@arguments);
+    background-image: -ms-linear-gradient(@arguments);
+    background-image: -o-linear-gradient(@arguments);
+    background-image: linear-gradient(@arguments);
+}
+
+.radius (@values) {
+    -webkit-border-radius: @values;
+    -khtml-border-radius: @values;
+    -moz-border-radius: @values;
+    -ms-border-radius: @values;
+    -o-border-radius: @values;
+    border-radius: @values;
+}
+
+.shadow (@values) {
+    -webkit-box-shadow: @values;
+    -khtml-box-shadow: @values;
+    -moz-box-shadow: @values;
+    -ms-box-shadow: @values;
+    -o-box-shadow: @values;
+    box-shadow: @values;
+}
+
+.transform (@values) {
+    -webkit-transform: @values;
+    -moz-transform: @values;
+    -ms-transform: @values;
+    -o-transform: @values;
+    transform: @values;
+}
+
+.transition (@values) {
+    -webkit-transition: @values;
+    -moz-transition: @values;
+    -o-transition: @values;
+    transition: @values;
+}
