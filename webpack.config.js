@@ -1,5 +1,5 @@
 var config = {
-    entry: './index.js',
+    entry: './app.js',
     output: {
         path: './public/js',
         filename: 'dashboard.bundle.js'
