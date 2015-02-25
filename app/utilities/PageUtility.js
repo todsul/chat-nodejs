@@ -6,7 +6,7 @@ module.exports = {
     // GETTERS
 
     getBaseUrl: function() {
-        return 'https://flightfox.local';
+        return 'http://localhost:3000';
     },
 
     getClientId: function() {

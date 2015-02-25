@@ -1,5 +1,5 @@
 var config = {
-    entry: './app/Dashboard.js',
+    entry: './app/DashboardClient.js',
     output: {
         path: './public/js',
         filename: 'dashboard.bundle.js'

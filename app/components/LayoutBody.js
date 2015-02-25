@@ -1,6 +1,10 @@
 var React = require('react');
 
 module.exports = React.createClass({
+    propTypes: {
+        bundleFile: React.PropTypes.string
+    },
+
     render: function() {
         return (
             <body>
@@ -12,14 +16,16 @@ module.exports = React.createClass({
                     </div>
                 </div>
                 <div id="main">
-                    <div className="cell">{this.props.children}</div>
+                    <div id="content" className="cell">
+                        {this.props.children}
+                    </div>
                 </div>
                 <div id="foot">
                     <div className="cell">
                         Flightfox Inc.
                     </div>
                 </div>
-                <script type="text/javascript" src="/public/js/dashboard.bundle.js"></script>
+                <script type="text/javascript" src={this.props.bundleFile}></script>
             </body>
         );
     }
