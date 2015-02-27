@@ -4,7 +4,7 @@ var React = require('react/addons');
 
 var Dashboard = require('../app/components/Dashboard.js');
 
-// FOR SSR - JUST UNCOMMENT
+// FOR SSR - JUST UNCOMMENT LOWER TWO LINES - THAT'S IT :)
 var DashboardString = '';
 // var DashboardFactory = React.createFactory(Dashboard);
 // var DashboardString = React.renderToString(DashboardFactory());

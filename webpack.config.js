@@ -1,8 +1,8 @@
 var config = {
-    entry: './app/Dashboard.js',
+    entry: './app/app.js',
     output: {
         path: './public/js',
-        filename: 'dashboard.bundle.js'
+        filename: 'bundle.js'
     },
     module: {
         loaders: [{

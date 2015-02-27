@@ -34,7 +34,7 @@
     "test": "jest"
   },
   "jest": {
-    "scriptPreprocessor": "<rootDir>/js/utilities/JsxUtility.js",
+    "scriptPreprocessor": "<rootDir>/app/utilities/JsxUtility.js",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react*",
       "invariant",
