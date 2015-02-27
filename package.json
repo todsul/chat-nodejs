@@ -33,6 +33,7 @@
   },
   "scripts": {
     "debug": "DEBUG=flightfox node ./bin/www",
+    "db": "node ./bin/db",
     "start": "node ./bin/www",
     "test": "jest"
   },
