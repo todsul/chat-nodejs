@@ -2,4 +2,6 @@
 !.gitkeep
 node_modules
 npm-debug.log
-*.bundle.js
+*.scripts.js
+*.styles.js
+public/js/scripts.js
