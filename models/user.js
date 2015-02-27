@@ -11,12 +11,12 @@ var UserSchema = new Schema({
 // @TODO crypto
 
 UserSchema.statics = {
-  load: function (options, cb) {
+  load: function(options, cb) {
     options.select = options.select || 'name username';
     this.findOne(options.criteria)
-      .select(options.select)
-      .exec(cb);
-  }
+        .select(options.select)
+        .exec(cb);
+    }
 };
 
 mongoose.model('User', UserSchema);
