@@ -10,7 +10,7 @@ var FORM_CHANGE_EVENT = 'form';
 
 var _state = {
     all: false,
-    loading: false,
+    loading: true,
     processing: false,
     messages: [],
     text: ''

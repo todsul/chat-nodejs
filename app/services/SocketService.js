@@ -3,7 +3,6 @@
 var PageUtility = require('../utilities/PageUtility');
 var MessageActions = require('../actions/MessageActions');
 var PresenceActions = require('../actions/PresenceActions');
-var ProgramActions = require('../actions/ProgramActions');
 var SocketAlerts = require('../constants/DashboardConstants').SocketAlerts;
 
 // SocketService
@@ -62,10 +61,6 @@ function onMessageReceived(message) {
     switch (type) {
         case SocketAlerts.MESSAGES_CHANGE:
             MessageActions.getMessages();
-            break;
-
-        case SocketAlerts.PROGRAMS_CHANGE:
-            ProgramActions.getPrograms();
             break;
 
         default:

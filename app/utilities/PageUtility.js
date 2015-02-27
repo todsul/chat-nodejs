@@ -51,9 +51,5 @@ module.exports = {
         }
 
         return parseInt(parts[1], 10);
-    },
-
-    areProgramsEditable: function() {
-        return this.getClientId() === this.getUserId();
     }
 };

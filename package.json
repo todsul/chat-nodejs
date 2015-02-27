@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "~1.10.2",
+    "compression": "^1.4.1",
     "cookie-parser": "~1.3.3",
     "debug": "~2.1.1",
     "ejs": "^2.3.1",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "css-loader": "^0.9.1",
+    "extract-text-webpack-plugin": "^0.3.8",
     "jest-cli": "^0.2.2",
     "jsx-loader": "^0.12.2",
     "less": "^2.3.1",

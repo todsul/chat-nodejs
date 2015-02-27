@@ -1,0 +1,153 @@
+fieldset {
+    padding-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    padding-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+textarea,
+.select {
+    background: #fff;
+    border: 0.0625rem solid @border;
+    display: block;
+    font-size: 0.875rem;
+    margin: 0 0 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    .box;
+
+    &.err {
+        border-color: @red;
+    }
+
+    &:focus {
+        border: 0.0625rem solid @bordon;
+        outline: none;
+    }
+}
+
+input[type="file"] {
+    font-size: 0.75rem;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+textarea {
+    height: 4.75rem;
+    resize: vertical;
+}
+
+.select {
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+
+.select:before {
+    border-right: 1.5rem solid #fff;
+    bottom: 0;
+    content: " ";
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    right: 0;
+    top: 0;
+    width: 1.5rem;
+    z-index: 99;
+}
+
+.select:after {
+    border: 0.25rem solid transparent;
+    border-top-color: @black;
+    content: " ";
+    height: 0;
+    margin-top: -0.125rem;
+    position: absolute;
+    pointer-events: none;
+    right: 0.5rem;
+    top: 50%;
+    width: 0;
+    z-index: 100;
+}
+
+.select select {
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0.5rem;
+    width: 150%;
+    .appearance(none);
+    .box;
+}
+
+.select select:focus {
+    outline: none;
+}
+
+.button {
+    background: @orange;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.875rem;
+    margin: 0;
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    text-decoration: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.ques {
+    color: @orange;
+    float: right;
+    font-size: 0.875rem;
+    padding-left: 1rem;
+}
+
+.loading {
+    min-width: 0.875rem;
+    min-height: 0.875rem;
+    text-indent: -999rem;
+    position: relative;
+}
+
+.loading:before {
+    color: @border;
+    content: 'loading';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: -0.625rem;
+    margin-left: -0.625rem;
+    .box;
+}
+
+.loading:not(:required):before {
+    content: '';
+    border: 0.25rem solid rgba(0,0,0,0.1);
+    border-right-color: transparent;
+    .anim-name(loading);
+    .anim-duration(0.75s);
+    .anim-iteration-count(infinite);
+    .anim-timing-function(linear);
+    .frames-transform(loading, rotate(0deg), rotate(360deg));
+    .radius(100%);
+}

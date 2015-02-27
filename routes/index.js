@@ -4,10 +4,11 @@ var React = require('react/addons');
 
 var Dashboard = require('../app/components/Dashboard.js');
 
-// FOR SSR - JUST UNCOMMENT LOWER TWO LINES - THAT'S IT :)
-var DashboardString = '';
-// var DashboardFactory = React.createFactory(Dashboard);
-// var DashboardString = React.renderToString(DashboardFactory());
+// FOR SSR - set to TRUE then re-run 'npm run-script debug'
+var ssr = false;
+
+var DashboardFactory = React.createFactory(Dashboard);
+var DashboardString = ssr ? React.renderToString(DashboardFactory()) : '';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
