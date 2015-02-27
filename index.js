@@ -56,54 +56,7 @@ fs.readdirSync(__dirname + '/models').forEach(function (file) {
 
 // routes
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var messages = require('./routes/messages');
-
-// Mock session user
-var User = mongoose.model('User');
-function getSessionUser(req, res, next) {
-    User.find().limit(1).exec(function(err, users) {
-        var user = users.shift();
-        req.user = user;
-        next();
-    });
-}
-
-app.use(getSessionUser);
-app.use('/', routes);
-app.use('/users', users);
-app.use('/messages', messages);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-// error handlers
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.send(err.message);
-
-        // .render causes an execption since we don't use a template engine
-        // res.render('error', {
-        //     message: err.message,
-        //     error: err
-        // });
-    });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.send("Sorry, there was an unexpected error. 500");
-});
+var routing = require('./config/routing');
+routing.register(app);
 
 module.exports = app;
