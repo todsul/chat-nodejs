@@ -7,7 +7,6 @@
 var app = require('../index');
 var debug = require('debug')('flightfox:server');
 var http = require('http');
-var mongoose = require('mongoose');
 
 /**
  * Get port from environment and store in Express.

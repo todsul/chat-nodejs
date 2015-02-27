@@ -1,0 +1,99 @@
+#!/usr/bin/env node
+
+// Rebuilds fixtures
+
+var app = require('../index');
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
+var Message = mongoose.model('Message');
+
+var users = [];
+var messages = [];
+
+
+function dropDatabase()
+{
+    for (var i in mongoose.connection.collections) {
+        var collection = mongoose.connection.collections[i];
+        collection.drop();
+    }
+}
+
+// Fixtures are meant to run sequentially.
+
+function userFixtures()
+{
+    var john = new User({full_name: 'John Doe', email: 'john@flightfox.com', password: '123'});
+    john.save(function(err, john) {
+        if (err) return disconnect(err);
+
+        users.push(john);
+        messageFixtures();
+    });
+}
+
+function messageFixtures()
+{
+    var unprocessedMessages = [
+        new Message({
+            text: 'From New Orleans to Amsterdam,One-Way only ' +
+                'Looking for cheapest price, but <24 hours flying time Leaving 16th ' +
+                'March (+/- a day), Must arrive before 18th March',
+            user: users[0],
+            created: new Date(),
+        }),
+        new Message({
+            text: 'My wife is coming with me, sorry for mentioning it',
+            user: users[0],
+            created: new Date(),
+        }),
+        new Message({
+            text: 'Thanks in advance for your hard work. I will leave juicy tip once I have booked',
+            user: users[0],
+            created: new Date(),
+        }),
+    ];
+
+    sequentialSave(unprocessedMessages, function(processedMessages) {
+        messages = processedMessages;
+        exit();
+
+        // Next fixture
+    });
+}
+
+function sequentialSave(unprocessedEntities, callback, processedEntities) {
+    processedEntities = processedEntities || [];
+
+    if (unprocessedEntities.length === 0) {
+        return callback ? callback(processedEntities) : false;
+    }
+
+    var entity = unprocessedEntities.shift();
+
+    entity.save(function(err, entity) {
+        if (err) return disconnect(err);
+
+        processedEntities.push(entity);
+        return sequentialSave(unprocessedEntities, callback, processedEntities);
+    });
+}
+
+function disconnect(err)
+{
+    if (err) console.log(err);
+    mongoose.disconnect();
+}
+
+function exit()
+{
+    disconnect();
+    process.exit();
+}
+
+// Run
+
+(function() {
+    dropDatabase();
+    userFixtures();
+})();
