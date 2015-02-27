@@ -1,1 +1,1 @@
-var styles = require('./dashboard.less');
+require('./dashboard/dashboard.less');
