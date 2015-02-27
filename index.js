@@ -10,14 +10,15 @@ require('node-jsx').install();
 
 var app = express();
 
-
-// Templating
+// templating
 var swig = require('swig');
+
 if (app.get('env') === 'development' || app.get('env') === 'test') {
     swig.setDefaults({
       cache: false
     });
 }
+
 app.engine('html', swig.renderFile);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
@@ -34,8 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/public', express.static(__dirname + '/public'));
 
-
-// Mongoose (has to before route registration)
+// Mongoose before route registration
 var fs = require('fs');
 var mongoose = require('mongoose');
 
@@ -43,6 +43,7 @@ var connect = function () {
   var options = { server: { socketOptions: { keepAlive: 1 } } };
   mongoose.connect('mongodb://localhost/flightfox_dev', options);
 };
+
 connect();
 
 mongoose.connection.on('error', console.log);
@@ -53,13 +54,12 @@ fs.readdirSync(__dirname + '/models').forEach(function (file) {
   if (~file.indexOf('.js')) require(__dirname + '/models/' + file);
 });
 
-
-
-// Routes
+// routes
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var messages = require('./routes/messages');
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/messages', messages);
@@ -94,6 +94,5 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.send("Sorry, there was an unexpected error. 500");
 });
-
 
 module.exports = app;
