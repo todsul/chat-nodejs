@@ -1,15 +1,14 @@
 var mongoose = require('mongoose');
-var crypto = require('crypto');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
     full_name: {type: String, default: ''},
     email: {type: String, default: ''},
-    hashed_password: {type: String, default: ''},
-    salt: {type: String, default: ''}
+    password: {type: String, default: ''},
 });
 
 // @TODO Validation
+// @TODO crypto
 
 UserSchema.statics = {
   load: function (options, cb) {

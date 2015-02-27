@@ -6,24 +6,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var transpiler = require('react-tools');
-var swig = require('swig');
-var fs = require('fs');
-var mongoose = require('mongoose');
-
 require('node-jsx').install();
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
 
+// Templating
+var swig = require('swig');
 if (app.get('env') === 'development' || app.get('env') === 'test') {
     swig.setDefaults({
       cache: false
     });
 }
-
 app.engine('html', swig.renderFile);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
@@ -41,7 +35,10 @@ app.use(cookieParser());
 app.use('/public', express.static(__dirname + '/public'));
 
 
-// Mongoose
+// Mongoose (has to before route registration)
+var fs = require('fs');
+var mongoose = require('mongoose');
+
 var connect = function () {
   var options = { server: { socketOptions: { keepAlive: 1 } } };
   mongoose.connect('mongodb://localhost/flightfox_dev', options);
@@ -56,10 +53,16 @@ fs.readdirSync(__dirname + '/models').forEach(function (file) {
   if (~file.indexOf('.js')) require(__dirname + '/models/' + file);
 });
 
+
+
 // Routes
 
+var routes = require('./routes/index');
+var users = require('./routes/users');
+var messages = require('./routes/messages');
 app.use('/', routes);
 app.use('/users', users);
+app.use('/messages', messages);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
