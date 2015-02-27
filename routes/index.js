@@ -10,13 +10,11 @@ router.get('/', function(req, res, next) {
 
         var pageData = {
             clientId: user._id,
-            userId: 1 // TODO get session user
+            userId: req.user._id
         };
 
-        pageData = JSON.stringify(pageData);
-
-        res.render('dashboard', {pageData: pageData});
-        });
+        res.render('dashboard', {pageData: JSON.stringify(pageData)});
+    });
 });
 
 module.exports = router;

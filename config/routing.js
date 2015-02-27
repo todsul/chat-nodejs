@@ -8,7 +8,7 @@ var User = mongoose.model('User');
 
 function getSessionUser(req, res, next) {
     User.find().limit(1).exec(function(err, users) {
-        var user = users.shift();
+        var user = users && users.length > 0 ? users.shift() : null;
         req.user = user;
         next();
     });
@@ -31,6 +31,7 @@ function notFoundErrorHandler(req, res, next) {
 }
 
 function register(app) {
+    // Order is important
     app.use(getSessionUser);
     app.use('/', routes);
     app.use('/users', users);
