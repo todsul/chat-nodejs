@@ -67,11 +67,11 @@
 
 	var React = __webpack_require__(4);
 
-	var MessageComposer = __webpack_require__(7);
-	var MessageCount = __webpack_require__(8);
-	var MessageList = __webpack_require__(9);
-	var MessageMore = __webpack_require__(10);
-	var Presence = __webpack_require__(11);
+	var MessageComposer = __webpack_require__(11);
+	var MessageCount = __webpack_require__(12);
+	var MessageList = __webpack_require__(13);
+	var MessageMore = __webpack_require__(14);
+	var Presence = __webpack_require__(15);
 
 	var Dashboard = React.createClass({displayName: "Dashboard",
 	    render: function() {
@@ -93,9 +93,9 @@
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ActionTypes = __webpack_require__(12).ActionTypes;
-	var DashboardDispatcher = __webpack_require__(13);
-	var MessageApi = __webpack_require__(14);
+	var ActionTypes = __webpack_require__(7).ActionTypes;
+	var DashboardDispatcher = __webpack_require__(8);
+	var MessageApi = __webpack_require__(9);
 	var PageUtility = __webpack_require__(3);
 
 	function createMessageSuccess(message) {
@@ -223,11 +223,99 @@
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(17);
+	var keyMirror = __webpack_require__(31);
+
+	module.exports = {
+	    ActionTypes: keyMirror({
+
+	        // MESSAGE
+
+	        CREATE_MESSAGE: null,
+	        CREATE_MESSAGE_FAILURE: null,
+	        CREATE_MESSAGE_SUCCESS: null,
+
+	        GET_MESSAGES: null,
+	        GET_MESSAGES_FAILURE: null,
+	        GET_MESSAGES_SUCCESS: null,
+
+	        // PRESENCE
+
+	        UPDATE_PRESENCE: null
+	    }),
+
+	    SocketAlerts: keyMirror({
+	        MESSAGES_CHANGE: null
+	    }),
+
+	    PayloadSources: keyMirror({
+	        VIEW_ACTION: null
+	    })
+	};
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assign = __webpack_require__(30);
+	var Dispatcher = __webpack_require__(29).Dispatcher;
+
+	var PayloadSources = __webpack_require__(7).PayloadSources;
+
+	var DashboardDispatcher = assign(new Dispatcher(), {
+	    handleViewAction: function(action) {
+	        console.log('action', action);
+	        this.dispatch({
+	            source: PayloadSources.VIEW_MESSAGES,
+	            action: action
+	        });
+	    }
+	});
+
+	module.exports = DashboardDispatcher;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Api = __webpack_require__(17);
+	var assign = __webpack_require__(30);
+	var PageUtility = __webpack_require__(3);
+
+	var MessageApi = assign(new Api(), {
+	    createMessage: function(text, success, failure) {
+	        var postParams = {text: text};
+	        var url = PageUtility.getBaseUrl() + '/users/' + PageUtility.getClientId() + '/messages';
+
+	        MessageApi.postRequest(url, postParams, function(error, res) {
+	            MessageApi.postResponse(error, res, success, failure);
+	        });
+	    },
+
+	    getMessages: function(success, failure) {
+	        var queryParams = {count: PageUtility.getMessageCount()};
+	        var url = PageUtility.getBaseUrl() + '/users/' + PageUtility.getClientId() + '/messages';
+
+	        MessageApi.getRequest(url, queryParams, function(error, res) {
+	            MessageApi.getResponse(error, res, success, failure, MessageApi.getMessages);
+	        });
+	    }
+	});
+
+	module.exports = MessageApi;
+
+
+/***/ },
+/* 10 */,
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(25);
 	var cx = React.addons.classSet;
 
 	var MessageActions = __webpack_require__(2);
-	var MessageStore = __webpack_require__(18);
+	var MessageStore = __webpack_require__(26);
 
 	function getState() {
 	    return MessageStore.getState();
@@ -293,13 +381,13 @@
 
 
 /***/ },
-/* 8 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(17);
+	var React = __webpack_require__(25);
 	var cx = React.addons.classSet;
 
-	var MessageStore = __webpack_require__(18);
+	var MessageStore = __webpack_require__(26);
 
 	function getState() {
 	    return {
@@ -340,14 +428,14 @@
 
 
 /***/ },
-/* 9 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(17);
+	var React = __webpack_require__(25);
 	var cx = React.addons.classSet;
 
-	var MessageItem = __webpack_require__(20);
-	var MessageStore = __webpack_require__(18);
+	var MessageItem = __webpack_require__(27);
+	var MessageStore = __webpack_require__(26);
 
 	function getState() {
 	    return MessageStore.getState();
@@ -396,14 +484,14 @@
 
 
 /***/ },
-/* 10 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(17);
+	var React = __webpack_require__(25);
 	var cx = React.addons.classSet;
 
 	var MessageActions = __webpack_require__(2);
-	var MessageStore = __webpack_require__(18);
+	var MessageStore = __webpack_require__(26);
 	var PageUtility = __webpack_require__(3);
 
 	function getState() {
@@ -455,10 +543,10 @@
 
 
 /***/ },
-/* 11 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React = __webpack_require__(17);
+	var React = __webpack_require__(25);
 	var cx = React.addons.classSet;
 
 	var PresenceStore = __webpack_require__(28);
@@ -504,94 +592,6 @@
 
 
 /***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var keyMirror = __webpack_require__(31);
-
-	module.exports = {
-	    ActionTypes: keyMirror({
-
-	        // MESSAGE
-
-	        CREATE_MESSAGE: null,
-	        CREATE_MESSAGE_FAILURE: null,
-	        CREATE_MESSAGE_SUCCESS: null,
-
-	        GET_MESSAGES: null,
-	        GET_MESSAGES_FAILURE: null,
-	        GET_MESSAGES_SUCCESS: null,
-
-	        // PRESENCE
-
-	        UPDATE_PRESENCE: null
-	    }),
-
-	    SocketAlerts: keyMirror({
-	        MESSAGES_CHANGE: null
-	    }),
-
-	    PayloadSources: keyMirror({
-	        VIEW_ACTION: null
-	    })
-	};
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var assign = __webpack_require__(29);
-	var Dispatcher = __webpack_require__(30).Dispatcher;
-
-	var PayloadSources = __webpack_require__(12).PayloadSources;
-
-	var DashboardDispatcher = assign(new Dispatcher(), {
-	    handleViewAction: function(action) {
-	        console.log('action', action);
-	        this.dispatch({
-	            source: PayloadSources.VIEW_MESSAGES,
-	            action: action
-	        });
-	    }
-	});
-
-	module.exports = DashboardDispatcher;
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Api = __webpack_require__(19);
-	var assign = __webpack_require__(29);
-	var PageUtility = __webpack_require__(3);
-
-	var MessageApi = assign(new Api(), {
-	    createMessage: function(text, success, failure) {
-	        var postParams = {text: text};
-	        var url = PageUtility.getBaseUrl() + '/users/' + PageUtility.getClientId() + '/messages';
-
-	        MessageApi.postRequest(url, postParams, function(error, res) {
-	            MessageApi.postResponse(error, res, success, failure);
-	        });
-	    },
-
-	    getMessages: function(success, failure) {
-	        var queryParams = {count: PageUtility.getMessageCount()};
-	        var url = PageUtility.getBaseUrl() + '/users/' + PageUtility.getClientId() + '/messages';
-
-	        MessageApi.getRequest(url, queryParams, function(error, res) {
-	            MessageApi.getResponse(error, res, success, failure, MessageApi.getMessages);
-	        });
-	    }
-	});
-
-	module.exports = MessageApi;
-
-
-/***/ },
-/* 15 */,
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -786,18 +786,144 @@
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var request = __webpack_require__(128);
+
+	// DEFAULTS
+
+	function Api() {
+	    this.getRequestTimestamp = null;
+	    this.postResponseTimestamp = null;
+	    this.staleRefreshCount = 0;
+	}
+
+	// REQUESTS
+
+	Api.prototype.getRequest = function(url, query, callback) {
+	    // Set timestamp of GET start to test against POST finish
+	    this.getRequestTimestamp = new Date().getTime();
+
+	    request
+	        .get(url)
+	        .accept('application/json')
+	        .query(query)
+	        .end(function(error, res) {
+	            callback(error, res);
+	        })
+	    ;
+	};
+
+	Api.prototype.postRequest = function(url, send, callback) {
+	    request
+	        .post(url)
+	        .accept('application/json')
+	        .send(send)
+	        .end(function(error, res) {
+	            callback(error, res);
+	        })
+	    ;
+	};
+
+	// RESPONSES
+
+	Api.prototype.getResponse = function(error, res, success, failure, refresh) {
+	    var response = this.translateResponse(error,res);
+
+	    if (!success && !failure) return;
+
+	    if (response.error) {
+	        failure(response.error);
+	    } else {
+	        if (this.isStale()) {
+	            this.staleRefreshCount++; // Must be before callback
+
+	            if (this.staleRefreshCount >= 5) { // Stops bugs from flooding the server
+	                this.staleRefreshCount = 0;
+	                this.getRequestTimestamp = null;
+	                failure('Network Error: Please refresh the page.');
+	            } else {
+	                refresh(success, failure);
+	            }
+	        } else {
+	            this.staleRefreshCount = 0;
+	            this.getRequestTimestamp = null;
+	            success(response.data);
+	        }
+	    }
+	};
+
+	Api.prototype.postResponse = function(error, res, success, failure) {
+	    var response = this.translateResponse(error,res);
+
+	    if (!success && !failure) return false;
+
+	    if (response.error) {
+	        failure(response.error);
+	    } else {
+	        // Set timestamp of POST finish to compare against GET start
+	        this.postResponseTimestamp = new Date().getTime() + 1; // 1ms buffer
+	        success(response.data);
+	    }
+	};
+
+	// CHECKS
+
+	Api.prototype.isStale = function() {
+	    // isStale = true if GET starts, but does not finish, before POST finishes
+	    if (this.getRequestTimestamp &&
+	        this.postResponseTimestamp &&
+	        this.getRequestTimestamp < this.postResponseTimestamp
+	    ) {
+	        return true;
+	    }
+
+	    return false;
+	};
+
+	// UTILITIES
+
+	Api.prototype.translateResponse = function(error, response) {
+	    var translatedError, translatedResponse;
+
+	    if (error) { // Application or network error
+	        translatedError = error.message;
+	    } else if (response.error) { // HTTP error
+	        translatedError = 'Error ' + response.error.status + ': please report to support@flightfox.com.';
+	    } else {
+	        translatedResponse = JSON.parse(response.text);
+	    }
+
+	    return {
+	        error: translatedError,
+	        data: translatedResponse
+	    };
+	};
+
+	module.exports = Api;
+
+
+/***/ },
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
 	module.exports = __webpack_require__(32);
 
 
 /***/ },
-/* 18 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assign = __webpack_require__(29);
-	var EventEmitter = __webpack_require__(61).EventEmitter;
+	var assign = __webpack_require__(30);
+	var EventEmitter = __webpack_require__(60).EventEmitter;
 
-	var ActionTypes = __webpack_require__(12).ActionTypes;
-	var DashboardDispatcher = __webpack_require__(13);
+	var ActionTypes = __webpack_require__(7).ActionTypes;
+	var DashboardDispatcher = __webpack_require__(8);
 	var PageUtility = __webpack_require__(3);
 
 	var LIST_CHANGE_EVENT = 'list';
@@ -923,133 +1049,14 @@
 
 
 /***/ },
-/* 19 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var request = __webpack_require__(128);
-
-	// DEFAULTS
-
-	function Api() {
-	    this.getRequestTimestamp = null;
-	    this.postResponseTimestamp = null;
-	    this.staleRefreshCount = 0;
-	}
-
-	// REQUESTS
-
-	Api.prototype.getRequest = function(url, query, callback) {
-	    // Set timestamp of GET start to test against POST finish
-	    this.getRequestTimestamp = new Date().getTime();
-
-	    request
-	        .get(url)
-	        .accept('application/json')
-	        .query(query)
-	        .end(function(error, res) {
-	            callback(error, res);
-	        })
-	    ;
-	};
-
-	Api.prototype.postRequest = function(url, send, callback) {
-	    request
-	        .post(url)
-	        .accept('application/json')
-	        .send(send)
-	        .end(function(error, res) {
-	            callback(error, res);
-	        })
-	    ;
-	};
-
-	// RESPONSES
-
-	Api.prototype.getResponse = function(error, res, success, failure, refresh) {
-	    var response = this.translateResponse(error,res);
-
-	    if (!success && !failure) return;
-
-	    if (response.error) {
-	        failure(response.error);
-	    } else {
-	        if (this.isStale()) {
-	            this.staleRefreshCount++; // Must be before callback
-
-	            if (this.staleRefreshCount >= 5) { // Stops bugs from flooding the server
-	                this.staleRefreshCount = 0;
-	                this.getRequestTimestamp = null;
-	                failure('Network Error: Please refresh the page.');
-	            } else {
-	                refresh(success, failure);
-	            }
-	        } else {
-	            this.staleRefreshCount = 0;
-	            this.getRequestTimestamp = null;
-	            success(response.data);
-	        }
-	    }
-	};
-
-	Api.prototype.postResponse = function(error, res, success, failure) {
-	    var response = this.translateResponse(error,res);
-
-	    if (!success && !failure) return false;
-
-	    if (response.error) {
-	        failure(response.error);
-	    } else {
-	        // Set timestamp of POST finish to compare against GET start
-	        this.postResponseTimestamp = new Date().getTime() + 1; // 1ms buffer
-	        success(response.data);
-	    }
-	};
-
-	// CHECKS
-
-	Api.prototype.isStale = function() {
-	    // isStale = true if GET starts, but does not finish, before POST finishes
-	    if (this.getRequestTimestamp &&
-	        this.postResponseTimestamp &&
-	        this.getRequestTimestamp < this.postResponseTimestamp
-	    ) {
-	        return true;
-	    }
-
-	    return false;
-	};
-
-	// UTILITIES
-
-	Api.prototype.translateResponse = function(error, response) {
-	    var translatedError, translatedResponse;
-
-	    if (error) { // Application or network error
-	        translatedError = error.message;
-	    } else if (response.error) { // HTTP error
-	        translatedError = 'Error ' + response.error.status + ': please report to support@flightfox.com.';
-	    } else {
-	        translatedResponse = JSON.parse(response.text);
-	    }
-
-	    return {
-	        error: translatedError,
-	        data: translatedResponse
-	    };
-	};
-
-	module.exports = Api;
-
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var React = __webpack_require__(17);
+	var React = __webpack_require__(25);
 	var cx = React.addons.classSet;
 
-	var DateUtility = __webpack_require__(58);
-	var Presence = __webpack_require__(11);
+	var DateUtility = __webpack_require__(33);
+	var Presence = __webpack_require__(15);
 
 	var MessageItem = React.createClass({displayName: "MessageItem",
 	    render: function() {
@@ -1079,21 +1086,14 @@
 
 
 /***/ },
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */,
 /* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var assign = __webpack_require__(29);
-	var EventEmitter = __webpack_require__(61).EventEmitter;
+	var assign = __webpack_require__(30);
+	var EventEmitter = __webpack_require__(60).EventEmitter;
 
-	var ActionTypes = __webpack_require__(12).ActionTypes;
-	var DashboardDispatcher = __webpack_require__(13);
+	var ActionTypes = __webpack_require__(7).ActionTypes;
+	var DashboardDispatcher = __webpack_require__(8);
 	var PageUtility = __webpack_require__(3);
 
 	var CHANGE_EVENT = 'change';
@@ -1193,6 +1193,22 @@
 /* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Copyright (c) 2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+
+	module.exports.Dispatcher = __webpack_require__(61)
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	function ToObject(val) {
@@ -1219,22 +1235,6 @@
 
 		return to;
 	};
-
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	module.exports.Dispatcher = __webpack_require__(60)
 
 
 /***/ },
@@ -1354,7 +1354,33 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)))
 
 /***/ },
-/* 33 */,
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+	    ago: function(date) {
+	        var diff = (((new Date()).getTime() - date.getTime()) / 1000),
+	            day_diff = Math.floor(diff / 86400);
+
+	        if (isNaN(day_diff) || day_diff < 0) return;
+
+	        return day_diff == 0 && (
+	                diff < 60 && "1 moment ago" ||
+	                diff < 120 && "1 minute ago" ||
+	                diff < 3600 && Math.floor(diff / 60) + " minutes ago" ||
+	                diff < 7200 && "1 hour ago" ||
+	                diff < 86400 && Math.floor(diff / 3600) + " hours ago") ||
+	            day_diff == 1 && "Yesterday" ||
+	            day_diff < 7 && day_diff + " days ago" ||
+	            day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago" ||
+	            day_diff < 365 && Math.ceil(day_diff / 30) + " months ago" ||
+	            day_diff >= 365 && Math.ceil(day_diff / 365) + " years ago"
+	        ;
+	    }
+	};
+
+
+/***/ },
 /* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1795,9 +1821,9 @@
 
 	"use strict";
 
-	var PooledClass = __webpack_require__(80);
+	var PooledClass = __webpack_require__(78);
 
-	var traverseAllChildren = __webpack_require__(81);
+	var traverseAllChildren = __webpack_require__(79);
 	var warning = __webpack_require__(75);
 
 	var twoArgumentPooler = PooledClass.twoArgumentPooler;
@@ -1949,12 +1975,12 @@
 	"use strict";
 
 	var ReactElement = __webpack_require__(41);
-	var ReactOwner = __webpack_require__(78);
+	var ReactOwner = __webpack_require__(80);
 	var ReactUpdates = __webpack_require__(66);
 
 	var assign = __webpack_require__(54);
 	var invariant = __webpack_require__(77);
-	var keyMirror = __webpack_require__(79);
+	var keyMirror = __webpack_require__(81);
 
 	/**
 	 * Every React component is in one of these life cycles.
@@ -2402,7 +2428,7 @@
 	var ReactEmptyComponent = __webpack_require__(82);
 	var ReactErrorUtils = __webpack_require__(83);
 	var ReactLegacyElement = __webpack_require__(47);
-	var ReactOwner = __webpack_require__(78);
+	var ReactOwner = __webpack_require__(80);
 	var ReactPerf = __webpack_require__(50);
 	var ReactPropTransferer = __webpack_require__(84);
 	var ReactPropTypeLocations = __webpack_require__(85);
@@ -2412,7 +2438,7 @@
 	var assign = __webpack_require__(54);
 	var instantiateReactComponent = __webpack_require__(87);
 	var invariant = __webpack_require__(77);
-	var keyMirror = __webpack_require__(79);
+	var keyMirror = __webpack_require__(81);
 	var keyOf = __webpack_require__(88);
 	var monitorCodeUse = __webpack_require__(89);
 	var mapObject = __webpack_require__(90);
@@ -7823,33 +7849,7 @@
 
 
 /***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-	    ago: function(date) {
-	        var diff = (((new Date()).getTime() - date.getTime()) / 1000),
-	            day_diff = Math.floor(diff / 86400);
-
-	        if (isNaN(day_diff) || day_diff < 0) return;
-
-	        return day_diff == 0 && (
-	                diff < 60 && "1 moment ago" ||
-	                diff < 120 && "1 minute ago" ||
-	                diff < 3600 && Math.floor(diff / 60) + " minutes ago" ||
-	                diff < 7200 && "1 hour ago" ||
-	                diff < 86400 && Math.floor(diff / 3600) + " hours ago") ||
-	            day_diff == 1 && "Yesterday" ||
-	            day_diff < 7 && day_diff + " days ago" ||
-	            day_diff < 31 && Math.ceil(day_diff / 7) + " weeks ago" ||
-	            day_diff < 365 && Math.ceil(day_diff / 30) + " months ago" ||
-	            day_diff >= 365 && Math.ceil(day_diff / 365) + " years ago"
-	        ;
-	    }
-	};
-
-
-/***/ },
+/* 58 */,
 /* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -7943,262 +7943,6 @@
 
 /***/ },
 /* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-	 * Copyright (c) 2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule Dispatcher
-	 * @typechecks
-	 */
-
-	"use strict";
-
-	var invariant = __webpack_require__(129);
-
-	var _lastID = 1;
-	var _prefix = 'ID_';
-
-	/**
-	 * Dispatcher is used to broadcast payloads to registered callbacks. This is
-	 * different from generic pub-sub systems in two ways:
-	 *
-	 *   1) Callbacks are not subscribed to particular events. Every payload is
-	 *      dispatched to every registered callback.
-	 *   2) Callbacks can be deferred in whole or part until other callbacks have
-	 *      been executed.
-	 *
-	 * For example, consider this hypothetical flight destination form, which
-	 * selects a default city when a country is selected:
-	 *
-	 *   var flightDispatcher = new Dispatcher();
-	 *
-	 *   // Keeps track of which country is selected
-	 *   var CountryStore = {country: null};
-	 *
-	 *   // Keeps track of which city is selected
-	 *   var CityStore = {city: null};
-	 *
-	 *   // Keeps track of the base flight price of the selected city
-	 *   var FlightPriceStore = {price: null}
-	 *
-	 * When a user changes the selected city, we dispatch the payload:
-	 *
-	 *   flightDispatcher.dispatch({
-	 *     actionType: 'city-update',
-	 *     selectedCity: 'paris'
-	 *   });
-	 *
-	 * This payload is digested by `CityStore`:
-	 *
-	 *   flightDispatcher.register(function(payload) {
-	 *     if (payload.actionType === 'city-update') {
-	 *       CityStore.city = payload.selectedCity;
-	 *     }
-	 *   });
-	 *
-	 * When the user selects a country, we dispatch the payload:
-	 *
-	 *   flightDispatcher.dispatch({
-	 *     actionType: 'country-update',
-	 *     selectedCountry: 'australia'
-	 *   });
-	 *
-	 * This payload is digested by both stores:
-	 *
-	 *    CountryStore.dispatchToken = flightDispatcher.register(function(payload) {
-	 *     if (payload.actionType === 'country-update') {
-	 *       CountryStore.country = payload.selectedCountry;
-	 *     }
-	 *   });
-	 *
-	 * When the callback to update `CountryStore` is registered, we save a reference
-	 * to the returned token. Using this token with `waitFor()`, we can guarantee
-	 * that `CountryStore` is updated before the callback that updates `CityStore`
-	 * needs to query its data.
-	 *
-	 *   CityStore.dispatchToken = flightDispatcher.register(function(payload) {
-	 *     if (payload.actionType === 'country-update') {
-	 *       // `CountryStore.country` may not be updated.
-	 *       flightDispatcher.waitFor([CountryStore.dispatchToken]);
-	 *       // `CountryStore.country` is now guaranteed to be updated.
-	 *
-	 *       // Select the default city for the new country
-	 *       CityStore.city = getDefaultCityForCountry(CountryStore.country);
-	 *     }
-	 *   });
-	 *
-	 * The usage of `waitFor()` can be chained, for example:
-	 *
-	 *   FlightPriceStore.dispatchToken =
-	 *     flightDispatcher.register(function(payload) {
-	 *       switch (payload.actionType) {
-	 *         case 'country-update':
-	 *           flightDispatcher.waitFor([CityStore.dispatchToken]);
-	 *           FlightPriceStore.price =
-	 *             getFlightPriceStore(CountryStore.country, CityStore.city);
-	 *           break;
-	 *
-	 *         case 'city-update':
-	 *           FlightPriceStore.price =
-	 *             FlightPriceStore(CountryStore.country, CityStore.city);
-	 *           break;
-	 *     }
-	 *   });
-	 *
-	 * The `country-update` payload will be guaranteed to invoke the stores'
-	 * registered callbacks in order: `CountryStore`, `CityStore`, then
-	 * `FlightPriceStore`.
-	 */
-
-	  function Dispatcher() {
-	    this.$Dispatcher_callbacks = {};
-	    this.$Dispatcher_isPending = {};
-	    this.$Dispatcher_isHandled = {};
-	    this.$Dispatcher_isDispatching = false;
-	    this.$Dispatcher_pendingPayload = null;
-	  }
-
-	  /**
-	   * Registers a callback to be invoked with every dispatched payload. Returns
-	   * a token that can be used with `waitFor()`.
-	   *
-	   * @param {function} callback
-	   * @return {string}
-	   */
-	  Dispatcher.prototype.register=function(callback) {
-	    var id = _prefix + _lastID++;
-	    this.$Dispatcher_callbacks[id] = callback;
-	    return id;
-	  };
-
-	  /**
-	   * Removes a callback based on its token.
-	   *
-	   * @param {string} id
-	   */
-	  Dispatcher.prototype.unregister=function(id) {
-	    invariant(
-	      this.$Dispatcher_callbacks[id],
-	      'Dispatcher.unregister(...): `%s` does not map to a registered callback.',
-	      id
-	    );
-	    delete this.$Dispatcher_callbacks[id];
-	  };
-
-	  /**
-	   * Waits for the callbacks specified to be invoked before continuing execution
-	   * of the current callback. This method should only be used by a callback in
-	   * response to a dispatched payload.
-	   *
-	   * @param {array<string>} ids
-	   */
-	  Dispatcher.prototype.waitFor=function(ids) {
-	    invariant(
-	      this.$Dispatcher_isDispatching,
-	      'Dispatcher.waitFor(...): Must be invoked while dispatching.'
-	    );
-	    for (var ii = 0; ii < ids.length; ii++) {
-	      var id = ids[ii];
-	      if (this.$Dispatcher_isPending[id]) {
-	        invariant(
-	          this.$Dispatcher_isHandled[id],
-	          'Dispatcher.waitFor(...): Circular dependency detected while ' +
-	          'waiting for `%s`.',
-	          id
-	        );
-	        continue;
-	      }
-	      invariant(
-	        this.$Dispatcher_callbacks[id],
-	        'Dispatcher.waitFor(...): `%s` does not map to a registered callback.',
-	        id
-	      );
-	      this.$Dispatcher_invokeCallback(id);
-	    }
-	  };
-
-	  /**
-	   * Dispatches a payload to all registered callbacks.
-	   *
-	   * @param {object} payload
-	   */
-	  Dispatcher.prototype.dispatch=function(payload) {
-	    invariant(
-	      !this.$Dispatcher_isDispatching,
-	      'Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.'
-	    );
-	    this.$Dispatcher_startDispatching(payload);
-	    try {
-	      for (var id in this.$Dispatcher_callbacks) {
-	        if (this.$Dispatcher_isPending[id]) {
-	          continue;
-	        }
-	        this.$Dispatcher_invokeCallback(id);
-	      }
-	    } finally {
-	      this.$Dispatcher_stopDispatching();
-	    }
-	  };
-
-	  /**
-	   * Is this Dispatcher currently dispatching.
-	   *
-	   * @return {boolean}
-	   */
-	  Dispatcher.prototype.isDispatching=function() {
-	    return this.$Dispatcher_isDispatching;
-	  };
-
-	  /**
-	   * Call the callback stored with the given id. Also do some internal
-	   * bookkeeping.
-	   *
-	   * @param {string} id
-	   * @internal
-	   */
-	  Dispatcher.prototype.$Dispatcher_invokeCallback=function(id) {
-	    this.$Dispatcher_isPending[id] = true;
-	    this.$Dispatcher_callbacks[id](this.$Dispatcher_pendingPayload);
-	    this.$Dispatcher_isHandled[id] = true;
-	  };
-
-	  /**
-	   * Set up bookkeeping needed when dispatching.
-	   *
-	   * @param {object} payload
-	   * @internal
-	   */
-	  Dispatcher.prototype.$Dispatcher_startDispatching=function(payload) {
-	    for (var id in this.$Dispatcher_callbacks) {
-	      this.$Dispatcher_isPending[id] = false;
-	      this.$Dispatcher_isHandled[id] = false;
-	    }
-	    this.$Dispatcher_pendingPayload = payload;
-	    this.$Dispatcher_isDispatching = true;
-	  };
-
-	  /**
-	   * Clear bookkeeping used for dispatching.
-	   *
-	   * @internal
-	   */
-	  Dispatcher.prototype.$Dispatcher_stopDispatching=function() {
-	    this.$Dispatcher_pendingPayload = null;
-	    this.$Dispatcher_isDispatching = false;
-	  };
-
-
-	module.exports = Dispatcher;
-
-
-/***/ },
-/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Copyright Joyent, Inc. and other Node contributors.
@@ -8505,6 +8249,262 @@
 
 
 /***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+	 * Copyright (c) 2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule Dispatcher
+	 * @typechecks
+	 */
+
+	"use strict";
+
+	var invariant = __webpack_require__(129);
+
+	var _lastID = 1;
+	var _prefix = 'ID_';
+
+	/**
+	 * Dispatcher is used to broadcast payloads to registered callbacks. This is
+	 * different from generic pub-sub systems in two ways:
+	 *
+	 *   1) Callbacks are not subscribed to particular events. Every payload is
+	 *      dispatched to every registered callback.
+	 *   2) Callbacks can be deferred in whole or part until other callbacks have
+	 *      been executed.
+	 *
+	 * For example, consider this hypothetical flight destination form, which
+	 * selects a default city when a country is selected:
+	 *
+	 *   var flightDispatcher = new Dispatcher();
+	 *
+	 *   // Keeps track of which country is selected
+	 *   var CountryStore = {country: null};
+	 *
+	 *   // Keeps track of which city is selected
+	 *   var CityStore = {city: null};
+	 *
+	 *   // Keeps track of the base flight price of the selected city
+	 *   var FlightPriceStore = {price: null}
+	 *
+	 * When a user changes the selected city, we dispatch the payload:
+	 *
+	 *   flightDispatcher.dispatch({
+	 *     actionType: 'city-update',
+	 *     selectedCity: 'paris'
+	 *   });
+	 *
+	 * This payload is digested by `CityStore`:
+	 *
+	 *   flightDispatcher.register(function(payload) {
+	 *     if (payload.actionType === 'city-update') {
+	 *       CityStore.city = payload.selectedCity;
+	 *     }
+	 *   });
+	 *
+	 * When the user selects a country, we dispatch the payload:
+	 *
+	 *   flightDispatcher.dispatch({
+	 *     actionType: 'country-update',
+	 *     selectedCountry: 'australia'
+	 *   });
+	 *
+	 * This payload is digested by both stores:
+	 *
+	 *    CountryStore.dispatchToken = flightDispatcher.register(function(payload) {
+	 *     if (payload.actionType === 'country-update') {
+	 *       CountryStore.country = payload.selectedCountry;
+	 *     }
+	 *   });
+	 *
+	 * When the callback to update `CountryStore` is registered, we save a reference
+	 * to the returned token. Using this token with `waitFor()`, we can guarantee
+	 * that `CountryStore` is updated before the callback that updates `CityStore`
+	 * needs to query its data.
+	 *
+	 *   CityStore.dispatchToken = flightDispatcher.register(function(payload) {
+	 *     if (payload.actionType === 'country-update') {
+	 *       // `CountryStore.country` may not be updated.
+	 *       flightDispatcher.waitFor([CountryStore.dispatchToken]);
+	 *       // `CountryStore.country` is now guaranteed to be updated.
+	 *
+	 *       // Select the default city for the new country
+	 *       CityStore.city = getDefaultCityForCountry(CountryStore.country);
+	 *     }
+	 *   });
+	 *
+	 * The usage of `waitFor()` can be chained, for example:
+	 *
+	 *   FlightPriceStore.dispatchToken =
+	 *     flightDispatcher.register(function(payload) {
+	 *       switch (payload.actionType) {
+	 *         case 'country-update':
+	 *           flightDispatcher.waitFor([CityStore.dispatchToken]);
+	 *           FlightPriceStore.price =
+	 *             getFlightPriceStore(CountryStore.country, CityStore.city);
+	 *           break;
+	 *
+	 *         case 'city-update':
+	 *           FlightPriceStore.price =
+	 *             FlightPriceStore(CountryStore.country, CityStore.city);
+	 *           break;
+	 *     }
+	 *   });
+	 *
+	 * The `country-update` payload will be guaranteed to invoke the stores'
+	 * registered callbacks in order: `CountryStore`, `CityStore`, then
+	 * `FlightPriceStore`.
+	 */
+
+	  function Dispatcher() {
+	    this.$Dispatcher_callbacks = {};
+	    this.$Dispatcher_isPending = {};
+	    this.$Dispatcher_isHandled = {};
+	    this.$Dispatcher_isDispatching = false;
+	    this.$Dispatcher_pendingPayload = null;
+	  }
+
+	  /**
+	   * Registers a callback to be invoked with every dispatched payload. Returns
+	   * a token that can be used with `waitFor()`.
+	   *
+	   * @param {function} callback
+	   * @return {string}
+	   */
+	  Dispatcher.prototype.register=function(callback) {
+	    var id = _prefix + _lastID++;
+	    this.$Dispatcher_callbacks[id] = callback;
+	    return id;
+	  };
+
+	  /**
+	   * Removes a callback based on its token.
+	   *
+	   * @param {string} id
+	   */
+	  Dispatcher.prototype.unregister=function(id) {
+	    invariant(
+	      this.$Dispatcher_callbacks[id],
+	      'Dispatcher.unregister(...): `%s` does not map to a registered callback.',
+	      id
+	    );
+	    delete this.$Dispatcher_callbacks[id];
+	  };
+
+	  /**
+	   * Waits for the callbacks specified to be invoked before continuing execution
+	   * of the current callback. This method should only be used by a callback in
+	   * response to a dispatched payload.
+	   *
+	   * @param {array<string>} ids
+	   */
+	  Dispatcher.prototype.waitFor=function(ids) {
+	    invariant(
+	      this.$Dispatcher_isDispatching,
+	      'Dispatcher.waitFor(...): Must be invoked while dispatching.'
+	    );
+	    for (var ii = 0; ii < ids.length; ii++) {
+	      var id = ids[ii];
+	      if (this.$Dispatcher_isPending[id]) {
+	        invariant(
+	          this.$Dispatcher_isHandled[id],
+	          'Dispatcher.waitFor(...): Circular dependency detected while ' +
+	          'waiting for `%s`.',
+	          id
+	        );
+	        continue;
+	      }
+	      invariant(
+	        this.$Dispatcher_callbacks[id],
+	        'Dispatcher.waitFor(...): `%s` does not map to a registered callback.',
+	        id
+	      );
+	      this.$Dispatcher_invokeCallback(id);
+	    }
+	  };
+
+	  /**
+	   * Dispatches a payload to all registered callbacks.
+	   *
+	   * @param {object} payload
+	   */
+	  Dispatcher.prototype.dispatch=function(payload) {
+	    invariant(
+	      !this.$Dispatcher_isDispatching,
+	      'Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.'
+	    );
+	    this.$Dispatcher_startDispatching(payload);
+	    try {
+	      for (var id in this.$Dispatcher_callbacks) {
+	        if (this.$Dispatcher_isPending[id]) {
+	          continue;
+	        }
+	        this.$Dispatcher_invokeCallback(id);
+	      }
+	    } finally {
+	      this.$Dispatcher_stopDispatching();
+	    }
+	  };
+
+	  /**
+	   * Is this Dispatcher currently dispatching.
+	   *
+	   * @return {boolean}
+	   */
+	  Dispatcher.prototype.isDispatching=function() {
+	    return this.$Dispatcher_isDispatching;
+	  };
+
+	  /**
+	   * Call the callback stored with the given id. Also do some internal
+	   * bookkeeping.
+	   *
+	   * @param {string} id
+	   * @internal
+	   */
+	  Dispatcher.prototype.$Dispatcher_invokeCallback=function(id) {
+	    this.$Dispatcher_isPending[id] = true;
+	    this.$Dispatcher_callbacks[id](this.$Dispatcher_pendingPayload);
+	    this.$Dispatcher_isHandled[id] = true;
+	  };
+
+	  /**
+	   * Set up bookkeeping needed when dispatching.
+	   *
+	   * @param {object} payload
+	   * @internal
+	   */
+	  Dispatcher.prototype.$Dispatcher_startDispatching=function(payload) {
+	    for (var id in this.$Dispatcher_callbacks) {
+	      this.$Dispatcher_isPending[id] = false;
+	      this.$Dispatcher_isHandled[id] = false;
+	    }
+	    this.$Dispatcher_pendingPayload = payload;
+	    this.$Dispatcher_isDispatching = true;
+	  };
+
+	  /**
+	   * Clear bookkeeping used for dispatching.
+	   *
+	   * @internal
+	   */
+	  Dispatcher.prototype.$Dispatcher_stopDispatching=function() {
+	    this.$Dispatcher_pendingPayload = null;
+	    this.$Dispatcher_isDispatching = false;
+	  };
+
+
+	module.exports = Dispatcher;
+
+
+/***/ },
 /* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -8566,7 +8566,7 @@
 
 	"use strict";
 
-	var shallowEqual = __webpack_require__(132);
+	var shallowEqual = __webpack_require__(133);
 
 	/**
 	 * If your React component's render function is "pure", e.g. it will render the
@@ -8628,7 +8628,7 @@
 	  __webpack_require__(65)
 	);
 	var ReactCSSTransitionGroupChild = React.createFactory(
-	  __webpack_require__(133)
+	  __webpack_require__(132)
 	);
 
 	var ReactCSSTransitionGroup = React.createClass({
@@ -8884,7 +8884,7 @@
 	"use strict";
 
 	var CallbackQueue = __webpack_require__(135);
-	var PooledClass = __webpack_require__(80);
+	var PooledClass = __webpack_require__(78);
 	var ReactCurrentOwner = __webpack_require__(40);
 	var ReactPerf = __webpack_require__(50);
 	var Transaction = __webpack_require__(136);
@@ -10565,7 +10565,7 @@
 
 	"use strict";
 
-	var keyMirror = __webpack_require__(79);
+	var keyMirror = __webpack_require__(81);
 
 	var PropagationPhases = keyMirror({bubbled: null, captured: null});
 
@@ -10696,223 +10696,6 @@
 	 * LICENSE file in the root directory of this source tree. An additional grant
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
-	 * @providesModule ReactOwner
-	 */
-
-	"use strict";
-
-	var emptyObject = __webpack_require__(142);
-	var invariant = __webpack_require__(77);
-
-	/**
-	 * ReactOwners are capable of storing references to owned components.
-	 *
-	 * All components are capable of //being// referenced by owner components, but
-	 * only ReactOwner components are capable of //referencing// owned components.
-	 * The named reference is known as a "ref".
-	 *
-	 * Refs are available when mounted and updated during reconciliation.
-	 *
-	 *   var MyComponent = React.createClass({
-	 *     render: function() {
-	 *       return (
-	 *         <div onClick={this.handleClick}>
-	 *           <CustomComponent ref="custom" />
-	 *         </div>
-	 *       );
-	 *     },
-	 *     handleClick: function() {
-	 *       this.refs.custom.handleClick();
-	 *     },
-	 *     componentDidMount: function() {
-	 *       this.refs.custom.initialize();
-	 *     }
-	 *   });
-	 *
-	 * Refs should rarely be used. When refs are used, they should only be done to
-	 * control data that is not handled by React's data flow.
-	 *
-	 * @class ReactOwner
-	 */
-	var ReactOwner = {
-
-	  /**
-	   * @param {?object} object
-	   * @return {boolean} True if `object` is a valid owner.
-	   * @final
-	   */
-	  isValidOwner: function(object) {
-	    return !!(
-	      object &&
-	      typeof object.attachRef === 'function' &&
-	      typeof object.detachRef === 'function'
-	    );
-	  },
-
-	  /**
-	   * Adds a component by ref to an owner component.
-	   *
-	   * @param {ReactComponent} component Component to reference.
-	   * @param {string} ref Name by which to refer to the component.
-	   * @param {ReactOwner} owner Component on which to record the ref.
-	   * @final
-	   * @internal
-	   */
-	  addComponentAsRefTo: function(component, ref, owner) {
-	    ("production" !== process.env.NODE_ENV ? invariant(
-	      ReactOwner.isValidOwner(owner),
-	      'addComponentAsRefTo(...): Only a ReactOwner can have refs. This ' +
-	      'usually means that you\'re trying to add a ref to a component that ' +
-	      'doesn\'t have an owner (that is, was not created inside of another ' +
-	      'component\'s `render` method). Try rendering this component inside of ' +
-	      'a new top-level component which will hold the ref.'
-	    ) : invariant(ReactOwner.isValidOwner(owner)));
-	    owner.attachRef(ref, component);
-	  },
-
-	  /**
-	   * Removes a component by ref from an owner component.
-	   *
-	   * @param {ReactComponent} component Component to dereference.
-	   * @param {string} ref Name of the ref to remove.
-	   * @param {ReactOwner} owner Component on which the ref is recorded.
-	   * @final
-	   * @internal
-	   */
-	  removeComponentAsRefFrom: function(component, ref, owner) {
-	    ("production" !== process.env.NODE_ENV ? invariant(
-	      ReactOwner.isValidOwner(owner),
-	      'removeComponentAsRefFrom(...): Only a ReactOwner can have refs. This ' +
-	      'usually means that you\'re trying to remove a ref to a component that ' +
-	      'doesn\'t have an owner (that is, was not created inside of another ' +
-	      'component\'s `render` method). Try rendering this component inside of ' +
-	      'a new top-level component which will hold the ref.'
-	    ) : invariant(ReactOwner.isValidOwner(owner)));
-	    // Check that `component` is still the current ref because we do not want to
-	    // detach the ref if another component stole it.
-	    if (owner.refs[ref] === component) {
-	      owner.detachRef(ref);
-	    }
-	  },
-
-	  /**
-	   * A ReactComponent must mix this in to have refs.
-	   *
-	   * @lends {ReactOwner.prototype}
-	   */
-	  Mixin: {
-
-	    construct: function() {
-	      this.refs = emptyObject;
-	    },
-
-	    /**
-	     * Lazily allocates the refs object and stores `component` as `ref`.
-	     *
-	     * @param {string} ref Reference name.
-	     * @param {component} component Component to store as `ref`.
-	     * @final
-	     * @private
-	     */
-	    attachRef: function(ref, component) {
-	      ("production" !== process.env.NODE_ENV ? invariant(
-	        component.isOwnedBy(this),
-	        'attachRef(%s, ...): Only a component\'s owner can store a ref to it.',
-	        ref
-	      ) : invariant(component.isOwnedBy(this)));
-	      var refs = this.refs === emptyObject ? (this.refs = {}) : this.refs;
-	      refs[ref] = component;
-	    },
-
-	    /**
-	     * Detaches a reference name.
-	     *
-	     * @param {string} ref Name to dereference.
-	     * @final
-	     * @private
-	     */
-	    detachRef: function(ref) {
-	      delete this.refs[ref];
-	    }
-
-	  }
-
-	};
-
-	module.exports = ReactOwner;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)))
-
-/***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule keyMirror
-	 * @typechecks static-only
-	 */
-
-	"use strict";
-
-	var invariant = __webpack_require__(77);
-
-	/**
-	 * Constructs an enumeration with keys equal to their value.
-	 *
-	 * For example:
-	 *
-	 *   var COLORS = keyMirror({blue: null, red: null});
-	 *   var myColor = COLORS.blue;
-	 *   var isColorValid = !!COLORS[myColor];
-	 *
-	 * The last line could not be performed if the values of the generated enum were
-	 * not equal to their keys.
-	 *
-	 *   Input:  {key1: val1, key2: val2}
-	 *   Output: {key1: key1, key2: key2}
-	 *
-	 * @param {object} obj
-	 * @return {object}
-	 */
-	var keyMirror = function(obj) {
-	  var ret = {};
-	  var key;
-	  ("production" !== process.env.NODE_ENV ? invariant(
-	    obj instanceof Object && !Array.isArray(obj),
-	    'keyMirror(...): Argument must be an object.'
-	  ) : invariant(obj instanceof Object && !Array.isArray(obj)));
-	  for (key in obj) {
-	    if (!obj.hasOwnProperty(key)) {
-	      continue;
-	    }
-	    ret[key] = key;
-	  }
-	  return ret;
-	};
-
-	module.exports = keyMirror;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)))
-
-/***/ },
-/* 80 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
 	 * @providesModule PooledClass
 	 */
 
@@ -11021,7 +10804,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)))
 
 /***/ },
-/* 81 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -11203,6 +10986,223 @@
 	}
 
 	module.exports = traverseAllChildren;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)))
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactOwner
+	 */
+
+	"use strict";
+
+	var emptyObject = __webpack_require__(142);
+	var invariant = __webpack_require__(77);
+
+	/**
+	 * ReactOwners are capable of storing references to owned components.
+	 *
+	 * All components are capable of //being// referenced by owner components, but
+	 * only ReactOwner components are capable of //referencing// owned components.
+	 * The named reference is known as a "ref".
+	 *
+	 * Refs are available when mounted and updated during reconciliation.
+	 *
+	 *   var MyComponent = React.createClass({
+	 *     render: function() {
+	 *       return (
+	 *         <div onClick={this.handleClick}>
+	 *           <CustomComponent ref="custom" />
+	 *         </div>
+	 *       );
+	 *     },
+	 *     handleClick: function() {
+	 *       this.refs.custom.handleClick();
+	 *     },
+	 *     componentDidMount: function() {
+	 *       this.refs.custom.initialize();
+	 *     }
+	 *   });
+	 *
+	 * Refs should rarely be used. When refs are used, they should only be done to
+	 * control data that is not handled by React's data flow.
+	 *
+	 * @class ReactOwner
+	 */
+	var ReactOwner = {
+
+	  /**
+	   * @param {?object} object
+	   * @return {boolean} True if `object` is a valid owner.
+	   * @final
+	   */
+	  isValidOwner: function(object) {
+	    return !!(
+	      object &&
+	      typeof object.attachRef === 'function' &&
+	      typeof object.detachRef === 'function'
+	    );
+	  },
+
+	  /**
+	   * Adds a component by ref to an owner component.
+	   *
+	   * @param {ReactComponent} component Component to reference.
+	   * @param {string} ref Name by which to refer to the component.
+	   * @param {ReactOwner} owner Component on which to record the ref.
+	   * @final
+	   * @internal
+	   */
+	  addComponentAsRefTo: function(component, ref, owner) {
+	    ("production" !== process.env.NODE_ENV ? invariant(
+	      ReactOwner.isValidOwner(owner),
+	      'addComponentAsRefTo(...): Only a ReactOwner can have refs. This ' +
+	      'usually means that you\'re trying to add a ref to a component that ' +
+	      'doesn\'t have an owner (that is, was not created inside of another ' +
+	      'component\'s `render` method). Try rendering this component inside of ' +
+	      'a new top-level component which will hold the ref.'
+	    ) : invariant(ReactOwner.isValidOwner(owner)));
+	    owner.attachRef(ref, component);
+	  },
+
+	  /**
+	   * Removes a component by ref from an owner component.
+	   *
+	   * @param {ReactComponent} component Component to dereference.
+	   * @param {string} ref Name of the ref to remove.
+	   * @param {ReactOwner} owner Component on which the ref is recorded.
+	   * @final
+	   * @internal
+	   */
+	  removeComponentAsRefFrom: function(component, ref, owner) {
+	    ("production" !== process.env.NODE_ENV ? invariant(
+	      ReactOwner.isValidOwner(owner),
+	      'removeComponentAsRefFrom(...): Only a ReactOwner can have refs. This ' +
+	      'usually means that you\'re trying to remove a ref to a component that ' +
+	      'doesn\'t have an owner (that is, was not created inside of another ' +
+	      'component\'s `render` method). Try rendering this component inside of ' +
+	      'a new top-level component which will hold the ref.'
+	    ) : invariant(ReactOwner.isValidOwner(owner)));
+	    // Check that `component` is still the current ref because we do not want to
+	    // detach the ref if another component stole it.
+	    if (owner.refs[ref] === component) {
+	      owner.detachRef(ref);
+	    }
+	  },
+
+	  /**
+	   * A ReactComponent must mix this in to have refs.
+	   *
+	   * @lends {ReactOwner.prototype}
+	   */
+	  Mixin: {
+
+	    construct: function() {
+	      this.refs = emptyObject;
+	    },
+
+	    /**
+	     * Lazily allocates the refs object and stores `component` as `ref`.
+	     *
+	     * @param {string} ref Reference name.
+	     * @param {component} component Component to store as `ref`.
+	     * @final
+	     * @private
+	     */
+	    attachRef: function(ref, component) {
+	      ("production" !== process.env.NODE_ENV ? invariant(
+	        component.isOwnedBy(this),
+	        'attachRef(%s, ...): Only a component\'s owner can store a ref to it.',
+	        ref
+	      ) : invariant(component.isOwnedBy(this)));
+	      var refs = this.refs === emptyObject ? (this.refs = {}) : this.refs;
+	      refs[ref] = component;
+	    },
+
+	    /**
+	     * Detaches a reference name.
+	     *
+	     * @param {string} ref Name to dereference.
+	     * @final
+	     * @private
+	     */
+	    detachRef: function(ref) {
+	      delete this.refs[ref];
+	    }
+
+	  }
+
+	};
+
+	module.exports = ReactOwner;
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)))
+
+/***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule keyMirror
+	 * @typechecks static-only
+	 */
+
+	"use strict";
+
+	var invariant = __webpack_require__(77);
+
+	/**
+	 * Constructs an enumeration with keys equal to their value.
+	 *
+	 * For example:
+	 *
+	 *   var COLORS = keyMirror({blue: null, red: null});
+	 *   var myColor = COLORS.blue;
+	 *   var isColorValid = !!COLORS[myColor];
+	 *
+	 * The last line could not be performed if the values of the generated enum were
+	 * not equal to their keys.
+	 *
+	 *   Input:  {key1: val1, key2: val2}
+	 *   Output: {key1: key1, key2: key2}
+	 *
+	 * @param {object} obj
+	 * @return {object}
+	 */
+	var keyMirror = function(obj) {
+	  var ret = {};
+	  var key;
+	  ("production" !== process.env.NODE_ENV ? invariant(
+	    obj instanceof Object && !Array.isArray(obj),
+	    'keyMirror(...): Argument must be an object.'
+	  ) : invariant(obj instanceof Object && !Array.isArray(obj)));
+	  for (key in obj) {
+	    if (!obj.hasOwnProperty(key)) {
+	      continue;
+	    }
+	    ret[key] = key;
+	  }
+	  return ret;
+	};
+
+	module.exports = keyMirror;
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)))
 
@@ -11509,7 +11509,7 @@
 
 	"use strict";
 
-	var keyMirror = __webpack_require__(79);
+	var keyMirror = __webpack_require__(81);
 
 	var ReactPropTypeLocations = keyMirror({
 	  prop: null,
@@ -14031,7 +14031,7 @@
 	var ReactElement = __webpack_require__(41);
 	var ReactDOM = __webpack_require__(43);
 
-	var keyMirror = __webpack_require__(79);
+	var keyMirror = __webpack_require__(81);
 
 	// Store a reference to the <button> `ReactDOMComponent`. TODO: use string
 	var button = ReactElement.createFactory(ReactDOM.button.type);
@@ -14772,7 +14772,7 @@
 
 	var EventListener = __webpack_require__(164);
 	var ExecutionEnvironment = __webpack_require__(57);
-	var PooledClass = __webpack_require__(80);
+	var PooledClass = __webpack_require__(78);
 	var ReactInstanceHandles = __webpack_require__(46);
 	var ReactMount = __webpack_require__(48);
 	var ReactUpdates = __webpack_require__(66);
@@ -15009,7 +15009,7 @@
 	var getActiveElement = __webpack_require__(167);
 	var isTextInputElement = __webpack_require__(153);
 	var keyOf = __webpack_require__(88);
-	var shallowEqual = __webpack_require__(132);
+	var shallowEqual = __webpack_require__(133);
 
 	var topLevelTypes = EventConstants.topLevelTypes;
 
@@ -15948,7 +15948,7 @@
 
 	"use strict";
 
-	var keyMirror = __webpack_require__(79);
+	var keyMirror = __webpack_require__(81);
 
 	/**
 	 * When a component's children are updated, a series of update configuration
@@ -15987,7 +15987,7 @@
 
 	var ReactTextComponent = __webpack_require__(53);
 
-	var traverseAllChildren = __webpack_require__(81);
+	var traverseAllChildren = __webpack_require__(79);
 	var warning = __webpack_require__(75);
 
 	/**
@@ -16148,7 +16148,7 @@
 
 	"use strict";
 
-	var PooledClass = __webpack_require__(80);
+	var PooledClass = __webpack_require__(78);
 	var CallbackQueue = __webpack_require__(135);
 	var ReactPutListenerQueue = __webpack_require__(178);
 	var Transaction = __webpack_require__(136);
@@ -17584,54 +17584,6 @@
 /* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright 2013-2014, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 */
-
-	"use strict";
-
-	/**
-	 * Performs equality by iterating through keys on an object and returning
-	 * false when any key has values which are not strictly equal between
-	 * objA and objB. Returns true when the values of all keys are strictly equal.
-	 *
-	 * @return {boolean}
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-	  var key;
-	  // Test for A's keys different from B.
-	  for (key in objA) {
-	    if (objA.hasOwnProperty(key) &&
-	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
-	      return false;
-	    }
-	  }
-	  // Test for B's keys missing from A.
-	  for (key in objB) {
-	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
-	      return false;
-	    }
-	  }
-	  return true;
-	}
-
-	module.exports = shallowEqual;
-
-
-/***/ },
-/* 133 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2013-2014, Facebook, Inc.
 	 * All rights reserved.
@@ -17767,6 +17719,54 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)))
 
 /***/ },
+/* 133 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-2014, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule shallowEqual
+	 */
+
+	"use strict";
+
+	/**
+	 * Performs equality by iterating through keys on an object and returning
+	 * false when any key has values which are not strictly equal between
+	 * objA and objB. Returns true when the values of all keys are strictly equal.
+	 *
+	 * @return {boolean}
+	 */
+	function shallowEqual(objA, objB) {
+	  if (objA === objB) {
+	    return true;
+	  }
+	  var key;
+	  // Test for A's keys different from B.
+	  for (key in objA) {
+	    if (objA.hasOwnProperty(key) &&
+	        (!objB.hasOwnProperty(key) || objA[key] !== objB[key])) {
+	      return false;
+	    }
+	  }
+	  // Test for B's keys missing from A.
+	  for (key in objB) {
+	    if (objB.hasOwnProperty(key) && !objA.hasOwnProperty(key)) {
+	      return false;
+	    }
+	  }
+	  return true;
+	}
+
+	module.exports = shallowEqual;
+
+
+/***/ },
 /* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -17888,7 +17888,7 @@
 
 	"use strict";
 
-	var PooledClass = __webpack_require__(80);
+	var PooledClass = __webpack_require__(78);
 
 	var assign = __webpack_require__(54);
 	var invariant = __webpack_require__(77);
@@ -18902,7 +18902,7 @@
 
 	"use strict";
 
-	var PooledClass = __webpack_require__(80);
+	var PooledClass = __webpack_require__(78);
 
 	var assign = __webpack_require__(54);
 	var emptyFunction = __webpack_require__(125);
@@ -20468,7 +20468,7 @@
 	"use strict";
 
 	var CallbackQueue = __webpack_require__(135);
-	var PooledClass = __webpack_require__(80);
+	var PooledClass = __webpack_require__(78);
 	var ReactBrowserEventEmitter = __webpack_require__(94);
 	var ReactInputSelection = __webpack_require__(154);
 	var ReactPutListenerQueue = __webpack_require__(178);
@@ -21709,7 +21709,7 @@
 
 	"use strict";
 
-	var PooledClass = __webpack_require__(80);
+	var PooledClass = __webpack_require__(78);
 	var ReactBrowserEventEmitter = __webpack_require__(94);
 
 	var assign = __webpack_require__(54);
