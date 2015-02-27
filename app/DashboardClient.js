@@ -16,7 +16,7 @@ if (PageUtility.areProgramsEditable()) {
 
 React.render(
     <Dashboard />,
-    document.getElementById('content')
+    document.getElementById('dashboard')
 );
 
 // SocketService.run();
