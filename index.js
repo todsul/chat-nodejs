@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compress = require('compression');
 var transpiler = require('react-tools');
-
+var swig = require('swig');
 
 require('node-jsx').install();
 
@@ -15,9 +15,16 @@ var users = require('./routes/users');
 
 var app = express();
 
-// view engine setup
+
+if (app.get('env') === 'development' || app.get('env') === 'test') {
+    swig.setDefaults({
+      cache: false
+    });
+}
+
+app.engine('html', swig.renderFile);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 
 // uncomment to enable gzip compression for prod
 // app.use(compress());
