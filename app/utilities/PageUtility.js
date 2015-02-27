@@ -1,4 +1,6 @@
-//var container = document.getElementById('dashboard');
+var container = document.getElementById('dashboard');
+var pageData = JSON.parse(container.dataset.pageData);
+
 var messageCountMultiplier = 1;
 var UUID_delimiter = '_user_';
 
@@ -10,7 +12,7 @@ module.exports = {
     },
 
     getClientId: function() {
-        return 5;
+        return pageData.clientId;
     },
 
     getMessageCount: function() {
@@ -18,7 +20,7 @@ module.exports = {
     },
 
     getUserId: function() {
-        return 1;
+        return pageData.userId;
     },
 
     getPageSocketChannel: function() {
@@ -38,6 +40,8 @@ module.exports = {
     resetMessageCountMultiplier: function() {
         messageCountMultiplier = 1;
     },
+
+    // Sockets
 
     generateUUID: function(userId) {
         return (+new Date() + Math.floor(Math.random() * 999999)).toString(36) + UUID_delimiter + userId;

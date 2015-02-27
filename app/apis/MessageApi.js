@@ -13,6 +13,7 @@ var MessageApi = assign(new Api(), {
     },
 
     getMessages: function(success, failure) {
+
         var queryParams = {count: PageUtility.getMessageCount()};
         var url = PageUtility.getBaseUrl() + '/users/' + PageUtility.getClientId() + '/messages';
 

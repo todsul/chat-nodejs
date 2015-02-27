@@ -51,7 +51,7 @@
 	var PageUtility = __webpack_require__(3);
 	// var SocketService = require('./services/SocketService');
 
-	// MessageActions.getMessages();
+	MessageActions.getMessages();
 
 	React.render(
 	    React.createElement(Dashboard, null),
@@ -153,7 +153,9 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	//var container = document.getElementById('dashboard');
+	var container = document.getElementById('dashboard');
+	var pageData = JSON.parse(container.dataset.pageData);
+
 	var messageCountMultiplier = 1;
 	var UUID_delimiter = '_user_';
 
@@ -165,7 +167,7 @@
 	    },
 
 	    getClientId: function() {
-	        return 5;
+	        return pageData.clientId;
 	    },
 
 	    getMessageCount: function() {
@@ -173,7 +175,7 @@
 	    },
 
 	    getUserId: function() {
-	        return 1;
+	        return pageData.userId;
 	    },
 
 	    getPageSocketChannel: function() {
@@ -193,6 +195,8 @@
 	    resetMessageCountMultiplier: function() {
 	        messageCountMultiplier = 1;
 	    },
+
+	    // Sockets
 
 	    generateUUID: function(userId) {
 	        return (+new Date() + Math.floor(Math.random() * 999999)).toString(36) + UUID_delimiter + userId;
@@ -379,7 +383,7 @@
 	        var messages = this.state.messages.map(function(message, i) {
 	            return (
 	                React.createElement(MessageItem, {
-	                    key: message.id, 
+	                    key: message._id, 
 	                    message: message}
 	                )
 	            );
@@ -579,6 +583,7 @@
 	    },
 
 	    getMessages: function(success, failure) {
+
 	        var queryParams = {count: PageUtility.getMessageCount()};
 	        var url = PageUtility.getBaseUrl() + '/users/' + PageUtility.getClientId() + '/messages';
 
@@ -942,8 +947,8 @@
 	var MessageItem = React.createClass({displayName: "MessageItem",
 	    render: function() {
 	        var userId = parseInt(this.props.message.owner_id, 10);
-	        var created = new Date(this.props.message.created + ' UTC');
-	        created = DateUtility.ago(created);
+	        var created = 'a moment ago (todo)'; //new Date(this.props.message.created + ' UTC');
+	        //created = DateUtility.ago(created);
 
 	        var classStates = [];
 	        classStates['online'] = true;
@@ -954,12 +959,16 @@
 	            React.createElement("li", null, 
 	                React.createElement("span", {className: "info"}, 
 	                    React.createElement("span", {className: classes}), 
-	                    React.createElement("strong", null, this.props.message.name), 
+	                    React.createElement("strong", null, this.getFirstName()), 
 	                    React.createElement("span", {className: "ago"}, created)
 	                ), 
 	                this.props.message.text
 	            )
 	        );
+	    },
+
+	    getFirstName: function() {
+	        return this.props.message.user.full_name.split(' ')[0];
 	    }
 	});
 

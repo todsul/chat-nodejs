@@ -33,7 +33,7 @@ var MessageList = React.createClass({
         var messages = this.state.messages.map(function(message, i) {
             return (
                 <MessageItem
-                    key={message.id}
+                    key={message._id}
                     message={message}
                 />
             );

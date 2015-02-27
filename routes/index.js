@@ -1,18 +1,22 @@
 var express = require('express');
 var router = express.Router();
-var React = require('react/addons');
-
-var Dashboard = require('../app/components/Dashboard.js');
-
-// FOR SSR - set to TRUE then re-run 'npm run-script debug'
-var ssr = false;
-
-var DashboardFactory = React.createFactory(Dashboard);
-var DashboardString = ssr ? React.renderToString(DashboardFactory()) : '';
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('dashboard', { body: DashboardString });
+    User.find().limit(1).exec(function(err, users) {
+        var user = users.shift();
+
+        var pageData = {
+            clientId: user._id,
+            userId: 1 // TODO get session user
+        };
+
+        pageData = JSON.stringify(pageData);
+
+        res.render('dashboard', {pageData: pageData});
+        });
 });
 
 module.exports = router;

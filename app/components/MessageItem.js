@@ -7,8 +7,8 @@ var Presence = require('./Presence');
 var MessageItem = React.createClass({
     render: function() {
         var userId = parseInt(this.props.message.owner_id, 10);
-        var created = new Date(this.props.message.created + ' UTC');
-        created = DateUtility.ago(created);
+        var created = 'a moment ago (todo)'; //new Date(this.props.message.created + ' UTC');
+        //created = DateUtility.ago(created);
 
         var classStates = [];
         classStates['online'] = true;
@@ -19,12 +19,16 @@ var MessageItem = React.createClass({
             <li>
                 <span className="info">
                     <span className={classes}></span>
-                    <strong>{this.props.message.name}</strong>
+                    <strong>{this.getFirstName()}</strong>
                     <span className="ago">{created}</span>
                 </span>
                 {this.props.message.text}
             </li>
         );
+    },
+
+    getFirstName: function() {
+        return this.props.message.user.full_name.split(' ')[0];
     }
 });
 

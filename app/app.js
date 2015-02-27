@@ -5,7 +5,7 @@ var MessageActions = require('./actions/MessageActions');
 var PageUtility = require('./utilities/PageUtility');
 // var SocketService = require('./services/SocketService');
 
-// MessageActions.getMessages();
+MessageActions.getMessages();
 
 React.render(
     <Dashboard />,
