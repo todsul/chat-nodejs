@@ -1,11 +1,11 @@
 var routes = require('../routes/index');
 var users = require('../routes/users');
 var messages = require('../routes/messages');
+
+// Mock session user
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-// Mock session user
-var User = mongoose.model('User');
 function getSessionUser(req, res, next) {
     User.find().limit(1).exec(function(err, users) {
         var user = users.shift();
@@ -31,6 +31,7 @@ function notFoundErrorHandler(req, res, next) {
 }
 
 function register(app) {
+    app.use(getSessionUser);
     app.use('/', routes);
     app.use('/users', users);
     app.use('/messages', messages);
@@ -42,7 +43,6 @@ function register(app) {
     }
 
     app.use(notFoundErrorHandler);
-    app.use(getSessionUser);
 }
 
 module.exports = {register: register};
