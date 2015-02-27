@@ -6,6 +6,10 @@
 * npm run-script db
 * npm run-script debug
 
+# Test Scripts
+
+* npm test (for Jest)
+
 ## Dev Setup
 
 * Install Node

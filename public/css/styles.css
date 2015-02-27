@@ -103,6 +103,20 @@ pre {
   white-space: pre;
   word-wrap: break-word;
 }
+@font-face {
+  font-family: "roboto";
+  src: url("/public/font/roboto-regular.eot?v=1");
+  src: url("/public/font/roboto-regular.eot?#iefix&v=1") format("embedded-opentype"), url("/public/font/roboto-regular.woff?v=1") format("woff"), url("/public/font/roboto-regular.ttf?v=1") format("truetype"), url("/public/font/roboto-regular.svg#robotoregular?v=1") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "roboto";
+  src: url("/public/font/roboto-medium.eot?v=1");
+  src: url("/public/font/roboto-medium.eot?#iefix&v=1") format("embedded-opentype"), url("/public/font/roboto-medium.woff?v=1") format("woff"), url("/public/font/roboto-medium.ttf?v=1") format("truetype"), url("/public/font/roboto-medium.svg#robotomedium?v=1") format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
 html {
   height: 100%;
 }
@@ -235,9 +249,6 @@ hr {
   content: "";
   clear: both;
   display: block;
-}
-.dashboard h1 {
-  display: none;
 }
 fieldset {
   padding-bottom: 1rem;
@@ -457,6 +468,20 @@ textarea {
   to {
     transform: rotate(360deg);
   }
+}
+#foot {
+  padding-bottom: 2rem;
+  text-align: center;
+}
+#foot .love {
+  color: #ccc;
+  font-size: 0.75rem;
+}
+#foot .icon {
+  color: #ff4f00;
+}
+.dashboard h1 {
+  display: none;
 }
 #messages li {
   font-size: 0.875rem;
