@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
         pageData = JSON.stringify(pageData);
 
         res.render('dashboard', {pageData: pageData});
-        });
+    });
 });
 
 module.exports = router;
