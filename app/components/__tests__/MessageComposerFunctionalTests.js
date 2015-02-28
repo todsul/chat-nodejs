@@ -30,7 +30,7 @@ describe('MessageComposer Functional Tests', function() {
         TestUtils.Simulate.change(textarea, {target: {value: 'Hi there'}});
 
         // Get the callback defined in .end and pass custom params for when it gets executed
-        var message = {"id":"4","owner_id":"1","created":"2015-04-04 15:00:00","text":"Hi there","name":"Fox"};
+        var message = {"_id":"4","created":"2015-04-04 15:00:00","text":"Hi there", "user": {"_id": 1, "full_name": "Fox"}};
 
         request.end.mockImplementation(function(callback) {
             var error = null;
@@ -81,9 +81,9 @@ describe('MessageComposer Functional Tests', function() {
 
         // Create messages
         var messages  = [
-            {"id":"1","owner_id":"1","created":"2015-01-01 12:00:00","text":"Hello","name":"Fox"},
-            {"id":"2","owner_id":"1","created":"2015-02-02 13:00:00","text":"Hola","name":"Fox"},
-            {"id":"3","owner_id":"1","created":"2015-03-03 14:00:00","text":"Yo","name":"Fox"}
+            {"_id":"1","created":"2015-01-01 12:00:00","text":"Hello", "user": {"_id": "1", "full_name": "Fox"}},
+            {"_id":"2","created":"2015-02-02 13:00:00","text":"Hola", "user": {"_id": "1", "full_name": "Fox"}},
+            {"_id":"3","created":"2015-03-03 14:00:00","text":"Yo", "user": {"_id": "1", "full_name": "Fox"}}
         ];
 
         // Get the callback defined in .end and pass custom params for when it gets executed
