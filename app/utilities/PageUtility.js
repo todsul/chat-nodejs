@@ -1,5 +1,5 @@
 var container = document.getElementById('dashboard');
-var pageData = JSON.parse(container.dataset.pageData);
+var pageData = JSON.parse(container ? container.dataset.pageData : "{}");
 
 var messageCountMultiplier = 1;
 var UUID_delimiter = '_user_';
