@@ -5,15 +5,15 @@ var Message = mongoose.model('Message');
 var User = mongoose.model('User');
 
 /* GET user dashboard. */
-router.get('/:userId', function(req, res) {
+router.get('/:id', function(req, res) {
   res.send('respond with dashboard');
 });
 
 /* GET user messages. */
-router.get('/:userId/messages', function(req, res) {
-    userId = req.params.userId;
+router.get('/:id/messages', function(req, res) {
+    id = req.params.id;
 
-    User.load({criteria: {'_id': userId}}, function(err, user) {
+    User.load({criteria: {'_id': id}}, function(err, user) {
         if (err) return res.status(404).send('user not found');
 
         Message.list({criteria: {user: user}}, function(err, messages) {
@@ -22,8 +22,8 @@ router.get('/:userId/messages', function(req, res) {
     });
 });
 
-/* Post user message. */
-router.post('/:userId/messages', function(req, res) {
+/* POST user message. */
+router.post('/:id/messages', function(req, res) {
     var sessionUser = req.user;
 
     if (!sessionUser) {

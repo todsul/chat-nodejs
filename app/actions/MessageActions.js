@@ -3,12 +3,15 @@ var DashboardDispatcher = require('../dispatchers/DashboardDispatcher');
 var MessageApi = require('../apis/MessageApi');
 var PageUtility = require('../utilities/PageUtility');
 
-function createMessageSuccess(message) {
+var socket = io.connect();
 
+function createMessageSuccess(message) {
     DashboardDispatcher.handleViewAction({
         type: ActionTypes.CREATE_MESSAGE_SUCCESS,
         message: message
     });
+
+    socket.emit('message');
 }
 
 function createMessageFailure(error) {

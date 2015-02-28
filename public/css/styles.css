@@ -104,6 +104,13 @@ pre {
   word-wrap: break-word;
 }
 @font-face {
+  font-family: 'icomoon';
+  src: url('/public/font/icomoon.eot?-kko8oa');
+  src: url('/public/font/icomoon.eot?#iefix-kko8oa') format('embedded-opentype'), url('/public/font/icomoon.woff?-kko8oa') format('woff'), url('/public/font/icomoon.ttf?-kko8oa') format('truetype'), url('/public/font/icomoon.svg?-kko8oa#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: "roboto";
   src: url("/public/font/roboto-regular.eot?v=1");
   src: url("/public/font/roboto-regular.eot?#iefix&v=1") format("embedded-opentype"), url("/public/font/roboto-regular.woff?v=1") format("woff"), url("/public/font/roboto-regular.ttf?v=1") format("truetype"), url("/public/font/roboto-regular.svg#robotoregular?v=1") format("svg");
@@ -216,7 +223,15 @@ hr {
   box-sizing: border-box;
 }
 .icon {
-  font-family: flightfox;
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .online {
   background: #dddddd;
@@ -482,6 +497,13 @@ textarea {
 }
 .dashboard h1 {
   display: none;
+}
+#messages {
+  background: #fff;
+  margin: 0 auto 2rem;
+  max-width: 30rem;
+  overflow: hidden;
+  padding: 2rem;
 }
 #messages li {
   font-size: 0.875rem;

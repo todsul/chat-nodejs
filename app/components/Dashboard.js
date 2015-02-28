@@ -9,7 +9,7 @@ var Presence = require('./Presence');
 var Dashboard = React.createClass({
     render: function() {
         return (
-            <div id="message">
+            <div id="messages">
                 <MessageComposer />
                 <MessageList />
                 <MessageMore />
