@@ -128,7 +128,7 @@ html {
   height: 100%;
 }
 body {
-  background: #f7f7f7;
+  background: #eee;
   color: #444444;
   font-family: "roboto", "helvetica neue", helvetica, arial, "sans serif";
   height: 100%;
@@ -484,7 +484,29 @@ textarea {
     transform: rotate(360deg);
   }
 }
+#head {
+  background: #fff;
+  border-top: 0.25rem solid #ff4f00;
+  font-size: 0.75rem;
+  height: 3.5rem;
+  padding: 0 1rem;
+}
+#logo {
+  display: inline-block;
+  float: left;
+}
+#logo img {
+  height: 1.5rem;
+  margin-top: 1.125rem;
+}
+#user_menu {
+  color: #999;
+  float: right;
+  line-height: 3.5rem;
+  position: relative;
+}
 #foot {
+  clear: both;
   padding-bottom: 2rem;
   text-align: center;
 }
@@ -498,10 +520,16 @@ textarea {
 .dashboard h1 {
   display: none;
 }
+.cell {
+  max-width: 30rem;
+}
+#dashboard {
+  background: #e7e7e7;
+  margin: 0 auto 2rem;
+  overflow: hidden;
+}
 #messages {
   background: #fff;
-  margin: 0 auto 2rem;
-  max-width: 30rem;
   overflow: hidden;
   padding: 2rem;
 }

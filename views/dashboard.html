@@ -1,24 +1,5 @@
-<html lang="en">
-    <head>
-        <meta charSet="utf-8" />
-        <title>Dashboard</title>
-        <link rel="stylesheet" href="/public/css/styles.css" type="text/css" media="screen">
-    </head>
-    <body>
-        <div id="head">
-            <div class="cell"></div>
-        </div>
-        <div id="main">
-            <div class="cell">
-                <div id="dashboard" data-page-data="{{ pageData }}"></div>
-            </div>
-        </div>
-        <div id="foot">
-            <div class="cell">
-                <div class="love">Made with <span class="icon">&#xe91b;</span> and Miles</div>
-            </div>
-        </div>
-        <script type="text/javascript" src="socket.io/socket.io.js"></script>
-        <script type="text/javascript" src="/public/js/scripts.js"></script>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block main %}
+    <div id="dashboard" data-page-data="{{ pageData }}"></div>
+{% endblock %}

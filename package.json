@@ -34,7 +34,7 @@
     "webpack": "^1.5.3"
   },
   "scripts": {
-    "debug": "DEBUG=flightfox nodemon ./bin/www",
+    "debug": "DEBUG=flightfox nodemon ./bin/www --ignore /app/*",
     "db": "node ./bin/db",
     "start": "node ./bin/www",
     "test": "jest"
