@@ -12,7 +12,7 @@ var UserSchema = new Schema({
 
 UserSchema.statics = {
   load: function(options, cb) {
-    options.select = options.select || 'name username';
+    options.select = options.select || 'email full_name';
     this.findOne(options.criteria)
         .select(options.select)
         .exec(cb);

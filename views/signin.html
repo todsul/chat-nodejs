@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} Sign In {% endblock %}
+{% block main %}
+    <form action="/signin_check" method="POST">
+        <div>
+            <label for="name">Email</label>
+            <input id="name" type="text" name="email" />
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" />
+        </div>
+        <div>
+            <button type="submit" class="block button">Sign In</button>
+        </div>
+    </form>
+{% endblock %}

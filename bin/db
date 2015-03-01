@@ -23,11 +23,11 @@ function dropDatabase()
 
 function userFixtures()
 {
-    var john = new User({full_name: 'John Doe', email: 'john@flightfox.com', password: '123'});
-    john.save(function(err, john) {
+    var admin = new User({full_name: 'Flightfox Admin', email: 'admin@flightfox.com', password: 'flightfox'});
+    admin.save(function(err, admin) {
         if (err) return disconnect(err);
 
-        users.push(john);
+        users.push(admin);
         messageFixtures();
     });
 }

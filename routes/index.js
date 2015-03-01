@@ -17,4 +17,19 @@ router.get('/', function(req, res, next) {
     });
 });
 
+// @TODO redirect to dashboard if user is in session for routes below
+
+router.get('/signin', function(req, res, next) {
+    res.render('signin');
+});
+
+router.post('/signin_check', function(req, res, next) {
+    User.load({criteria: {email: req.body.email, password: req.body.password}}, function(err, user) {
+        if (err) return res.status(500).send(err);
+        if (!user) return res.status(400).send('User not found');
+
+        res.send('Welcome ' + user.email);
+    });
+});
+
 module.exports = router;
