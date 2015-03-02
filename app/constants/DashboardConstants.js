@@ -19,7 +19,8 @@ module.exports = {
     }),
 
     SocketAlerts: keyMirror({
-        MESSAGES_CHANGE: null
+        MESSAGES_CHANGE: null,
+        PRESENCE_CHANGE: null,
     }),
 
     PayloadSources: keyMirror({

@@ -6,19 +6,24 @@ var SocketAlerts = require('../constants/DashboardConstants').SocketAlerts;
 
 // SocketService
 module.exports = function() {
-    var channel = io.connect();
+    var channel = io.connect(PageUtility.getBaseUrl(), { query: 'userId=' + PageUtility.getUserId()});
+
     channel.on('dashboard', function(data) {
-        onMessageReceived(data);
+        notify(data);
     });
 };
 
-function onMessageReceived(data) {
+function notify(data) {
     var type = data.type;
     console.log('socket: ' + JSON.stringify(data));
 
     switch (type) {
         case SocketAlerts.MESSAGES_CHANGE:
             MessageActions.getMessages();
+            break;
+
+        case SocketAlerts.PRESENCE_CHANGE:
+            console.log(data);
             break;
 
         default:
