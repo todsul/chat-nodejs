@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var LocalStrategy = require('passport-local').Strategy;
 var User = mongoose.model('User');
 
-var localStrategy = new LocalStrategy({
+var local = new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password'
     },
@@ -38,7 +38,7 @@ function register(passport) {
         });
     });
 
-    passport.use(localStrategy);
+    passport.use(local);
 }
 
 module.exports = {register: register};

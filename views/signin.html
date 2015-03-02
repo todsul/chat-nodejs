@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block title %} Sign In {% endblock %}
 {% block main %}
+    {% for message in req.flash('error') %}
+        {{ message }}
+    {% endfor %}
     <form action="/signin" method="POST">
         <div>
             <label for="name">Email</label>

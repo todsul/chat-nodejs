@@ -9,7 +9,11 @@
             <div class="cell">
                 <a id="logo" href="/"><img src="/public/img/logo.svg" onerror="this.onerror=null; this.src='/public/img/logo.png'" alt="Fligthfox"></a>
                 <div id="user_menu">
-                    <a href="#" class="sign-in">Sign In</a>
+                    {% if req.isAuthenticated %}
+                        <a href="/signout" class="sign-out">Sign Out</a>
+                    {% else %}
+                        <a href="/signin" class="sign-in">Sign In</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

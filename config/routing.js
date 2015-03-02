@@ -30,12 +30,12 @@ function notFoundErrorHandler(req, res, next) {
     next(err);
 }
 
-function register(app) {
+function register(app, passport) {
     // Order is important
     app.use(getSessionUser);
-    app.use('/', routes);
-    app.use('/users', users);
-    app.use('/messages', messages);
+    app.use('/', routes.register(passport).router());
+    app.use('/users', users.register(passport).router());
+    app.use('/messages', messages.register(passport).router());
 
     if (app.get('env') === 'development') {
         app.use(devErrorHandler);

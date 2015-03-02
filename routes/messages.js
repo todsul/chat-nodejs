@@ -3,11 +3,15 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Message = mongoose.model('Message');
 
-router.get('/', function(req, res, next) {
-    var options = {};
-    Message.list(options, function(err, messages) {
-        res.send(JSON.stringify(messages));
+function register(passport) {
+    router.get('/', function(req, res, next) {
+        var options = {};
+        Message.list(options, function(err, messages) {
+            res.send(JSON.stringify(messages));
+        });
     });
-});
 
-module.exports = router;
+    return this;
+}
+
+module.exports = {register: register, router: function() {return router; }};

@@ -9,12 +9,13 @@ function register(app, passport) {
 
     app.use(cookieSession({ secret: parameters.session.secret }));
     app.use(session({
-        resave: true,
-        saveUninitialized: true,
+        resave: false,
+        saveUninitialized: false,
+        unset: 'destroy',
         secret: parameters.session.secret,
         store: new mongoStore({
-          url: parameters.persistence.connectionString,
-          collection : 'sessions'
+            url: parameters.persistence.connectionString,
+            collection : 'sessions',
         })
     }));
 
