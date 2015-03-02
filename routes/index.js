@@ -5,6 +5,10 @@ var User = mongoose.model('User');
 
 function register(passport) {
     router.get('/', function(req, res, next) {
+        if (!req.isAuthenticated()) {
+            return res.redirect('/signin');
+        }
+
         User.find().limit(1).exec(function(err, users) {
             var user = users.shift();
 
@@ -20,6 +24,10 @@ function register(passport) {
     // @TODO redirect to dashboard if user is in session for routes below
 
     router.get('/signin', function(req, res, next) {
+        if (req.isAuthenticated()) {
+            return res.redirect('/');
+        }
+
         res.render('signin');
     });
 

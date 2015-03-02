@@ -4,9 +4,10 @@ var User = mongoose.model('User');
 
 var local = new LocalStrategy({
         usernameField: 'email',
-        passwordField: 'password'
+        passwordField: 'password',
+        passReqToCallback: true,
     },
-    function(email, password, done) {
+    function(req, email, password, done) {
         var options = {
             criteria: { email: email },
             select: 'full_name email hashed_password salt'
@@ -15,11 +16,11 @@ var local = new LocalStrategy({
         User.load(options, function (err, user) {
             if (err) return done(err);
             if (!user) {
-                return done(null, false, { message: 'Unknown user' });
+                return done(null, false, req.flash('errorMessage', 'Unknown user'));
             }
 
             if (!user.authenticate(password)) {
-                return done(null, false, { message: 'Invalid password' });
+                return done(null, false, req.flash('errorMessage', 'Invalid password'));
             }
 
             return done(null, user);

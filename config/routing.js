@@ -2,18 +2,6 @@ var routes = require('../routes/index');
 var users = require('../routes/users');
 var messages = require('../routes/messages');
 
-// Mock session user
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-
-function getSessionUser(req, res, next) {
-    User.find().limit(1).exec(function(err, users) {
-        var user = users && users.length > 0 ? users.shift() : null;
-        req.user = user;
-        next();
-    });
-}
-
 function devErrorHandler(err, req, res, next) {
     res.status(err.status || 500);
     res.send(err.message);
@@ -32,7 +20,10 @@ function notFoundErrorHandler(req, res, next) {
 
 function register(app, passport) {
     // Order is important
-    app.use(getSessionUser);
+    app.use(function(req, res, next) {
+        res.locals.req = req;
+        next();
+    });
     app.use('/', routes.register(passport).router());
     app.use('/users', users.register(passport).router());
     app.use('/messages', messages.register(passport).router());
