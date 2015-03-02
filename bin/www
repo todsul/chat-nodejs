@@ -22,18 +22,8 @@ server.on('listening', onListening);
 // Socket connection.
 
 var io = require('socket.io').listen(server);
-require('../services/socket.js')(io);
-app.io = io;
+app.IOConnection = require('../services/socket.js')(io);
 
-var dashboardIO = app.io
-    .of('/sockets/dashboard')
-    .on('connection', function (socket) {
-        // @TODO hash event in order to implement private channels
-        dashboardIO.emit('DASHBOARD_CHANGE_CLIENT_1', {type: 'MOTD', message:'welcome'});
-        console.log("HEREEEEE");
-    })
-;
-app.dashboardIO = dashboardIO;
 
 // Normalize a port into a number, string, or false.
 

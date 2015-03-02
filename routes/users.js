@@ -48,7 +48,7 @@ function register(app, passport) {
                 res.status(500).send(err);
             }
 
-            app.dashboardIO.emit('DASHBOARD_CHANGE_CLIENT_1', { type:'MESSAGES_CHANGE', message: 'The messages list for this client has changed'});
+            app.IOConnection.emit(sessionUser._id, { type:'MESSAGES_CHANGE', message: 'The messages list for this client has changed'});
 
             Message.populate(message, {path: 'user'}, function(err, message) {
                 res.status(201).send(JSON.stringify(message));
