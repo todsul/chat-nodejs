@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-function register(passport) {
+function register(app, passport) {
     router.get('/', function(req, res, next) {
         if (!req.isAuthenticated()) {
             return res.redirect('/signin');

@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Message = mongoose.model('Message');
 
-function register(passport) {
+function register(app, passport) {
     router.get('/', function(req, res, next) {
         var options = {};
         Message.list(options, function(err, messages) {

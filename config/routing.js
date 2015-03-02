@@ -24,9 +24,9 @@ function register(app, passport) {
         res.locals.req = req;
         next();
     });
-    app.use('/', routes.register(passport).router());
-    app.use('/users', users.register(passport).router());
-    app.use('/messages', messages.register(passport).router());
+    app.use('/', routes.register(app, passport).router());
+    app.use('/users', users.register(app, passport).router());
+    app.use('/messages', messages.register(app, passport).router());
 
     if (app.get('env') === 'development') {
         app.use(devErrorHandler);

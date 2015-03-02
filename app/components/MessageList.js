@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var cx = React.addons.classSet;
-var socket = io.connect();
 
 var MessageActions = require('../actions/MessageActions');
 var MessageItem = require('./MessageItem');
@@ -17,7 +16,6 @@ var MessageList = React.createClass({
 
     componentDidMount: function() {
         MessageStore.addListener('list', this._onChange);
-        socket.on('message', MessageActions.getMessages);
     },
 
     componentWillUnmount: function() {

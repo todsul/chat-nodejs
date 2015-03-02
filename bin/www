@@ -23,6 +23,16 @@ server.on('listening', onListening);
 
 var io = require('socket.io').listen(server);
 require('../services/socket.js')(io);
+app.io = io;
+
+var dashboardIO = app.io
+    .of('/sockets/dashboard') // @TODO create a custom unique encoded url for privacy
+    .on('connection', function (socket) {
+        dashboardIO.emit('DASHBOARD_CHANGE', { type:'MESSAGES_CHANGE', message: 'THIS IS A CUSTOM MESSAGE'});
+        console.log("AQUIIII");
+    })
+;
+app.dashboardIO = dashboardIO;
 
 // Normalize a port into a number, string, or false.
 

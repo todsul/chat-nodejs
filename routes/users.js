@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Message = mongoose.model('Message');
 var User = mongoose.model('User');
 
-function register(passport) {
+function register(app, passport) {
     /* GET user dashboard. */
     router.get('/:id', function(req, res) {
       res.send('respond with dashboard');
@@ -47,6 +47,13 @@ function register(passport) {
             if (err) {
                 res.status(500).send(err);
             }
+
+            app.io
+                .of('/sockets/dashboard') // @TODO create a custom unique encoded url for privacy
+                .on('connection', function (socket) {
+                    socket.emit('MESSAGES_CHANGE', { message: 'THIS IS A CUSTOM MESSAGE'});
+                })
+            ;
 
             Message.populate(message, {path: 'user'}, function(err, message) {
                 res.status(201).send(JSON.stringify(message));
