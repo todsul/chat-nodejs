@@ -9,19 +9,14 @@ function register(app, passport) {
             return res.redirect('/signin');
         }
 
-        User.find().limit(1).exec(function(err, users) {
-            var user = users.shift();
+        // @TODO. Same user for now
+        var pageData = {
+            clientId: req.user._id,
+            userId: req.user._id
+        };
 
-            var pageData = {
-                clientId: user._id,
-                userId: req.user._id
-            };
-
-            res.render('dashboard', {pageData: JSON.stringify(pageData)});
-        });
+        res.render('dashboard', {pageData: JSON.stringify(pageData)});
     });
-
-    // @TODO redirect to dashboard if user is in session for routes below
 
     router.get('/signin', function(req, res, next) {
         if (req.isAuthenticated()) {

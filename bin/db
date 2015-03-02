@@ -23,59 +23,60 @@ function dropDatabase()
 
 function userFixtures()
 {
-    var admin = new User({full_name: 'Flightfox Admin', email: 'admin@flightfox.com', password: 'flightfox'});
-    admin.save(function(err, admin) {
-        if (err) return disconnect(err);
+    var admin = new User({full_name: 'Admin Flightfox', email: 'admin@flightfox.com', password: 'flightfox'});
+    var expert = new User({full_name: 'Expert Flightfox', email: 'expert@flightfox.com', password: 'flightfox'});
+    var customer = new User({full_name: 'Customer Flightfox', email: 'customer@flightfox.com', password: 'flightfox'});
 
-        users.push(admin);
+    sequentialSave([admin, expert, customer], function(savedUsers) {
+        users = savedUsers;
         messageFixtures();
     });
 }
 
 function messageFixtures()
 {
-    var unprocessedMessages = [
+    var unsavedMessages = [
         new Message({
             text: 'From New Orleans to Amsterdam,One-Way only ' +
                 'Looking for cheapest price, but <24 hours flying time Leaving 16th ' +
                 'March (+/- a day), Must arrive before 18th March',
-            user: users[0],
+            user: users[2],
             created: new Date(),
         }),
         new Message({
             text: 'My wife is coming with me, sorry for mentioning it',
-            user: users[0],
+            user: users[2],
             created: new Date(),
         }),
         new Message({
             text: 'Thanks in advance for your hard work. I will leave juicy tip once I have booked',
-            user: users[0],
+            user: users[2],
             created: new Date(),
         }),
     ];
 
-    sequentialSave(unprocessedMessages, function(processedMessages) {
-        messages = processedMessages;
+    sequentialSave(unsavedMessages, function(savedMessages) {
+        messages = savedMessages;
         exit();
 
         // Next fixture
     });
 }
 
-function sequentialSave(unprocessedEntities, callback, processedEntities) {
-    processedEntities = processedEntities || [];
+function sequentialSave(unsavedEntities, callback, savedEntities) {
+    savedEntities = savedEntities || [];
 
-    if (unprocessedEntities.length === 0) {
-        return callback ? callback(processedEntities) : false;
+    if (unsavedEntities.length === 0) {
+        return callback ? callback(savedEntities) : false;
     }
 
-    var entity = unprocessedEntities.shift();
+    var entity = unsavedEntities.shift();
 
     entity.save(function(err, entity) {
         if (err) return disconnect(err);
 
-        processedEntities.push(entity);
-        return sequentialSave(unprocessedEntities, callback, processedEntities);
+        savedEntities.push(entity);
+        return sequentialSave(unsavedEntities, callback, savedEntities);
     });
 }
 

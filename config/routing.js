@@ -1,5 +1,4 @@
 var routes = require('../routes/index');
-var users = require('../routes/users');
 var messages = require('../routes/messages');
 
 function devErrorHandler(err, req, res, next) {
@@ -25,7 +24,6 @@ function register(app, passport) {
         next();
     });
     app.use('/', routes.register(app, passport).router());
-    app.use('/users', users.register(app, passport).router());
     app.use('/messages', messages.register(app, passport).router());
 
     if (app.get('env') === 'development') {

@@ -7,7 +7,7 @@ var SocketAlerts = require('../constants/DashboardConstants').SocketAlerts;
 // SocketService
 module.exports = function() {
     var channel = io.connect();
-    channel.on(PageUtility.getClientId(), function(data) {
+    channel.on('dashboard', function(data) {
         onMessageReceived(data);
     });
 };
