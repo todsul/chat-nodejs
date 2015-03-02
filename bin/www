@@ -26,10 +26,11 @@ require('../services/socket.js')(io);
 app.io = io;
 
 var dashboardIO = app.io
-    .of('/sockets/dashboard') // @TODO create a custom unique encoded url for privacy
+    .of('/sockets/dashboard')
     .on('connection', function (socket) {
-        dashboardIO.emit('DASHBOARD_CHANGE', { type:'MESSAGES_CHANGE', message: 'THIS IS A CUSTOM MESSAGE'});
-        console.log("AQUIIII");
+        // @TODO hash event in order to implement private channels
+        dashboardIO.emit('DASHBOARD_CHANGE_CLIENT_1', {type: 'MOTD', message:'welcome'});
+        console.log("HEREEEEE");
     })
 ;
 app.dashboardIO = dashboardIO;

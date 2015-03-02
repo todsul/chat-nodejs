@@ -48,12 +48,7 @@ function register(app, passport) {
                 res.status(500).send(err);
             }
 
-            app.io
-                .of('/sockets/dashboard') // @TODO create a custom unique encoded url for privacy
-                .on('connection', function (socket) {
-                    socket.emit('MESSAGES_CHANGE', { message: 'THIS IS A CUSTOM MESSAGE'});
-                })
-            ;
+            app.dashboardIO.emit('DASHBOARD_CHANGE_CLIENT_1', { type:'MESSAGES_CHANGE', message: 'The messages list for this client has changed'});
 
             Message.populate(message, {path: 'user'}, function(err, message) {
                 res.status(201).send(JSON.stringify(message));

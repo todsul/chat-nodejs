@@ -14,9 +14,11 @@ React.render(
 
 
 var channel = io.connect('http://localhost:3000/sockets/dashboard');
-channel.on('DASHBOARD_CHANGE', function(data) {
+// @TODO get event hashed in order to implement private channels;
+channel.on('DASHBOARD_CHANGE_CLIENT_1', function(data) {
     console.log('Dashboard change received');
     console.log(data);
+    MessageActions.getMessages();
 });
 
 // channel.on('connect', function(socket) {
