@@ -1,10 +1,10 @@
 var fs = require('fs');
 var mongoose = require('mongoose');
-var paramsDataSet = require('./parameters');
+var paramDataSet = require('./parameters');
 
 function register(app) {
     var ENV  = app.get('env');
-    var parameters = paramsDataSet.get(ENV);
+    var parameters = paramDataSet.get(ENV);
     var connectionString = parameters.persistence.connectionString;
 
     var connect = function() {

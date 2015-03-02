@@ -2,6 +2,10 @@ var parameters = {
     development: {
         persistence: {
             connectionString: 'mongodb://localhost/flightfox_dev'
+        },
+
+        session: {
+            secret: 'flightoxxofthgilf'
         }
     },
 

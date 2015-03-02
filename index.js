@@ -1,10 +1,12 @@
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var compress = require('compression');
 var express = require('express');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var compress = require('compression');
+var passport = require('passport');
 var transpiler = require('react-tools');
+
 require('node-jsx').install();
 
 var app = express();
@@ -16,12 +18,14 @@ var app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use('/public', express.static(__dirname + '/public'));
+app.use(cookieParser());
 
 // config/*
 require('./config/templating').register(app);
 require('./config/persistence').register(app);
-require('./config/routing').register(app);
+require('./config/passport').register(passport);
+require('./config/session').register(app, passport);
+require('./config/routing').register(app, passport); // @TODO
 
 module.exports = app;
