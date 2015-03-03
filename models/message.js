@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var MessageSchema = new Schema({
     text: {type: String, default: '', trim: true},
-    created: {type: Date, default: Date.now},
+    created: {type: Date, default: Date.now()},
     user: {type: Schema.ObjectId, ref: 'User'}
 });
 
