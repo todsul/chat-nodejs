@@ -5,3 +5,4 @@ npm-debug.log
 *.scripts.js
 *.styles.js
 public/js/scripts.js
+inf/*
