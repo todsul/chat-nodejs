@@ -25,7 +25,6 @@ var Presence = React.createClass({
     },
 
     render: function() {
-        console.log(this.state);
         var styles = '';
         var on = '{background: #009b77;} ';
         var off = '{background: #dd4124;} ';
