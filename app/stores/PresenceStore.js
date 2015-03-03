@@ -8,18 +8,21 @@ var PageUtility = require('../utilities/PageUtility');
 var CHANGE_EVENT = 'change';
 
 var _state = {
-    users: []
+    users: {}
 };
 
 function _handleEvent(event) {
-    var userId = PageUtility.extractUserId(event.uuid);
-    var status = event.action === 'join' ? 'on' : 'off'; // Off if timeout
     var eventTimestamp = parseInt(event.timestamp, 10);
+    var status = event.action === 'occupancy' || event.action === 'join' ? 'on' : 'off';
 
-    if (!_state.users[userId]) {
-        _addNew(userId, status, eventTimestamp);
-    } else {
-        _update(userId, status, eventTimestamp);
+    for (var i in event.users)  {
+        var userId = event.users[i];
+
+        if (!_state.users[userId]) {
+            _addNew(userId, status, eventTimestamp);
+        } else {
+            _update(userId, status, eventTimestamp);
+        }
     }
 }
 
@@ -86,7 +89,7 @@ DashboardDispatcher.register(function(payload) {
 
     switch(action.type) {
         case ActionTypes.UPDATE_PRESENCE:
-            _handleEvent(action.presence);
+            _handleEvent(action.event);
             PresenceStore.emitEvent();
             break;
 

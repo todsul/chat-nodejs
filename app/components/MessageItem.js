@@ -6,7 +6,7 @@ var Presence = require('./Presence');
 
 var MessageItem = React.createClass({
     render: function() {
-        var userId = parseInt(this.props.message.owner_id, 10);
+        var userId = this.props.message.user._id;
         var created = 'a moment ago (todo)'; //new Date(this.props.message.created + ' UTC');
         //created = DateUtility.ago(created);
 

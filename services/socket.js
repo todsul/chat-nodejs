@@ -7,8 +7,9 @@ function addClient(socket) {
     _connectedUsers.push(socket.userId);
 
     var event = {
-        type: 'join',
-        user: socket.userId
+        action: 'join',
+        users: [socket.userId],
+        timestamp: Date.now()
     };
 
     socket.broadcast.emit('dashboard', {type: 'PRESENCE_CHANGE', event: event});
@@ -17,8 +18,9 @@ function addClient(socket) {
 // When someone joins, send him/her a list of the clients online
 function notifyOccupancy(socket) {
     var event = {
-        type: 'occupancy',
+        action: 'occupancy',
         users: _connectedUsers,
+        timestamp: Date.now()
     };
 
     socket.emit('dashboard', {type: 'PRESENCE_CHANGE', event: event});
@@ -31,8 +33,9 @@ function removeClient(socket) {
     _connectedUsers.splice(index, 1);
 
     var event = {
-        type: 'leave',
-        user: socket.userId,
+        action: 'leave',
+        users: [socket.userId],
+        timestamp: Date.now()
     };
 
     socket.broadcast.emit('dashboard', {type: 'PRESENCE_CHANGE', event: event});

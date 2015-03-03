@@ -25,14 +25,16 @@ var Presence = React.createClass({
     },
 
     render: function() {
+        console.log(this.state);
         var styles = '';
-        var on = 'background: #009b77;'
-        var off = 'background: #dd4124;'
+        var on = '{background: #009b77;} ';
+        var off = '{background: #dd4124;} ';
 
-        this.state.users.map(function(user, i) {
-            styles = styles + '.presence-' + user.userId + '{background: #009b77;}'; // Selector
-            styles = styles;
-        });
+        for (var i in this.state.users) {
+            var user = this.state.users[i];
+            styles += '.presence-' + user.userId;
+            styles += user.status === 'on' ? on : off;
+        }
 
         return (
             <style>{styles}</style>

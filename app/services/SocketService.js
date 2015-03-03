@@ -2,6 +2,7 @@
 
 var PageUtility = require('../utilities/PageUtility');
 var MessageActions = require('../actions/MessageActions');
+var PresenceActions = require('../actions/PresenceActions');
 var SocketAlerts = require('../constants/DashboardConstants').SocketAlerts;
 
 // SocketService
@@ -15,7 +16,6 @@ module.exports = function() {
 
 function notify(data) {
     var type = data.type;
-    console.log('socket: ' + JSON.stringify(data));
 
     switch (type) {
         case SocketAlerts.MESSAGES_CHANGE:
@@ -23,7 +23,7 @@ function notify(data) {
             break;
 
         case SocketAlerts.PRESENCE_CHANGE:
-            console.log(data);
+            PresenceActions.updatePresence(data.event);
             break;
 
         default:
