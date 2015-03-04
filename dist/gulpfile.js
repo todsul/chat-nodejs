@@ -3,6 +3,7 @@ var pemFile = './aws/flightfox-20131029.pem';
 var paramDataSet = require('../config/parameters');
 var NODE_ENV = 'staging';// @TODO read from command prompt.
 var parameters = paramDataSet.get(NODE_ENV);
+var args = require('yargs').argv;
 
 var ssh = require('gulp-ssh')({
     ignoreErrors: false,
@@ -19,10 +20,8 @@ var githubCredentials = require('./github_credentials');
 var deployDir = '/var/www/flightfox/';
 
 // @TODO make sure that branch is always master when deploying to prod
-var gitBranch = 'master';
-
+var gitBranch = args.branch || 'master';
 var repository = 'https://' + githubCredentials.username + ':' + githubCredentials.password + '@github.com/todsul/flightfox.git';
-
 var baseDir = '/var/www/flightfox';
 var date = new Date();
 var releaseName = 'release-' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
@@ -34,7 +33,8 @@ var releaseName = 'release-' + date.getFullYear() + '-' + (date.getMonth() + 1) 
 var deployCommands = {
     clearReleaseDir: 'sudo rm -rf ' + baseDir + '/releases/flightfox ;',
     cloneRepo: ' cd ' + baseDir + '/releases/ && sudo git clone ' + repository + ' > /dev/null 2>&1 ;',
-    switchBranch: gitBranch === 'master' ? " echo 'Already in master. Skipping...' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout ' + gitBranch + ' ;'),
+    switchBranch: gitBranch === 'master' ? "echo 'Already in master. Skipping...' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout --quiet ' + gitBranch + ' ;'),
+    echoLastCommit: " cd " + baseDir + "/releases/flightfox && echo \" Branch: `git rev-parse --abbrev-ref HEAD`, last commit: `git log -1 --pretty=oneline --abbrev-commit` \" ",
     npmInstall: 'cd ' + baseDir + '/releases/flightfox && sudo npm install  --loglevel error ;',
     bundleAssets: 'cd ' + baseDir + '/releases/flightfox && sudo webpack --optimize-minimize',
     // @TODO run tests, do other integrity checks
@@ -50,6 +50,7 @@ gulp.task('deploy_staging', function() {
                 deployCommands.clearReleaseDir,
                 deployCommands.cloneRepo,
                 deployCommands.switchBranch,
+                deployCommands.echoLastCommit,
                 deployCommands.npmInstall,
                 deployCommands.bundleAssets,
                 // @TODO run tests, do other integrity checks
