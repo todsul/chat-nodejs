@@ -21,9 +21,7 @@ var deployDir = '/var/www/flightfox/';
 
 // @TODO make sure that branch is always master when deploying to prod
 var gitBranch = args.branch || 'master';
-
 var repository = 'https://' + githubCredentials.username + ':' + githubCredentials.password + '@github.com/todsul/flightfox.git';
-
 var baseDir = '/var/www/flightfox';
 var date = new Date();
 var releaseName = 'release-' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
@@ -36,7 +34,7 @@ var deployCommands = {
     clearReleaseDir: 'sudo rm -rf ' + baseDir + '/releases/flightfox ;',
     cloneRepo: ' cd ' + baseDir + '/releases/ && sudo git clone ' + repository + ' > /dev/null 2>&1 ;',
     switchBranch: gitBranch === 'master' ? "echo 'Already in master. Skipping...' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout ' + gitBranch + ' ;'),
-    echoLastCommit: "echo \" Branch: " + branch  + ", last commit: `git log -1 --pretty=oneline --abbrev-commit` \" ",
+    echoLastCommit: "echo \" Branch: " + gitBranch  + ", last commit: `git log -1 --pretty=oneline --abbrev-commit` \" ",
     npmInstall: 'cd ' + baseDir + '/releases/flightfox && sudo npm install  --loglevel error ;',
     bundleAssets: 'cd ' + baseDir + '/releases/flightfox && sudo webpack --optimize-minimize',
     // @TODO run tests, do other integrity checks
