@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var app = require('../index');
+var app = require('../server/index');
 var debug = require('debug')('flightfox:server');
 var http = require('http');
 
@@ -22,7 +22,7 @@ server.on('listening', onListening);
 // Socket connection.
 
 var io = require('socket.io').listen(server);
-app.IOConnection = require('../services/socket.js')(io);
+app.IOConnection = require('../server/services/socket.js')(io);
 
 
 // Normalize a port into a number, string, or false.

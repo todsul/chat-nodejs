@@ -17,10 +17,10 @@ if (app.get('env') === 'production' || app.get('env') === 'staging') {
 }
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+app.use(logger('dev')); // @TODO set accordingly to real env
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/public', express.static(__dirname + '/public'));
+app.use('/public', express.static(__dirname + '/../public'));
 app.use(cookieParser());
 
 // config/*

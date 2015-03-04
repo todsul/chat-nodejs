@@ -2,7 +2,7 @@
 
 // Rebuilds fixtures
 
-var app = require('../index');
+var app = require('../server/index');
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Message = mongoose.model('Message');
