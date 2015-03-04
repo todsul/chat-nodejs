@@ -1,5 +1,3 @@
-/* @flow */
-
 var React = require('react');
 
 var Dashboard = require('./components/Dashboard');

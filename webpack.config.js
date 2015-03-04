@@ -12,7 +12,7 @@ var config = {
     module: {
         loaders: [{
             test: /\.js$/,
-            loader: 'jsx?stripTypes'
+            loader: 'jsx'
         },
         {
             test: /\.less$/,

@@ -1,5 +1,3 @@
-/* @flow */
-
 var React = require('react/addons');
 var PresenceStore = require('../stores/PresenceStore');
 

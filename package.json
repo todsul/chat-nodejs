@@ -44,14 +44,14 @@
     "yargs": "^3.4.5"
   },
   "scripts": {
-    "debug": "NODE_ENV=development DEBUG=flightfox nodemon ./bin/www --ignore /app/*",
+    "debug": "NODE_ENV=development DEBUG=flightfox nodemon --ignore client/ ./bin/www",
     "staging-start": "NODE_ENV=staging DEBUG=flightfox node ./bin/www",
     "db": "node ./bin/db",
     "start": "node ./bin/www",
     "test": "jest"
   },
   "jest": {
-    "scriptPreprocessor": "<rootDir>/app/utilities/JsxUtility.js",
+    "scriptPreprocessor": "<rootDir>/client/utilities/JsxUtility.js",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react*",
       "invariant",

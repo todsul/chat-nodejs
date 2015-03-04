@@ -8,17 +8,10 @@ Init procedure:
 * npm run-script db
 * [New Window] webpack --progress --colors --display-error-details --watch
 * [New Window] npm run-script debug
-* [New Window] flow start
 
 Test scripts:
 
 * npm test
-
-Flow scripts:
-
-* flow start: watch for errors on file save
-* flow: check for last errors
-* flow stop: stop watching
 
 Dev setup:
 

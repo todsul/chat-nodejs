@@ -1,31 +1,29 @@
-/* @flow */
-
 var ActionTypes = require('../constants/DashboardConstants').ActionTypes;
 var DashboardDispatcher = require('../dispatchers/DashboardDispatcher');
 var MessageApi = require('../apis/MessageApi');
 
-function createMessageSuccess(message: string) {
+function createMessageSuccess(message) {
     DashboardDispatcher.handleViewAction({
         type: ActionTypes.CREATE_MESSAGE_SUCCESS,
         message: message
     });
 }
 
-function createMessageFailure(error: string) {
+function createMessageFailure(error) {
     DashboardDispatcher.handleViewAction({
         type: ActionTypes.CREATE_MESSAGE_FAILURE,
         error: error
     });
 }
 
-function getMessagesSuccess(messages: string) {
+function getMessagesSuccess(messages) {
     DashboardDispatcher.handleViewAction({
         type: ActionTypes.GET_MESSAGES_SUCCESS,
         messages: messages
     });
 }
 
-function getMessagesFailure(error: string) {
+function getMessagesFailure(error) {
     DashboardDispatcher.handleViewAction({
         type: ActionTypes.GET_MESSAGES_FAILURE,
         error: error
@@ -33,7 +31,7 @@ function getMessagesFailure(error: string) {
 }
 
 var MessageActions = {
-    createMessage: function(text: string) {
+    createMessage: function(text) {
         DashboardDispatcher.handleViewAction({
             type: ActionTypes.CREATE_MESSAGE,
             text: text

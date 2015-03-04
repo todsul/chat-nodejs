@@ -1,5 +1,3 @@
-/* @flow */
-
 var assign = require('object-assign');
 var Dispatcher = require('flux').Dispatcher;
 

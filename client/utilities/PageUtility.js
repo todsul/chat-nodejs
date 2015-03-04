@@ -1,5 +1,3 @@
-/* @flow */
-
 var container = document.getElementById('dashboard');
 var pageData = JSON.parse(container ? container.dataset.pageData : "{}"); // Prevent express from complaining
 
@@ -27,7 +25,7 @@ var PageUtility = {
 
     getPageSocketChannel: function() {
         return 'abc';
-    }
+    },
 
     // SETTERS
 
@@ -37,22 +35,6 @@ var PageUtility = {
 
     resetMessageCountMultiplier: function() {
         messageCountMultiplier = 1;
-    },
-
-    // Sockets
-
-    generateUUID: function(userId) {
-        return (+new Date() + Math.floor(Math.random() * 999999)).toString(36) + UUID_delimiter + userId;
-    },
-
-    extractUserId: function(uuid) {
-        var parts = uuid.split(UUID_delimiter);
-
-        if (parts.length !== 2) {
-            throw 'uuid.js wrong uuid format';
-        }
-
-        return parseInt(parts[1], 10);
     }
 };
 

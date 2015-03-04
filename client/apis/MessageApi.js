@@ -1,5 +1,3 @@
-/* @flow */
-
 var Api = require('./Api');
 var assign = require('object-assign');
 var PageUtility = require('../utilities/PageUtility');

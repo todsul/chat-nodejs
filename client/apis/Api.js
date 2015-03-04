@@ -1,5 +1,3 @@
-/* @flow */
-
 var request = require('superagent');
 
 // DEFAULTS

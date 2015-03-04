@@ -1,5 +1,3 @@
-/* @flow */
-
 var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 
