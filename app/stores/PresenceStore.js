@@ -1,9 +1,7 @@
 var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
-
 var ActionTypes = require('../constants/DashboardConstants').ActionTypes;
 var DashboardDispatcher = require('../dispatchers/DashboardDispatcher');
-var PageUtility = require('../utilities/PageUtility');
 
 var CHANGE_EVENT = 'change';
 

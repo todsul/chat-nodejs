@@ -1,7 +1,6 @@
 var ActionTypes = require('../constants/DashboardConstants').ActionTypes;
 var DashboardDispatcher = require('../dispatchers/DashboardDispatcher');
 var MessageApi = require('../apis/MessageApi');
-var PageUtility = require('../utilities/PageUtility');
 
 function createMessageSuccess(message) {
     DashboardDispatcher.handleViewAction({

@@ -11,13 +11,13 @@ var ssh = require('gulp-ssh')({
 });
 
 // DEPLOYMENT
+var credentials = require('./credentials');
 var deployDir = '/var/www/flightfox/';
-var githubCredentials = 'your_github_username:your_github_password';
 
 // @TODO make sure that branch is always master when deploying to prod
 var gitBranch = 'master';
 
-var repository = 'https://' + githubCredentials + '@github.com/todsul/flightfox.git';
+var repository = 'https://' + credentials.username + ':' + credentials.password + '@github.com/todsul/flightfox.git';
 
 var baseDir = '/var/www/flightfox';
 var date = new Date();
@@ -28,13 +28,14 @@ var deployCommands = {
     cloneRepo: 'cd ' + baseDir + '/releases/ && sudo git clone ' + repository + ' > /dev/null 2>&1 ;',
     switchBranch: gitBranch === 'master' ? " echo 'Already in master. Skipping...' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout ' + gitBranch + ' ;'),
     npmInstall: 'cd ' + baseDir + '/releases/flightfox && sudo npm install  --loglevel error ;',
+    bundleAssets: 'cd ' + baseDir + '/releases/flightfox && sudo webpack --optimize-minimize',
     // @TODO run tests, do other integrity checks
     upgradeToReleaseDir: 'sudo mv ' + baseDir + '/releases/flightfox ' + baseDir + '/releases/' + releaseName + ' ;',
     clearLiveDir: 'sudo rm -rf ' + baseDir + '/live ;',
     linkLiveDir: 'sudo ln -s ' + baseDir + '/releases/' + releaseName + ' ' + baseDir + '/live ;',
 };
 
-gulp.task('deploy', function() {
+gulp.task('deploy_staging', function() {
     return ssh
         .exec(
             [
@@ -42,6 +43,7 @@ gulp.task('deploy', function() {
                 deployCommands.cloneRepo,
                 deployCommands.switchBranch,
                 deployCommands.npmInstall,
+                bundleAssets,
                 // @TODO run tests, do other integrity checks
                 deployCommands.upgradeToReleaseDir,
                 deployCommands.clearLiveDir,
