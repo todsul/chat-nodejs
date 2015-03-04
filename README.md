@@ -48,3 +48,6 @@ and  edit /etc/hosts. Put it there like like
     127.0.1.1 ip-172-30-0-136
 
 Where ip-172-30-0-136 is the host that can't be resolved
+
+* If you want to kill the node process id that listens on port 3000 you can
+$ sudo kill `sudo lsof -t -i:3000`
