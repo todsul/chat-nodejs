@@ -5,5 +5,5 @@ npm-debug.log
 *.scripts.js
 *.styles.js
 public/js/scripts.js
-dist/deploy.log
+dist/deploy*.log
 dist/gulpfile.js
