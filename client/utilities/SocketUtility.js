@@ -1,3 +1,5 @@
+/* @flow */
+
 var MessageActions = require('../actions/MessageActions');
 var PageUtility = require('./PageUtility');
 var PresenceActions = require('../actions/PresenceActions');

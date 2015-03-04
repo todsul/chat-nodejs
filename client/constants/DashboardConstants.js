@@ -1,3 +1,5 @@
+/* @flow */
+
 var keyMirror = require('keymirror');
 
 module.exports = {

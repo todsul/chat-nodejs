@@ -1,10 +1,12 @@
+/* @flow */
+
 var container = document.getElementById('dashboard');
 var pageData = JSON.parse(container ? container.dataset.pageData : "{}"); // Prevent express from complaining
 
 var messageCountMultiplier = 1;
 var UUID_delimiter = '_user_';
 
-module.exports = {
+var PageUtility = {
     // GETTERS
 
     getBaseUrl: function() {
@@ -25,11 +27,7 @@ module.exports = {
 
     getPageSocketChannel: function() {
         return 'abc';
-    },
-
-    getFlightfoxPubnubSubscribeKey: function() {
-        return 'dummy_for_now';
-    },
+    }
 
     // SETTERS
 
@@ -57,3 +55,5 @@ module.exports = {
         return parseInt(parts[1], 10);
     }
 };
+
+module.exports = PageUtility;

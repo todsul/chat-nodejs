@@ -1,3 +1,5 @@
+/* @flow */
+
 var React = require('react');
 
 var MessageComposer = require('./MessageComposer');

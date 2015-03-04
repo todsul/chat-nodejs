@@ -1,3 +1,5 @@
+/* @flow */
+
 module.exports = {
     ago: function(date) {
         var diff = (((new Date()).getTime() - date.getTime()) / 1000),

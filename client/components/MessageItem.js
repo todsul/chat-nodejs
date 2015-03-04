@@ -1,3 +1,5 @@
+/* @flow */
+
 var React = require('react/addons');
 var cx = React.addons.classSet;
 var DateUtility = require('../utilities/DateUtility');

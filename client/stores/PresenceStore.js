@@ -1,3 +1,5 @@
+/* @flow */
+
 var assign = require('object-assign');
 var EventEmitter = require('events').EventEmitter;
 var ActionTypes = require('../constants/DashboardConstants').ActionTypes;

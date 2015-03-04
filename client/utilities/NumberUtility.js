@@ -1,3 +1,5 @@
+/* @flow */
+
 var format = function(n, decPlaces, thouSeparator) {
     var decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
         thouSeparator = thouSeparator == undefined ? "," : thouSeparator,
