@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var gulpPrint = require('gulp-print');
 var pemFile = './aws/flightfox-20131029.pem';
 var paramDataSet = require('../config/parameters');
 var NODE_ENV = 'staging';// @TODO read from command prompt.
@@ -60,6 +61,7 @@ gulp.task('deploy_staging', function() {
             ],
             {filePath: 'staging.log'}
         )
+        .pipe(gulpPrint())
         .pipe(gulp.dest('./'))
     ;
 });
