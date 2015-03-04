@@ -39,8 +39,10 @@ var deployCommands = {
     bundleAssets: 'cd ' + baseDir + '/releases/flightfox && sudo webpack --optimize-minimize',
     // @TODO run tests, do other integrity checks
     upgradeToReleaseDir: 'sudo mv ' + baseDir + '/releases/flightfox ' + baseDir + '/releases/' + releaseName + ' ;',
+    stopSever: 'sudo service flightfox stop',
     clearLiveDir: 'sudo rm -rf ' + baseDir + '/live ;',
     linkLiveDir: 'sudo ln -s ' + baseDir + '/releases/' + releaseName + ' ' + baseDir + '/live ;',
+    startServer: 'sudo service flightfox start',
 };
 
 gulp.task('deploy_staging', function() {
@@ -55,8 +57,10 @@ gulp.task('deploy_staging', function() {
                 deployCommands.bundleAssets,
                 // @TODO run tests, do other integrity checks
                 deployCommands.upgradeToReleaseDir,
+                deployCommands.stopSever,
                 deployCommands.clearLiveDir,
-                deployCommands.linkLiveDir
+                deployCommands.linkLiveDir,
+                deployCommands.startServer
             ],
             {filePath: 'staging.log'}
         )
