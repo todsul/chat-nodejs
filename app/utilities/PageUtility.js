@@ -1,5 +1,5 @@
 var container = document.getElementById('dashboard');
-var pageData = JSON.parse(container ? container.dataset.pageData : "{}");
+var pageData = JSON.parse(container ? container.dataset.pageData : "{}"); // Prevent express from complaining
 
 var messageCountMultiplier = 1;
 var UUID_delimiter = '_user_';
@@ -8,7 +8,7 @@ module.exports = {
     // GETTERS
 
     getBaseUrl: function() {
-        return 'http://localhost:3000';
+        return pageData.baseUrl;
     },
 
     getClientId: function() {

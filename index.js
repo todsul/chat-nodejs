@@ -12,7 +12,7 @@ require('node-jsx').install();
 var app = express();
 
 // uncomment to enable gzip compression for prod
-if (app.get('env') === 'production') {
+if (app.get('env') === 'production' || app.get('env') === 'staging') {
     app.use(compress());
 }
 // uncomment after placing your favicon in /public
