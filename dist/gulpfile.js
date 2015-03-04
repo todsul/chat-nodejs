@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var gulpPrint = require('gulp-print');
 var pemFile = './aws/flightfox-20131029.pem';
-var paramDataSet = require('../config/parameters');
+var paramDataSet = require('../server/config/parameters');
 var NODE_ENV = 'staging';// @TODO read from command prompt.
 var parameters = paramDataSet.get(NODE_ENV);
 var args = require('yargs').argv;
