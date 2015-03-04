@@ -4,14 +4,21 @@
 
 Init procedure:
 
-* Start mongo: mongod
-* Setup db: npm run-script db
-* Start server in debug mode: npm run-script debug
-* Start webpack: webpack --progress --colors --display-error-details --watch
+* [New Window] mongod
+* npm run-script db
+* [New Window] webpack --progress --colors --display-error-details --watch
+* [New Window] npm run-script debug
+* [New Window] flow start
 
-Other dev scripts:
+Test scripts:
 
-* npm test (for Jest)
+* npm test
+
+Flow scripts:
+
+* flow start: watch for errors on file save
+* flow: check for last errors
+* flow stop: stop watching
 
 Dev setup:
 

@@ -2,7 +2,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var config = {
     entry: {
-        script: "./app/app.js",
+        script: "./client/client.js",
         styles: "./styles/styles.js"
     },
     output: {
@@ -12,7 +12,7 @@ var config = {
     module: {
         loaders: [{
             test: /\.js$/,
-            loader: 'jsx'
+            loader: 'jsx?stripTypes'
         },
         {
             test: /\.less$/,
