@@ -53,3 +53,16 @@ Where ip-172-30-0-136 is the host that can't be resolved
 
 * If you want to kill the node process id that listens on port 3000 you can
 $ sudo kill `sudo lsof -t -i:3000`
+
+# DEPLOYMENT
+cd into dist/ and run gulp, pass one of the following tasks.
+    gulp [deploy_staging | deploy_production]
+
+# UPSTART CONFIGURATION
+Checkout the files in dist/upstart. Depending on the box, grab either production.conf or staging.conf and rename it to flightfox.conf
+and throw it inside /etc/init/ Then do a:
+$ sudo start flightfox
+or
+$ sudo service flightfox start
+
+Both also accepts "stop" flag.
