@@ -28,6 +28,7 @@ var deployCommands = {
     cloneRepo: 'cd ' + baseDir + '/releases/ && sudo git clone ' + repository + ' > /dev/null 2>&1 ;',
     switchBranch: gitBranch === 'master' ? " echo 'Already in master. Skipping...' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout ' + gitBranch + ' ;'),
     npmInstall: 'cd ' + baseDir + '/releases/flightfox && sudo npm install  --loglevel error ;',
+    bundleAssets: 'cd ' + baseDir + '/releases/flightfox && sudo webpack --optimize-minimize',
     // @TODO run tests, do other integrity checks
     upgradeToReleaseDir: 'sudo mv ' + baseDir + '/releases/flightfox ' + baseDir + '/releases/' + releaseName + ' ;',
     clearLiveDir: 'sudo rm -rf ' + baseDir + '/live ;',
@@ -42,6 +43,7 @@ gulp.task('deploy', function() {
                 deployCommands.cloneRepo,
                 deployCommands.switchBranch,
                 deployCommands.npmInstall,
+                deployCommands.bundleAssets,
                 // @TODO run tests, do other integrity checks
                 deployCommands.upgradeToReleaseDir,
                 deployCommands.clearLiveDir,

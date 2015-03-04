@@ -1,8 +1,6 @@
 var React = require('react/addons');
 var cx = React.addons.classSet;
-
 var DateUtility = require('../utilities/DateUtility');
-var Presence = require('./Presence');
 
 var MessageItem = React.createClass({
     render: function() {

@@ -1,7 +1,6 @@
 var React = require('react/addons');
 var cx = React.addons.classSet;
 
-var MessageActions = require('../actions/MessageActions');
 var MessageItem = require('./MessageItem');
 var MessageStore = require('../stores/MessageStore');
 

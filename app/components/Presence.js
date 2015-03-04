@@ -1,6 +1,4 @@
 var React = require('react/addons');
-var cx = React.addons.classSet;
-
 var PresenceStore = require('../stores/PresenceStore');
 
 function getState() {

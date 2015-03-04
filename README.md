@@ -24,7 +24,7 @@
 * npm install
 
 
-# EC2 FIRST SETUP
+# EC2 Set Up
 
 * Next two lines are for MongoDB. For more info see http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
 
