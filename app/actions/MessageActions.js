@@ -1,3 +1,5 @@
+/* @flow */
+
 var ActionTypes = require('../constants/DashboardConstants').ActionTypes;
 var DashboardDispatcher = require('../dispatchers/DashboardDispatcher');
 var MessageApi = require('../apis/MessageApi');

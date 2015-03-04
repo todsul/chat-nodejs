@@ -1,16 +1,19 @@
 # Flightfox Pro
 
-## Dev Scripts
+## Dev
 
-* webpack --progress --colors --display-error-details --watch
-* npm run-script db
-* npm run-script debug
+Init procedure:
 
-# Test Scripts
+* Start mongo: mongod
+* Setup db: npm run-script db
+* Start server in debug mode: npm run-script debug
+* Start webpack: webpack --progress --colors --display-error-details --watch
+
+Other dev scripts:
 
 * npm test (for Jest)
 
-## Dev Setup
+Dev setup:
 
 * Install Node
     - Download binaries and install node.js
@@ -23,8 +26,7 @@
     - export PATH=/usr/local/mongodb/bin:$PATH
 * npm install
 
-
-# EC2 Set Up
+# Prod
 
 * Next two lines are for MongoDB. For more info see http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/
 
@@ -44,7 +46,7 @@ $ git config --global user.name "Your Name"
 $ git config --global user.email "youremail@example.com"
 
 If by running sudo the terminal throws "sudo unable to resolve host" grab the host name shown in the error
-and  edit /etc/hosts. Put it there like like
+and edit /etc/hosts. Put it there like like
     127.0.1.1 ip-172-30-0-136
 
 Where ip-172-30-0-136 is the host that can't be resolved
