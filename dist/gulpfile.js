@@ -34,7 +34,7 @@ var deployCommands = {
     clearReleaseDir: 'sudo rm -rf ' + baseDir + '/releases/flightfox ;',
     cloneRepo: ' cd ' + baseDir + '/releases/ && sudo git clone ' + repository + ' > /dev/null 2>&1 ;',
     switchBranch: gitBranch === 'master' ? "echo 'Already in master. Skipping...' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout --quiet ' + gitBranch + ' ;'),
-    echoLastCommit: "echo \" Branch: " + gitBranch  + ", last commit: `git log -1 --pretty=oneline --abbrev-commit` \" ",
+    echoLastCommit: " cd " + baseDir + "/releases/flightfox && echo \" Branch: `git rev-parse --abbrev-ref HEAD`, last commit: `git log -1 --pretty=oneline --abbrev-commit` \" ",
     npmInstall: 'cd ' + baseDir + '/releases/flightfox && sudo npm install  --loglevel error ;',
     bundleAssets: 'cd ' + baseDir + '/releases/flightfox && sudo webpack --optimize-minimize',
     // @TODO run tests, do other integrity checks
