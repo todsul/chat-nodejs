@@ -6,4 +6,4 @@ npm-debug.log
 *.styles.js
 public/js/scripts.js
 dist/deploy*.log
-dist/credentials.js
+dist/github_credentials.js
