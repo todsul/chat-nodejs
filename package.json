@@ -29,6 +29,8 @@
   "devDependencies": {
     "css-loader": "^0.9.1",
     "extract-text-webpack-plugin": "^0.3.8",
+    "gulp": "^3.8.11",
+    "gulp-ssh": "^0.3.3",
     "jest-cli": "^0.2.2",
     "jsx-loader": ">=0.12.2",
     "less": "^2.3.1",
@@ -40,7 +42,8 @@
     "webpack": "^1.5.3"
   },
   "scripts": {
-    "debug": "DEBUG=flightfox nodemon ./bin/www --ignore /app/*",
+    "debug": "NODE_ENV=development DEBUG=flightfox nodemon ./bin/www --ignore /app/*",
+    "staging-debug": "NODE_ENV=staging DEBUG=flightfox node ./bin/www",
     "db": "node ./bin/db",
     "start": "node ./bin/www",
     "test": "jest"
