@@ -57,7 +57,7 @@ gulp.task('deploy_staging', function() {
                 deployCommands.clearLiveDir,
                 deployCommands.linkLiveDir
             ],
-            {filePath: NODE_ENV + '.log'}
+            {filePath: 'staging.log'}
         )
         .pipe(gulp.dest('./'))
     ;
@@ -71,7 +71,7 @@ var otherCommands = {
 };
 
 gulp.task('reset_staging_db', function() {
-    return ssh.exec([otherCommands.resetDB], {filePath: NODE_ENV + '.log'})
+    return ssh.exec([otherCommands.resetDB], {filePath: 'staging.log'})
         .pipe(gulp.dest('./'))
     ;
 });
