@@ -4,7 +4,7 @@ var pageData = JSON.parse(container ? container.dataset.pageData : "{}"); // Pre
 var messageCountMultiplier = 1;
 var UUID_delimiter = '_user_';
 
-module.exports = {
+var PageUtility = {
     // GETTERS
 
     getBaseUrl: function() {
@@ -23,6 +23,10 @@ module.exports = {
         return pageData.userId;
     },
 
+    getPageSocketChannel: function() {
+        return 'abc';
+    },
+
     // SETTERS
 
     incrementMessageCountMultiplier: function() {
@@ -33,3 +37,5 @@ module.exports = {
         messageCountMultiplier = 1;
     }
 };
+
+module.exports = PageUtility;
