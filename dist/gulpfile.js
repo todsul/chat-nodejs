@@ -1,7 +1,8 @@
 var gulp = require('gulp');
 var pemFile = './aws/flightfox-20131029.pem';
 var paramDataSet = require('../config/parameters');
-var parameters = paramDataSet.get('staging');
+var NODE_ENV = 'staging';// @TODO read from command prompt.
+var parameters = paramDataSet.get(NODE_ENV);
 
 var ssh = require('gulp-ssh')({
     ignoreErrors: false,
@@ -56,7 +57,7 @@ gulp.task('deploy_staging', function() {
                 deployCommands.clearLiveDir,
                 deployCommands.linkLiveDir
             ],
-            {filePath: 'deploy.log'}
+            {filePath: NODE_ENV + '.log'}
         )
         .pipe(gulp.dest('./'))
     ;
@@ -66,11 +67,11 @@ gulp.task('deploy_staging', function() {
 // Fixtures in staging server. @TODO make sure this is not run on a prod box
 
 var otherCommands = {
-    resetDB: 'cd ' + baseDir + '/live && sudo npm run-script db',
+    resetDB: 'cd ' + baseDir + '/live && sudo NODE_ENV=' + NODE_ENV + ' npm run-script db',
 };
 
 gulp.task('reset_staging_db', function() {
-    return ssh.exec([otherCommands.resetDB], {filePath: 'deploy.log'})
+    return ssh.exec([otherCommands.resetDB], {filePath: NODE_ENV + '.log'})
         .pipe(gulp.dest('./'))
     ;
 });
