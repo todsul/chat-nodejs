@@ -1,5 +1,3 @@
-// OLD CODE FOR lib/socket.js
-
 var PageUtility = require('../utilities/PageUtility');
 var MessageActions = require('../actions/MessageActions');
 var PresenceActions = require('../actions/PresenceActions');
