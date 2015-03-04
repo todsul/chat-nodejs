@@ -6,4 +6,4 @@ npm-debug.log
 *.styles.js
 public/js/scripts.js
 dist/deploy*.log
-dist/gulpfile.js
+dist/credentials.js

@@ -1,5 +1,3 @@
-var githubCredentials = 'your_username:your_password';
-
 var gulp = require('gulp');
 var pemFile = './aws/flightfox-20131029.pem';
 var ssh = require('gulp-ssh')({
@@ -13,12 +11,13 @@ var ssh = require('gulp-ssh')({
 });
 
 // DEPLOYMENT
+var credentials = require('./credentials');
 var deployDir = '/var/www/flightfox/';
 
 // @TODO make sure that branch is always master when deploying to prod
 var gitBranch = 'master';
 
-var repository = 'https://' + githubCredentials + '@github.com/todsul/flightfox.git';
+var repository = 'https://' + credentials.username + ':' + credentials.password + '@github.com/todsul/flightfox.git';
 
 var baseDir = '/var/www/flightfox';
 var date = new Date();
@@ -36,7 +35,7 @@ var deployCommands = {
     linkLiveDir: 'sudo ln -s ' + baseDir + '/releases/' + releaseName + ' ' + baseDir + '/live ;',
 };
 
-gulp.task('deploy', function() {
+gulp.task('deploy_staging', function() {
     return ssh
         .exec(
             [
