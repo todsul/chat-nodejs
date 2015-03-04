@@ -3,6 +3,7 @@ var pemFile = './aws/flightfox-20131029.pem';
 var paramDataSet = require('../config/parameters');
 var NODE_ENV = 'staging';// @TODO read from command prompt.
 var parameters = paramDataSet.get(NODE_ENV);
+var args = require('yargs').argv;
 
 var ssh = require('gulp-ssh')({
     ignoreErrors: false,
@@ -19,7 +20,7 @@ var githubCredentials = require('./github_credentials');
 var deployDir = '/var/www/flightfox/';
 
 // @TODO make sure that branch is always master when deploying to prod
-var gitBranch = 'master';
+var gitBranch = args.branch || 'master';
 
 var repository = 'https://' + githubCredentials.username + ':' + githubCredentials.password + '@github.com/todsul/flightfox.git';
 
@@ -34,7 +35,7 @@ var releaseName = 'release-' + date.getFullYear() + '-' + (date.getMonth() + 1) 
 var deployCommands = {
     clearReleaseDir: 'sudo rm -rf ' + baseDir + '/releases/flightfox ;',
     cloneRepo: ' cd ' + baseDir + '/releases/ && sudo git clone ' + repository + ' > /dev/null 2>&1 ;',
-    switchBranch: gitBranch === 'master' ? " echo 'Already in master. Skipping...' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout ' + gitBranch + ' ;'),
+    switchBranch: gitBranch === 'master' ? "echo 'Already in master. Skipping...' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout ' + gitBranch + ' ;'),
     npmInstall: 'cd ' + baseDir + '/releases/flightfox && sudo npm install  --loglevel error ;',
     bundleAssets: 'cd ' + baseDir + '/releases/flightfox && sudo webpack --optimize-minimize',
     // @TODO run tests, do other integrity checks

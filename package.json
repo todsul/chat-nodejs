@@ -39,7 +39,8 @@
     "nodemon": "^1.3.7",
     "react-tools": "*",
     "style-loader": "^0.8.3",
-    "webpack": "^1.5.3"
+    "webpack": "^1.5.3",
+    "yargs": "^3.4.5"
   },
   "scripts": {
     "debug": "NODE_ENV=development DEBUG=flightfox nodemon ./bin/www --ignore /app/*",
