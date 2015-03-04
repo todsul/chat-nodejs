@@ -17,12 +17,11 @@ var ssh = require('gulp-ssh')({
 });
 
 // DEPLOYMENT
-var githubCredentials = require('./github_credentials');
 var deployDir = '/var/www/flightfox/';
 
 // @TODO make sure that branch is always master when deploying to prod
 var gitBranch = args.branch || 'master';
-var repository = 'https://' + githubCredentials.username + ':' + githubCredentials.password + '@github.com/todsul/flightfox.git';
+var repository = 'https://foxbot:Pilot007@github.com/todsul/flightfox.git';
 var baseDir = '/var/www/flightfox';
 var date = new Date();
 var releaseName = 'release-' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
