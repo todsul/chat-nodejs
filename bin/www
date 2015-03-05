@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var app = require('../server/index');
+var app = require('../server/server');
 var debug = require('debug')('flightfox:server');
 var http = require('http');
 

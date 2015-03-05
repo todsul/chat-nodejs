@@ -233,30 +233,6 @@ hr {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.online {
-  background: #dddddd;
-  display: inline-block;
-  height: 0.375rem;
-  margin-right: 0.25rem;
-  margin-top: 0.375rem;
-  vertical-align: top;
-  width: 0.375rem;
-  -webkit-border-radius: 100%;
-  -khtml-border-radius: 100%;
-  -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  -o-border-radius: 100%;
-  border-radius: 100%;
-}
-.online.off {
-  background: #dd4124;
-}
-.online.on {
-  background: #009b77;
-}
-.online.on.idle {
-  background: gold;
-}
 .microdata {
   display: none;
 }
@@ -507,7 +483,7 @@ textarea {
 }
 #foot {
   clear: both;
-  padding-bottom: 2rem;
+  padding: 2rem 0;
   text-align: center;
 }
 #foot .love {
@@ -525,7 +501,7 @@ textarea {
 }
 #dashboard {
   background: #e7e7e7;
-  margin: 0 auto 2rem;
+  margin: auto;
   overflow: hidden;
 }
 #messages {
@@ -546,7 +522,22 @@ textarea {
   margin-bottom: 0.25rem;
 }
 #messages .online {
+  background: #dd4124;
+  display: inline-block;
+  height: 0.375rem;
+  margin-right: 0.25rem;
   margin-top: 0.5rem;
+  vertical-align: top;
+  width: 0.375rem;
+  -webkit-border-radius: 100%;
+  -khtml-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  border-radius: 100%;
+}
+#messages .online.on {
+  background: #009b77;
 }
 #messages .ago {
   color: #ccc;

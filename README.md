@@ -6,7 +6,7 @@ Init procedure:
 
 * [New Window] mongod
 * npm run-script db
-* [New Window] webpack --progress --colors --display-error-details --watch
+* [New Window] gulp watch
 * [New Window] npm run-script debug
 
 Test scripts:
@@ -68,4 +68,3 @@ $ sudo service flightfox start
 Both also accepts "stop" flag.
 
 # NGINX CONF
-
