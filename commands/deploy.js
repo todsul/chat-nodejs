@@ -56,7 +56,7 @@ gulp.task('staging_deploy', function() {
             {filePath: 'staging.log'}
         )
         .pipe(gulpPrint())
-        .pipe(gulp.dest('./'))
+        .pipe(gulp.dest(__dirname + '/../dist/'))
     ;
 });
 
