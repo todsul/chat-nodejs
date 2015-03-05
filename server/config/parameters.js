@@ -3,7 +3,11 @@ var parameters = {
         server: {
             schema: 'http://',
             host: 'localhost',
-            port: 3000
+            port: 3000,
+
+            getBaseUrl: function() {
+                return this.schema + this.host + ':' + this.port;
+            }
         },
 
         persistence: {
@@ -19,7 +23,11 @@ var parameters = {
         server: {
             schema: 'http://',
             host: '52.11.26.126',
-            port: 3000, // @TODO set to 80 once nginx is setup
+            port: 80,
+
+            getBaseUrl: function() {
+                return this.schema + this.host + ':' + this.port;
+            }
         },
 
         persistence: {

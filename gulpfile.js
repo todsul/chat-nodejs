@@ -16,8 +16,8 @@ var prod = (env === 'prod');
 
 // PATHS
 
-var clientDir = './client'
-var outputDir = './public'
+var clientDir = './client';
+var outputDir = './public';
 
 var browserifySource = clientDir + '/client.js';
 var browserifyOutput = outputDir + '/js/';

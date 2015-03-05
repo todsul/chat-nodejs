@@ -16,7 +16,7 @@ function register(app, passport) {
         var pageData = {
             clientId: req.user._id,
             userId: req.user._id,
-            baseUrl: parameters.server.schema + parameters.server.host + ':' + parameters.server.port
+            baseUrl:  parameters.server.getBaseUrl(),
         };
 
         res.render('dashboard', {pageData: JSON.stringify(pageData)});

@@ -27,6 +27,8 @@ var Presence = React.createClass({
         var on = '{background: #009b77;} ';
         var off = '{background: #dd4124;} ';
 
+        console.log(user.status);
+
         for (var i in this.state.users) {
             var user = this.state.users[i];
             styles += '.presence-' + user.userId;
