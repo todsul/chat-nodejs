@@ -36,7 +36,7 @@ var deployCommands = {
     // @TODO run tests, do other integrity checks
     upgradeToReleaseDir: 'sudo mv ' + baseDir + '/releases/flightfox ' + baseDir + '/releases/' + releaseName + ' ;',
     symlinkNewStartupScript: ' ln -sf ' + baseDir + '/releases/' + releaseName + '/bin/www ' + baseDir + '/www',
-    naughtDeploy: 'cd ' + baseDir + ' && naught deploy --cwd ./releases/' + releaseName + '/bin',
+    naughtDeploy: 'cd ' + baseDir + ' && sudo naught deploy --cwd ./releases/' + releaseName + '/bin',
 };
 
 gulp.task('staging_deploy', function() {
