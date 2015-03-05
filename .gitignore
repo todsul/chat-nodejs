@@ -5,3 +5,4 @@ npm-debug.log
 public/js/scripts.js
 public/css/styles.css
 dist/*.log
+public/css/styles.css
