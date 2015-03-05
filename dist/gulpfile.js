@@ -28,7 +28,7 @@ var releaseName = 'release-' + date.getFullYear() + '-' + (date.getMonth() + 1) 
 
 var deployCommands = {
     prepareGitWorkspace: 'sudo rm -rf ' + baseDir + '/releases/flightfox ;',
-    cloneRepo: ' cd ' + baseDir + '/releases/ && sudo git clone ' + repository + ' > /dev/null 2>&1 ;',
+    cloneRepo: ' cd ' + baseDir + '/releases/ && sudo git clone ' + repository + ' --quiet ;',
     switchBranch: gitBranch === 'master' ? "echo 'Staying in master branch' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout --quiet ' + gitBranch + ' ;'),
     echoLastCommit: " cd " + baseDir + "/releases/flightfox && echo \" Branch: `git rev-parse --abbrev-ref HEAD`, last commit: `git log -1 --pretty=oneline --abbrev-commit` \" ",
     npmInstall: 'cd ' + baseDir + '/releases/flightfox && sudo npm install  --loglevel error ;',
