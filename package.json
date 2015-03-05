@@ -49,7 +49,6 @@
   },
   "scripts": {
     "debug": "NODE_ENV=development DEBUG=flightfox nodemon ./bin/www",
-    "staging-start": "NODE_ENV=staging DEBUG=flightfox node ./bin/www",
     "db": "node ./bin/db",
     "start": "node ./bin/www",
     "test": "jest"

@@ -1,4 +1,4 @@
 {
   "verbose": true,
-  "watch": ["server/*", "bin/*"]
+  "watch": ["server/*", "bin/www"]
 }
