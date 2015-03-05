@@ -26,7 +26,7 @@ var Presence = React.createClass({
         var styles = '';
 
         for (var i in this.state.users) {
-            styles += '#messages .online.presence-' + this.state.users[i].userId + '{background: #009b77;}';
+            styles += '.presence-' + this.state.users[i].userId + '{background: #009b77;}';
         }
 
         return (
