@@ -19,7 +19,7 @@ function register(app, passport) {
             baseUrl:  parameters.server.getBaseUrl(),
         };
 
-        res.render('dashboard', {pageData: JSON.stringify(pageData), headers: JSON.stringify(req.headers)});
+        res.render('dashboard', {pageData: JSON.stringify(pageData)});
     });
 
     router.get('/signin', function(req, res, next) {
