@@ -12,16 +12,11 @@ function register(app, passport) {
             return res.redirect('/signin');
         }
 
-        var baseUrl = parameters.server.schema + parameters.server.host;
-        if (app.get('env') === 'development') {
-            baseUrl += ':' + parameters.server.port;
-        }
-
         // @TODO. Same user for now
         var pageData = {
             clientId: req.user._id,
             userId: req.user._id,
-            baseUrl:  baseUrl,
+            baseUrl:  parameters.server.getBaseUrl(),
         };
 
         res.render('dashboard', {pageData: JSON.stringify(pageData)});

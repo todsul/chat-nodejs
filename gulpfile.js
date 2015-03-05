@@ -8,8 +8,8 @@ var source = require('vinyl-source-stream');
 
 // PATHS
 
-var clientDir = './client'
-var outputDir = './public'
+var clientDir = './client';
+var outputDir = './public';
 
 var browserifySource = clientDir + '/client.js';
 var browserifyOutput = outputDir + '/js/';
@@ -33,6 +33,7 @@ gulp.task('lesscss', function () {
     gulp.src(lesscssSource)
         .pipe(less().on('error', gutil.log))
         .pipe(gulp.dest(lesscssOutput))
+    ;
 });
 
 gulp.task('watch', function() {
