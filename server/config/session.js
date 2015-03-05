@@ -19,7 +19,7 @@ function register(app, passport) {
         })
     }));
 
-    // use passport session
+    // Use passport session
     app.use(passport.initialize());
     app.use(passport.session());
 
