@@ -58,8 +58,7 @@ function _updateOffline(user) {
     if (user.status !== 'on' || user.timeoutId) return;
 
     user.timeoutId = setTimeout(function() { // To prevent blinking on auto-reconnection
-        user.status = 'off';
-        user.timeoutId = null;
+        delete _state.users[user.userId];
         PresenceStore.emitEvent(); // TODO: Couldn't find a better way
     }, 5000);
 }
