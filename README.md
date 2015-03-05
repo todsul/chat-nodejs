@@ -73,7 +73,7 @@ cd into flightfox working dir:
 $ cd /var/www/flightfox
 
 Then start naught:
-$ sudo naught start --cwd ./releases/LATEST_RELEASE_DIR/bin/ www NODE_ENV=staging'
+$ sudo naught start --cwd ./releases/LATEST_RELEASE_DIR/bin/ www NODE_ENV=staging
 
 Replace LATEST_RELEASE_DIR for the name of the dir with the latest release.
 For further deployments, gulp staging_deploy command will take care of updating naught for the latest code.
