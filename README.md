@@ -38,7 +38,7 @@ $ sudo apt-get install build-essential
 $ sudo apt-get install -y mongodb-org
 $ sudo curl -sL https://deb.nodesource.com/setup | sudo bash -
 $ sudo apt-get install -y nodejs
-$ sudo npm install --global webpack
+$ sudo npm install --global gulp
 $ sudo apt-get install git git-core
 
 * Configs
