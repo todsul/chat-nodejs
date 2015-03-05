@@ -5,6 +5,14 @@ var concat = require('gulp-concat');
 var less = require('gulp-less');
 var reactify = require('reactify');
 var source = require('vinyl-source-stream');
+var streamify = require('gulp-streamify');
+var uglify = require('gulp-uglify');
+var watchify = require('watchify');
+
+// VARIABLES
+
+var env = 'dev';
+var prod = (env === 'prod');
 
 // PATHS
 
@@ -18,7 +26,7 @@ var browserifyFile = 'scripts.js';
 var lesscssSource = clientDir + '/styles/styles.less';
 var lesscssOutput = outputDir + '/css/';
 
-// DEV TASKS
+// TASKS
 
 gulp.task('browserify', function () {
     return browserify(browserifySource)
@@ -26,18 +34,20 @@ gulp.task('browserify', function () {
         .on('error', gutil.log)
         .bundle()
         .pipe(source(browserifyFile))
-        .pipe(gulp.dest(browserifyOutput));
+        .pipe(gulp.dest(browserifyOutput))
+    ;
 });
 
 gulp.task('lesscss', function () {
     gulp.src(lesscssSource)
         .pipe(less().on('error', gutil.log))
         .pipe(gulp.dest(lesscssOutput))
+    ;
 });
 
 gulp.task('watch', function() {
-    gulp.watch(clientDir, ['browserify']);
-    gulp.watch(clientDir, ['lesscss']);
+    gulp.watch('./client/**/*.js', ['browserify']);
+    gulp.watch('./client/styles/**/*.less', ['lesscss']);
 });
 
 // PROD TASKS
