@@ -1,5 +1,6 @@
 server {
     listen 80 default_server;
+    rewrite ^/(.*)/$ /$1 permanent;
 
     location / {
         proxy_set_header Upgrade $http_upgrade;

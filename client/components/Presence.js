@@ -24,14 +24,15 @@ var Presence = React.createClass({
 
     render: function() {
         var styles = '';
-        var on = '{background: #009b77;} ';
-        var off = '{background: #dd4124;} ';
+        var on = ' {background: #009b77;} ';
+        var off = ' {background: #dd4124;} ';
 
-        console.log(user.status);
+
 
         for (var i in this.state.users) {
             var user = this.state.users[i];
-            styles += '.presence-' + user.userId;
+            styles += '#messages .online.presence-' + user.userId;
+
             styles += user.status === 'on' ? on : off;
         }
 
