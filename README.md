@@ -39,6 +39,7 @@ $ sudo apt-get install -y mongodb-org
 $ sudo curl -sL https://deb.nodesource.com/setup | sudo bash -
 $ sudo apt-get install -y nodejs
 $ sudo npm install --global gulp
+$ sudo npm install --global naught
 $ sudo apt-get install git git-core
 
 * Configs

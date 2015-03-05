@@ -60,7 +60,7 @@ gulp.task('deploy_staging', function() {
                 deployCommands.stopSever,
                 deployCommands.clearLiveDir,
                 deployCommands.linkLiveDir,
-                deployCommands.startServer
+                //deployCommands.startServer
             ],
             {filePath: 'staging.log'}
         )
