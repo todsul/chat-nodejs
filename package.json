@@ -2,7 +2,7 @@
   "name": "Flightfox",
   "version": "1.0.0",
   "description": "Flightfox",
-  "main": "index.js",
+  "main": "server/server.js",
   "dependencies": {
     "body-parser": "~1.10.2",
     "compression": "^1.4.1",

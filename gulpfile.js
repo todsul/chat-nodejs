@@ -21,6 +21,7 @@ gulp.task('less', function () {
 gulp.task('react', function () {
     return browserify('./client/client.js')
         .transform(reactify)
+        .on('error', gutil.log)
         .bundle()
         .pipe(source('scripts.js'))
         .pipe(gulp.dest('./public/js/'));
