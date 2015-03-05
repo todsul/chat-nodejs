@@ -2,8 +2,6 @@
 !.gitkeep
 node_modules
 npm-debug.log
-*.scripts.js
-*.styles.js
 public/js/scripts.js
+public/css/styles.css
 dist/*.log
-dist/github_credentials.js
