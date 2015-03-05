@@ -66,3 +66,6 @@ or
 $ sudo service flightfox start
 
 Both also accepts "stop" flag.
+
+# NGINX CONF
+
