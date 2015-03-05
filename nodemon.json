@@ -1,4 +1,4 @@
 {
   "verbose": true,
-  "ignore": ["gulpfile.js", "client/*", "public/*"]
+  "watch": ["server/*", "bin/*"]
 }
