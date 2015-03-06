@@ -8,7 +8,14 @@ var gitBranch = args.branch || 'master';
 var repository = 'https://foxbot:Pilot007@github.com/todsul/flightfox.git';
 var baseDir = '/var/www/flightfox';
 var date = new Date();
-var releaseName = 'release-' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
+var year = date.getFullYear();
+var month = ('0' + (date.getMonth + 1)).slice(-2);
+var day = ('0' + date.getDate()).slice(-2);
+var hour = ('0' + date.getHours()).slice(-2);
+var minute = ('0' + date.getMinutes()).slice(-2);
+var second = ('0' + date.getSeconds()).slice(-2);
+
+var releaseName = 'release-' + year + '-' + month + '-' + day + '-' + hour + '-' + minute + '-' + second;
 
 var commands = {
     prepareGitWorkspace: 'sudo rm -rf ' + baseDir + '/releases/flightfox ;',
