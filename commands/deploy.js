@@ -1,20 +1,5 @@
 var gulp = require('gulp');
-var gulpPrint = require('gulp-print');
-var pemFile = __dirname +  '/../dist/aws/flightfox-20131029.pem';
-var paramDataSet = require(__dirname + '/../server/config/parameters');
-var NODE_ENV = 'staging';// @TODO setup depending on task
-var parameters = paramDataSet.get(NODE_ENV);
 var args = require('yargs').argv;
-
-var ssh = require('gulp-ssh')({
-    ignoreErrors: false,
-    sshConfig: {
-        host: parameters.server.host,
-        port: 22,
-        username: 'ubuntu',
-        privateKey: require('fs').readFileSync(pemFile)
-    }
-});
 
 var deployDir = '/var/www/flightfox/';
 
@@ -25,7 +10,7 @@ var baseDir = '/var/www/flightfox';
 var date = new Date();
 var releaseName = 'release-' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
 
-var deployCommands = {
+var commands = {
     prepareGitWorkspace: 'sudo rm -rf ' + baseDir + '/releases/flightfox ;',
     cloneRepo: ' cd ' + baseDir + '/releases/ && sudo git clone ' + repository + ' --quiet ;',
     switchBranch: gitBranch === 'master' ? "echo 'Staying in master branch' ;" : ('cd ' + baseDir + '/releases/flightfox && sudo git checkout --quiet ' + gitBranch + ' ;'),
@@ -39,35 +24,26 @@ var deployCommands = {
 };
 
 gulp.task('staging_deploy', function() {
+    var ssh = require('./ssh')('staging');
+
     return ssh
         .exec(
             [
-                deployCommands.prepareGitWorkspace,
-                deployCommands.cloneRepo,
-                deployCommands.switchBranch,
-                deployCommands.echoLastCommit,
-                deployCommands.npmInstall,
-                deployCommands.bundleAssets,
+                commands.prepareGitWorkspace,
+                commands.cloneRepo,
+                commands.switchBranch,
+                commands.echoLastCommit,
+                commands.npmInstall,
+                commands.bundleAssets,
                 // @TODO run tests, do other integrity checks
-                deployCommands.upgradeToReleaseDir,
-                deployCommands.symlinkNewStartupScript,
-                deployCommands.naughtDeploy
+                commands.upgradeToReleaseDir,
+                commands.symlinkNewStartupScript,
+                commands.naughtDeploy
             ],
             {filePath: 'staging.log'}
         )
-        .pipe(gulpPrint())
         .pipe(gulp.dest(__dirname + '/../dist/'))
     ;
 });
 
-var otherCommands = {
-    resetDB: 'cd ' + baseDir + '/live && sudo NODE_ENV=' + NODE_ENV + ' npm run-script db',
-};
-
-gulp.task('reset_staging_db', function() {
-    return ssh.exec([otherCommands.resetDB], {filePath: 'staging.log'})
-        .pipe(gulp.dest('./'))
-    ;
-});
-
-// @TODO task to setup server, including dir structure /var/www/flightox/releases
+module.exports = gulp;

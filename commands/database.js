@@ -1,15 +1,12 @@
-#!/usr/bin/env node
-
-// Rebuilds fixtures
-
-var app = require('../server/index');
+var gulp = require('gulp');
+var env = process.env && process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
+require('../server/config/persistence').register(env);
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Message = mongoose.model('Message');
 
 var users = [];
 var messages = [];
-
 
 function dropDatabase()
 {
@@ -92,9 +89,23 @@ function exit()
     process.exit();
 }
 
-// Run
-
-(function() {
+gulp.task('reset_db', function() {
     dropDatabase();
     userFixtures();
-})();
+
+    return;
+});
+
+
+// Remote. Enter to the latest release dir and ran the task
+var resetDB = "cd `ls -d /var/www/flightfox/releases/*/ | sort -r | head -n 1` && sudo NODE_ENV=staging gulp reset_db";
+
+gulp.task('staging_reset_db', function() {
+    var ssh = require('./ssh')('staging');
+    return ssh.exec([resetDB],
+        {filePath: 'staging.log'})
+        .pipe(gulp.dest(__dirname + '/../dist/'))
+    ;
+});
+
+module.exports = gulp;

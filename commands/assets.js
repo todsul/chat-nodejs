@@ -48,10 +48,6 @@ gulp.task('watch', ['dev-js', 'dev-css'], function() {
     gulp.watch(cssWatch, ['dev-css']);
 });
 
-// DEFAULT
-
-gulp.task('default', ['watch']);
-
 // FUNCTIONS
 
 function processJS(prod, watch) {

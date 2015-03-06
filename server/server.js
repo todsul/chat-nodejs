@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 // config/*
 require('./config/templating').register(app);
-require('./config/persistence').register(app);
+require('./config/persistence').register(app.get('env'));
 require('./config/passport').register(passport);
 require('./config/session').register(app, passport);
 require('./config/routing').register(app, passport);
