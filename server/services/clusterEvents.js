@@ -6,14 +6,14 @@ function exitGracefully() {
     logger('Cluster worker exiting');
 
     logger('Closing socket connections');
-    IOConnection.sockets.clients().map(function(socket) {
+    IOConnection.sockets.map(function(socket) {
         socket.disconnect();
     });
 
     logger('Closing server for new requests');
 
     server.close(function() {
-        logger('All connections done, stopping process');
+        logger('All connections done, graceful exit.');
         process.exit(0);
     });
 
