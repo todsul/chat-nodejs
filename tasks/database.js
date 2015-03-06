@@ -4,9 +4,9 @@ var mongoose, User, Message;
 var users = [];
 var messages = [];
 
-function dropDatabase()
-{
+function dropDatabase() {
     require('../server/config/persistence').register(env);
+
     mongoose = require('mongoose');
     User = mongoose.model('User');
     Message = mongoose.model('Message');
@@ -19,8 +19,7 @@ function dropDatabase()
 
 // Fixtures are meant to run sequentially.
 
-function userFixtures()
-{
+function userFixtures() {
     var admin = new User({full_name: 'Admin Flightfox', email: 'admin@flightfox.com', password: 'flightfox'});
     var expert = new User({full_name: 'Expert Flightfox', email: 'expert@flightfox.com', password: 'flightfox'});
     var customer = new User({full_name: 'Customer Flightfox', email: 'customer@flightfox.com', password: 'flightfox'});
@@ -31,8 +30,7 @@ function userFixtures()
     });
 }
 
-function messageFixtures()
-{
+function messageFixtures() {
     var unsavedMessages = [
         new Message({
             text: 'From New Orleans to Amsterdam,One-Way only ' +
@@ -56,8 +54,6 @@ function messageFixtures()
     sequentialSave(unsavedMessages, function(savedMessages) {
         messages = savedMessages;
         exit();
-
-        // Next fixture
     });
 }
 
@@ -78,14 +74,12 @@ function sequentialSave(unsavedEntities, callback, savedEntities) {
     });
 }
 
-function disconnect(err)
-{
+function disconnect(err) {
     if (err) console.log(err);
     mongoose.disconnect();
 }
 
-function exit()
-{
+function exit() {
     disconnect();
     process.exit();
 }
@@ -103,6 +97,7 @@ var resetDB = "cd `ls -d /var/www/flightfox/releases/*/ | sort -r | head -n 1` &
 
 gulp.task('staging_reset_db', function() {
     var ssh = require('./ssh')('staging');
+
     return ssh.exec([resetDB],
         {filePath: 'staging.log'})
         .pipe(gulp.dest(__dirname + '/../dist/'))
