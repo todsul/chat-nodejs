@@ -31,3 +31,10 @@ require('./config/session').register(app, passport);
 require('./config/routing').register(app, passport);
 
 module.exports = app;
+
+
+
+
+
+
+

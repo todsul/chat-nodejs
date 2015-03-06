@@ -12,6 +12,9 @@ function register(app, passport) {
             return res.redirect('/signin');
         }
 
+
+        sadflksdjf();
+
         // @TODO. Same user for now
         var pageData = {
             clientId: req.user._id,

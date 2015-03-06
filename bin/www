@@ -3,28 +3,21 @@
 var app = require('../server/server');
 var debug = require('debug')('flightfox:server');
 var http = require('http');
+var clusterEvents = require('../server/services/clusterEvents');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 var server = http.createServer(app);
-
-server.listen(port, function () {
-  if (process.send) process.send('online');
-});
-
-server.on('listening', onListening);
-
-process.on('message', function(message) {
-  if (message === 'shutdown') {
-    //@TODO gracefull exit instead.
-    process.exit(0);
-  }
-});
-
 var io = require('socket.io').listen(server);
 app.IOConnection = require('../server/services/socket.js')(io);
 
+
+server.listen(port, function () {
+    clusterEvents.register(server, app.IOConnection, console.log);
+});
+
+server.on('listening', onListening);
 
 function normalizePort(val) {
     var port = parseInt(val, 10);
