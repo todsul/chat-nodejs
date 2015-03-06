@@ -10,6 +10,11 @@ module.exports = function() {
     channel.on('dashboard', function(data) {
         notify(data);
     });
+
+    console.log('listening on disconnect');
+    channel.on('disconnect', function() {
+        console.log('boo, got disconnected');
+    });
 };
 
 function notify(data) {
