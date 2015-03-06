@@ -3,18 +3,37 @@ var MessageActions = require('../actions/MessageActions');
 var PresenceActions = require('../actions/PresenceActions');
 var SocketAlerts = require('../constants/DashboardConstants').SocketAlerts;
 
-// SocketService
-module.exports = function() {
-    var channel = io.connect(PageUtility.getBaseUrl(), { query: 'userId=' + PageUtility.getUserId()});
+var socketUrl = PageUtility.getBaseUrl();
+var handshake =  { query: 'userId=' + PageUtility.getUserId()};
+var channel;
+var maxReconnectionTries = 10;
+
+function connect() {
+    maxReconnectionTries--;
+    channel = io.connect(socketUrl, channel);
 
     channel.on('dashboard', function(data) {
+        maxReconnectionTries = 10;
         notify(data);
     });
 
-    console.log('listening on disconnect');
     channel.on('disconnect', function() {
-        console.log('boo, got disconnected');
+        if (maxReconnectionTries <= 10) {
+            alert('Yikes. it seems we cannot send you real time notifications. Please contact support@flightfox.com');
+            return;
+        }
+
+        console.log('disconnected. Trying to reconnect in 3 secs');
+        setTimeout(function() {
+            connect();
+        }, 3 * 1000);
     });
+}
+
+
+// SocketService
+module.exports = function() {
+    connect();
 };
 
 function notify(data) {
