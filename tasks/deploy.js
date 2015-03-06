@@ -45,5 +45,3 @@ gulp.task('staging_deploy', function() {
         .pipe(gulp.dest(__dirname + '/../dist/'))
     ;
 });
-
-module.exports = gulp;

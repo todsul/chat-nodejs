@@ -101,5 +101,3 @@ function processErrors() {
 
     this.emit('end');
 }
-
-module.exports = gulp;

@@ -1,15 +1,16 @@
 var gulp = require('gulp');
 var env = process.env && process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
-require('../server/config/persistence').register(env);
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Message = mongoose.model('Message');
-
+var mongoose, User, Message;
 var users = [];
 var messages = [];
 
 function dropDatabase()
 {
+    require('../server/config/persistence').register(env);
+    mongoose = require('mongoose');
+    User = mongoose.model('User');
+    Message = mongoose.model('Message');
+
     for (var i in mongoose.connection.collections) {
         var collection = mongoose.connection.collections[i];
         collection.drop();
@@ -107,5 +108,3 @@ gulp.task('staging_reset_db', function() {
         .pipe(gulp.dest(__dirname + '/../dist/'))
     ;
 });
-
-module.exports = gulp;
