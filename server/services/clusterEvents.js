@@ -6,9 +6,10 @@ function exitGracefully() {
     logger('Cluster worker exiting');
 
     logger('Closing socket connections');
-    IOConnection.sockets.map(function(socket) {
+    for (var i in IOConnection.connected) {
+        var socket = IOConnection.connected[i];
         socket.disconnect();
-    });
+    }
 
     logger('Closing server for new requests');
 
