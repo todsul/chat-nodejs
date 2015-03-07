@@ -11,13 +11,13 @@ function prodErrorHandler(err, req, res, next) {
     var status = err.status || 500;
     res.status(status);
 
-    var message = status === 400 ? 'Not found' : 'oops, the server went out for a walk, it will be back later :(';
+    var message = status === 400 ? 'Not found' : 'Whoops, the server went out for a walk, it will be back later :(';
     res.send(message);
     next(err);
 }
 
 function errorHandler(err, req, res, next) {
-    console.log(" WILL CLOSE GRACEFULLY HERE ");
+    console.log("WILL CLOSE GRACEFULLY HERE");
     next(err);
 }
 

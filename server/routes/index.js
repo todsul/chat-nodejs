@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var fs = require('fs');
+
+var parameters = require('../config/parameters');
 var User = mongoose.model('User');
-var paramDataSet = require('../config/parameters');
 
 function register(app, passport) {
-    var parameters = paramDataSet.get(app.get('env'));
+    var assets = JSON.parse(fs.readFileSync('server/config/assets.json', 'utf8'));
+    var params = parameters.get(app.get('env'));
 
     router.get('/', function(req, res, next) {
         if (!req.isAuthenticated()) {
@@ -16,10 +19,14 @@ function register(app, passport) {
         var pageData = {
             clientId: req.user._id,
             userId: req.user._id,
-            baseUrl:  parameters.server.getBaseUrl(),
+            baseUrl:  params.server.getBaseUrl(),
         };
 
-        res.render('dashboard', {pageData: JSON.stringify(pageData)});
+        res.render('dashboard', {
+            pageData: JSON.stringify(pageData),
+            scripts: assets['scripts.js'],
+            styles: assets['styles.css']
+        });
     });
 
     router.get('/signin', function(req, res, next) {
