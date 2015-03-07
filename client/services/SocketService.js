@@ -5,19 +5,19 @@ var SocketAlerts = require('../constants/DashboardConstants').SocketAlerts;
 
 var socketUrl = PageUtility.getBaseUrl();
 var handshake =  { query: 'userId=' + PageUtility.getUserId()};
-var channel;
+var socket;
 var maxReconnectionTries = 10;
 
 function connect() {
     maxReconnectionTries--;
-    channel = io.connect(socketUrl, handshake);
+    socket = io.connect(socketUrl, handshake);
 
-    channel.on('dashboard', function(data) {
+    socket.on('dashboard', function(data) {
         maxReconnectionTries = 10;
         notify(data);
     });
 
-    channel.on('disconnect', function() {
+    socket.on('disconnect', function() {
         if (maxReconnectionTries <= 0) {
             alert('Yikes. it seems we cannot send you real time notifications. Please contact support@flightfox.com');
             return;
@@ -25,7 +25,7 @@ function connect() {
 
         console.log('disconnected. Trying to reconnect in 3 secs');
         setTimeout(function() {
-            connect();
+            socket.io.reconnect();
         }, 3 * 1000);
     });
 }
