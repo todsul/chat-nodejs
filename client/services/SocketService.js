@@ -10,7 +10,7 @@ var maxReconnectionTries = 10;
 
 function connect() {
     maxReconnectionTries--;
-    channel = io.connect(socketUrl, channel);
+    channel = io.connect(socketUrl, handshake);
 
     channel.on('dashboard', function(data) {
         maxReconnectionTries = 10;
