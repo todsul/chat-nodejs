@@ -7,7 +7,7 @@ var parameters = require('../config/parameters');
 var User = mongoose.model('User');
 
 function register(app, passport) {
-    var assets = JSON.parse(fs.readFileSync('server/config/assets.json', 'utf8'));
+    var assets = JSON.parse(fs.readFileSync(__dirname + '/../config/assets.json', 'utf8'));
     var params = parameters.get(app.get('env'));
 
     router.get('/', function(req, res, next) {
