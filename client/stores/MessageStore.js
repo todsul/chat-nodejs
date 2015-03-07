@@ -3,7 +3,8 @@ var EventEmitter = require('events').EventEmitter;
 
 var ActionTypes = require('../constants/DashboardConstants').ActionTypes;
 var DashboardDispatcher = require('../dispatchers/DashboardDispatcher');
-var PageUtility = require('../utilities/PageUtility');
+var MessageConfig = require('../config/MessageConfig');
+var PageConfig = require('../config/PageConfig');
 
 var LIST_CHANGE_EVENT = 'list';
 var FORM_CHANGE_EVENT = 'form';
@@ -32,7 +33,7 @@ function _onCreateMessageSuccess(message) {
     _state.messages.unshift(message);
     _state.processing = false;
     _state.text = '';
-    PageUtility.resetMessageCountMultiplier();
+    MessageConfig.resetMessageCountMultiplier();
 }
 
 function _onGetMessages() {
@@ -45,7 +46,7 @@ function _onGetMessagesFailure(error) {
 }
 
 function _onGetMessagesSuccess(messages) {
-    _state.all = PageUtility.getMessageCount() > messages.length ? true : false;
+    _state.all = MessageConfig.getMessageCount() > messages.length ? true : false;
     _state.loading = false;
     _state.messages = messages;
 }
@@ -68,7 +69,7 @@ var MessageStore = assign({}, EventEmitter.prototype, {
     },
 
     getUnreadCount: function() {
-        var userId = PageUtility.getUserId();
+        var userId = PageConfig.getUserId();
         var count = 0;
 
         for (var i = 0; i < _state.messages.length; i++) {

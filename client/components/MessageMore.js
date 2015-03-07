@@ -2,8 +2,8 @@ var React = require('react/addons');
 var cx = React.addons.classSet;
 
 var MessageActions = require('../actions/MessageActions');
+var MessageConfig = require('../config/MessageConfig');
 var MessageStore = require('../stores/MessageStore');
-var PageUtility = require('../utilities/PageUtility');
 
 function getState() {
     return MessageStore.getState();
@@ -44,7 +44,7 @@ var MessageMore = React.createClass({
     },
 
     _onClick: function(event) {
-        PageUtility.incrementMessageCountMultiplier();
+        MessageConfig.incrementMessageCountMultiplier();
         MessageActions.getMessages();
         event.preventDefault();
     }

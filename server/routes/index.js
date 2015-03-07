@@ -55,4 +55,4 @@ function register(app, passport) {
     return this;
 }
 
-module.exports = {register: register, router: function() {return router; }};
+module.exports = {register: register, router: function() {return router;}};

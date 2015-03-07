@@ -1,10 +1,10 @@
-var PageUtility = require('../utilities/PageUtility');
 var MessageActions = require('../actions/MessageActions');
+var PageConfig = require('../config/PageConfig');
 var PresenceActions = require('../actions/PresenceActions');
 var SocketAlerts = require('../constants/DashboardConstants').SocketAlerts;
 
-var socketUrl = PageUtility.getBaseUrl();
-var handshake =  { query: 'userId=' + PageUtility.getUserId(), forceNew: true};
+var socketUrl = PageConfig.getBaseUrl();
+var handshake =  { query: 'userId=' + PageConfig.getUserId(), forceNew: true};
 var socket;
 
 function connect() {

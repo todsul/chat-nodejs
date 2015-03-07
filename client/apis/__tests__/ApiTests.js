@@ -4,14 +4,14 @@ jest
 ;
 
 describe('Api Unit Tests', function() {
-    var Api, ApiInstance, assign, PageUtility, request;
+    var Api, ApiInstance, assign, PageConfig, request;
     var collision, collisionCount, numberOfCollisions;
 
     beforeEach(function() {
         Api = require('../../apis/Api');
         ApiInstance = new Api();
         assign = require('object-assign');
-        PageUtility = require('../../utilities/PageUtility');
+        PageConfig = require('../../config/PageConfig');
         request = require('superagent');
 
         collision = function refresh() {

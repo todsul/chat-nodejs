@@ -41,7 +41,7 @@ describe('MessageComposer Functional Tests', function() {
         // Submit
         var button = TestUtils.findRenderedDOMComponentWithTag(component, 'button');
         TestUtils.Simulate.click(button.getDOMNode());
-        expect(request.post).toBeCalledWith('https://flightfox.test/users/2/messages');
+        expect(request.post).toBeCalledWith('https://flightfox.test/messages');
         expect(textarea.getDOMNode().value).toEqual('');
     });
 
@@ -66,7 +66,7 @@ describe('MessageComposer Functional Tests', function() {
         var button = TestUtils.findRenderedDOMComponentWithTag(component, 'button');
         TestUtils.Simulate.click(button.getDOMNode());
 
-        expect(request.post).toBeCalledWith('https://flightfox.test/users/2/messages');
+        expect(request.post).toBeCalledWith('https://flightfox.test/messages');
         expect(alert).toHaveBeenCalledWith('sorry buddy');
 
         expect(textarea.getDOMNode().value).toEqual('Hi there');

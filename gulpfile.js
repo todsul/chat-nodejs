@@ -1,4 +1,4 @@
-require('./lib/assets.js');
-require('./lib/database.js');
-require('./lib/deploy.js');
-require('./lib/ssh.js');
+require('./tasks/assets.js');
+require('./tasks/database.js');
+require('./tasks/deploy.js');
+require('./tasks/ssh.js');

@@ -4,12 +4,12 @@ jest
 ;
 
 describe('MessageApi Unit Tests', function() {
-    var Api, PageUtility, MessageApi, request;
+    var Api, PageConfig, MessageApi, request;
 
     beforeEach(function() {
         Api = require('../../apis/Api');
         MessageApi = require('../../apis/MessageApi');
-        PageUtility = require('../../utilities/PageUtility');
+        PageConfig = require('../../config/PageConfig');
         request = require('superagent');
     });
 
@@ -17,12 +17,12 @@ describe('MessageApi Unit Tests', function() {
 
     it('request the right url and method on Get Messages', function() {
         MessageApi.getMessages();
-        expect(request.get).toBeCalledWith('https://flightfox.test/users/2/messages');
+        expect(request.get).toBeCalledWith('https://flightfox.test/messages');
     });
 
     it('requests the right url on Create Message', function() {
         MessageApi.createMessage('A Message');
-        expect(request.post).toBeCalledWith('https://flightfox.test/users/2/messages');
+        expect(request.post).toBeCalledWith('https://flightfox.test/messages');
         expect(request.send).toBeCalledWith({text: 'A Message'});
     });
 });
