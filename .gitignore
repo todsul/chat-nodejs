@@ -2,7 +2,7 @@
 !.gitkeep
 node_modules
 npm-debug.log
-public/js/scripts.js
-public/css/styles.css
+public/js/*.js
+public/css/*.css
 dist/*.log
 public/css/styles.css
