@@ -19,7 +19,7 @@ function connect() {
     });
 
     channel.on('disconnect', function() {
-        if (maxReconnectionTries <= 10) {
+        if (maxReconnectionTries <= 0) {
             alert('Yikes. it seems we cannot send you real time notifications. Please contact support@flightfox.com');
             return;
         }
