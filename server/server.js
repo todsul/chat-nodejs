@@ -18,8 +18,8 @@ if (app.get('env') === 'production' || app.get('env') === 'staging') {
 
 // Intercept and rename asset requests for cache busting
 app.use('/public/', function(req, res, next) {
-        req.url = req.url.replace(/\/([^\/]+)-[0-9a-f]+\.(css|js)$/, "/$1.$2");
-        next();
+    req.url = req.url.replace(/\/([^\/]+)-[0-9a-f]+\.(css|js)$/, "/$1.$2");
+    next();
 });
 app.use('/public/', express['static'](__dirname + '/public', { maxAge: 30 }));
 
