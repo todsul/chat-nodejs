@@ -44,8 +44,7 @@
     "react-tools": "*",
     "reactify": "^1.0.0",
     "vinyl-source-stream": "^1.0.0",
-    "watchify": "^2.4.0",
-    "yargs": "^3.4.5"
+    "watchify": "^2.4.0"
   },
   "scripts": {
     "debug": "NODE_ENV=development DEBUG=flightfox nodemon ./bin/www",
