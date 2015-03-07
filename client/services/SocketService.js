@@ -16,7 +16,6 @@ function connect() {
     });
 
     socket.on('disconnect', function() {
-        console.log('disconnected. Trying to reconnect in 3 secs');
         setTimeout(function() {
             socket.connect();
         }, 3 * 1000);
