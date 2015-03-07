@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var env = process.env && process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
+var env = process.env && process.env.NODE_ENV ? process.env.NODE_ENV : 'dev';
 var mongoose, User, Message;
 var users = [];
 var messages = [];
@@ -92,13 +92,13 @@ gulp.task('reset_db', function() {
 
 
 // Enter the latest release dir and run the task
-var resetDB = "cd `ls -d /var/www/flightfox/releases/*/ | sort -r | head -n 1` && sudo NODE_ENV=staging gulp reset_db";
+var resetDB = "cd `ls -d /var/www/flightfox/releases/*/ | sort -r | head -n 1` && sudo NODE_ENV=prod gulp reset_db";
 
-gulp.task('staging_reset_db', function() {
-    var ssh = require('./ssh')('staging');
+gulp.task('danger-reset-db', function() {
+    var ssh = require('./ssh')('prod');
 
     return ssh.exec([resetDB],
-        {filePath: 'staging.log'})
+        {filePath: 'prod.log'})
         .pipe(gulp.dest(__dirname + '/../dist/'))
     ;
 });

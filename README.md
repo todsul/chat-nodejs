@@ -57,14 +57,14 @@ $ sudo kill `sudo lsof -t -i:3000`
 
 # DEPLOYMENT
 cd into dist/ and run gulp, pass one of the following tasks.
-    gulp staging_deploy
+    gulp deploy
 
 # NGINX CONF
     take a look to dist/nginx. There are the current config files
 
 # NAUGHT
 For the first time setup, make sure to run
-$ gulp staging_deploy
+$ gulp deploy
 
 Since naught hasn't been started yet we need to create a symlink for bin/www so naught can execute it outside the project code dir.
 $ ln -s /var/www/flightfox/releases/LATEST_RELEASE_DIR/bin/www /var/www/flightfox/www
@@ -73,7 +73,7 @@ cd into flightfox working dir:
 $ cd /var/www/flightfox
 
 Then start naught:
-$ sudo NODE_ENV=staging naught start --cwd ./releases/LATEST_RELEASE_DIR/bin/ www
+$ sudo NODE_ENV=prod naught start --cwd ./releases/LATEST_RELEASE_DIR/bin/ www
 
 Replace LATEST_RELEASE_DIR for the name of the dir with the latest release.
-For further deployments, gulp staging_deploy command will take care of updating naught for the latest code.
+For further deployments, gulp deploy command will take care of updating naught for the latest code.

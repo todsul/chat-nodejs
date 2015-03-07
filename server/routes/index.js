@@ -25,6 +25,7 @@ function register(app, passport) {
         res.render('dashboard', {
             pageData: JSON.stringify(pageData),
             scripts: assets['scripts.js'],
+            socket: app.get('env') === 'prod' ? 'https://cdn.socket.io/socket.io-1.0.0.js' : '/socket.io/socket.io.js',
             styles: assets['styles.css']
         });
     });

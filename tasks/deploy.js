@@ -17,7 +17,7 @@ var commands = [
 ];
 
 gulp.task('deploy', function() {
-    var ssh = require('./ssh')('staging');
+    var ssh = require('./ssh')('prod');
 
     return ssh
         .exec(commands, {filePath: 'prod.log'})

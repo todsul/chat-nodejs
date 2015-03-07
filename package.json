@@ -47,7 +47,7 @@
     "watchify": "^2.4.0"
   },
   "scripts": {
-    "debug": "NODE_ENV=development DEBUG=flightfox nodemon ./bin/www",
+    "debug": "NODE_ENV=dev DEBUG=flightfox nodemon ./bin/www",
     "start": "node ./bin/www",
     "test": "jest"
   },

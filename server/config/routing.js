@@ -32,7 +32,7 @@ function register(app, passport) {
 
     app.use(notFoundErrorHandlers);
 
-    if (app.get('env') === 'production') {
+    if (app.get('env') === 'prod') {
         app.use(prodErrorHandler);
     }
 

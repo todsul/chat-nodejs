@@ -1,5 +1,5 @@
 var parameters = {
-    development: {
+    dev: {
         server: {
             schema: 'http://',
             host: 'localhost',
@@ -19,7 +19,7 @@ var parameters = {
         }
     },
 
-    staging: {
+    prod: {
         server: {
             schema: 'http://',
             host: '52.11.26.126',
@@ -31,31 +31,26 @@ var parameters = {
         },
 
         persistence: {
-            connectionString: 'mongodb://localhost/flightfox_staging'
+            connectionString: 'mongodb://localhost/flightfox_prod'
         },
 
         session: {
             secret: 'flightoxxofthgilf'
         }
-    },
-
-
-    production: {
-        // TODO
     }
 };
 
 module.exports = {
     get: function(env) {
         if (!env) {
-            env = 'development';
+            env = 'dev';
 
             if (process.env.NODE_ENV) {
                 env = process.env.NODE_ENV;
             }
         }
 
-        if (['development', 'staging', 'production'].indexOf(env) === -1) {
+        if (['dev', 'prod'].indexOf(env) === -1) {
             throw new Error('Invalid environment: ' + env);
         }
 

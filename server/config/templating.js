@@ -4,7 +4,7 @@ var swig = require('swig');
 function register(app) {
     var ENV = app.get('env');
 
-    if (ENV === 'development' || ENV === 'test') {
+    if (ENV === 'dev' || ENV === 'test') {
         swig.setDefaults({
           cache: false
         });

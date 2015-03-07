@@ -12,7 +12,7 @@ require('node-jsx').install();
 var app = express();
 
 // Uncomment to enable gzip compression for prod
-if (app.get('env') === 'production' || app.get('env') === 'staging') {
+if (app.get('env') === 'prod') {
     app.use(compress());
 }
 
