@@ -25,11 +25,12 @@ var MessageComposer = React.createClass({
         var buttonClasses = cx({
             'button': true,
             'block': true,
-            'loading': this.state.processing
+            'loading': this.state.processing,
+            'off': !this.state.text
         });
 
         var textClasses = cx({
-            'focus': this.state.text
+            'focus': this.state.focus || this.state.text
         });
 
         return (
@@ -38,7 +39,9 @@ var MessageComposer = React.createClass({
                     className={textClasses}
                     disabled={this.state.processing}
                     name="message"
+                    onBlur={this._onTextBlur}
                     onChange={this._onTextChange}
+                    onFocus={this._onTextFocus}
                     placeholder="Type your message..."
                     value={this.state.text}
                 />
@@ -59,8 +62,16 @@ var MessageComposer = React.createClass({
         MessageActions.createMessage(this.state.text);
     },
 
+    _onTextBlur: function(event) {
+        this.setState({focus: false});
+    },
+
     _onTextChange: function(event) {
         this.setState({text: event.target.value});
+    },
+
+    _onTextFocus: function(event) {
+        this.setState({focus: true});
     }
 });
 
