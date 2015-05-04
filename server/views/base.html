@@ -8,6 +8,9 @@
         <div id="head">
             <div class="cell">
                 <a id="logo" href="/"><img src="/public/img/logo.svg" onerror="this.onerror=null; this.src='/public/img/logo.png'" alt="Fligthfox"></a>
+                <div id="breadcrumbs">
+                    <a href="">Dashboard</a> > <a href="">Trips</a> > <span>Canada 2015</span>
+                </div>
                 <div id="user_menu">
                     {% if req.isAuthenticated() %}
                         <a href="/signout" class="sign-out">Sign Out</a>

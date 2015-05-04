@@ -1,18 +1,36 @@
 #head {
     background: #fff;
     border-top: 0.25rem solid @orange;
-    font-size: 0.75rem;
     height: 3.5rem;
-    padding: 0 1rem;
+
+    .cell {
+        overflow: hidden;
+    }
 }
 
 #logo {
+    background: #222;
+    border-bottom: 0.0625rem solid #fff;
     display: inline-block;
     float: left;
+    height: 3.5rem;
+    width: 10rem;
 
     img {
+        display: inline-block;
         height: 1.5rem;
-        margin-top: 1.125rem;
+        margin: 1.125rem 0 0 2rem;
+    }
+}
+
+#breadcrumbs {
+    color: #ccc;
+    float: left;
+    line-height: 3.5rem;
+    padding-left: 2rem;
+
+    span {
+        color: @text;
     }
 }
 
@@ -20,5 +38,6 @@
     color: #999;
     float: right;
     line-height: 3.5rem;
+    padding-right: 2rem;
     position: relative;
 }
