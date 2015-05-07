@@ -1,5 +1,17 @@
 # Chat - node.js
 
+This is a full stack chat app built with the following:
+
+* node.js
+* express.js
+* socket.io
+* react
+* flux
+* lesscss
+* mongo
+
+It's just an example app we used to learn.
+
 ## Dev
 
 ### Setup
