@@ -13,7 +13,8 @@
     - cp -R -n [dir] /usr/local/mongodb
     - vi ~/.bash_profile
     - export PATH=/usr/local/mongodb/bin:$PATH
-* npm install
+* Install Modules
+    npm install
 
 ### Start
 
