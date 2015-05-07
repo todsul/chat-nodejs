@@ -19,11 +19,11 @@ function dropDatabase() {
 
 // Fixtures are meant to run sequentially.
 function userFixtures() {
-    var admin = new User({full_name: 'Admin Flightfox', email: 'admin@flightfox.com', password: 'flightfox'});
-    var expert = new User({full_name: 'Expert Flightfox', email: 'expert@flightfox.com', password: 'flightfox'});
-    var customer = new User({full_name: 'Customer Flightfox', email: 'customer@flightfox.com', password: 'flightfox'});
+    var user1 = new User({full_name: 'User 1', email: 'user1@example.com', password: 'password'});
+    var user2 = new User({full_name: 'User 2', email: 'user2@example.com', password: 'password'});
+    var user3 = new User({full_name: 'User 3', email: 'user3@example.com', password: 'password'});
 
-    sequentialSave([admin, expert, customer], function(savedUsers) {
+    sequentialSave([user1, user2, user3], function(savedUsers) {
         users = savedUsers;
         messageFixtures();
     });
@@ -32,20 +32,18 @@ function userFixtures() {
 function messageFixtures() {
     var unsavedMessages = [
         new Message({
-            text: 'From New Orleans to Amsterdam,One-Way only ' +
-                'Looking for cheapest price, but <24 hours flying time Leaving 16th ' +
-                'March (+/- a day), Must arrive before 18th March',
-            user: users[2],
+            text: 'Hello',
+            user: users[0],
             created: new Date(),
         }),
         new Message({
-            text: 'My wife is coming with me, sorry for mentioning it',
-            user: users[2],
+            text: 'How are you?',
+            user: users[0],
             created: new Date(),
         }),
         new Message({
-            text: 'Thanks in advance for your hard work. I will leave juicy tip once I have booked',
-            user: users[2],
+            text: 'Nice weather today, aye?',
+            user: users[0],
             created: new Date(),
         }),
     ];
@@ -83,7 +81,7 @@ function exit() {
     process.exit();
 }
 
-gulp.task('reset_db', function() {
+gulp.task('reset-db', function() {
     dropDatabase();
     userFixtures();
 
@@ -91,10 +89,11 @@ gulp.task('reset_db', function() {
 });
 
 
-// Enter the latest release dir and run the task
-var resetDB = "cd `ls -d /var/www/flightfox/releases/*/ | sort -r | head -n 1` && sudo NODE_ENV=prod gulp reset_db";
+// PROD RESET
 
-gulp.task('danger-reset-db', function() {
+var resetDB = "cd `ls -d /var/www/chat-nodejs/releases/*/ | sort -r | head -n 1` && sudo NODE_ENV=prod gulp reset-db";
+
+gulp.task('reset-db-prod', function() {
     var ssh = require('./ssh')('prod');
 
     return ssh.exec([resetDB],

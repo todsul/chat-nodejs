@@ -99,7 +99,7 @@ Api.prototype.translateResponse = function(error, response) {
     if (error) { // Application or network error
         translatedError = error.message;
     } else if (response.error) { // HTTP error
-        translatedError = 'Error ' + response.error.status + ': please report to support@flightfox.com.';
+        translatedError = 'Error ' + response.error.status + ': please report to todsul@gmail.com';
     } else {
         translatedResponse = JSON.parse(response.text);
     }

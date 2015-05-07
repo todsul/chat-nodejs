@@ -1,9 +1,9 @@
-var pemFile = __dirname +  '/../dist/aws/flightfox-20131029.pem';
+var pemFile = __dirname +  '/../dist/aws/you-pem-file.pem';
 var paramDataSet = require(__dirname + '/../server/config/parameters');
 
 module.exports = function(env) {
     var parameters = paramDataSet.get(env);
-    
+
     return require('gulp-ssh')({
         ignoreErrors: false,
         sshConfig: {

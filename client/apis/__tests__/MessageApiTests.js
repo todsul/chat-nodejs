@@ -17,12 +17,12 @@ describe('MessageApi Unit Tests', function() {
 
     it('request the right url and method on Get Messages', function() {
         MessageApi.getMessages();
-        expect(request.get).toBeCalledWith('https://flightfox.test/messages');
+        expect(request.get).toBeCalledWith('https://chat-nodejs.test/messages');
     });
 
     it('requests the right url on Create Message', function() {
         MessageApi.createMessage('A Message');
-        expect(request.post).toBeCalledWith('https://flightfox.test/messages');
+        expect(request.post).toBeCalledWith('https://chat-nodejs.test/messages');
         expect(request.send).toBeCalledWith({text: 'A Message'});
     });
 });

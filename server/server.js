@@ -11,7 +11,7 @@ require('node-jsx').install();
 
 var app = express();
 
-// Uncomment to enable gzip compression for prod
+// Enable gzip compression for prod
 if (app.get('env') === 'prod') {
     app.use(compress());
 }
@@ -24,7 +24,7 @@ app.use('/public/', function(req, res, next) {
 app.use('/public/', express['static'](__dirname + '/public', { maxAge: 30 }));
 
 // Uncomment after placing your favicon in /public
-// app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/../public/img/favicon.ico'));
 
 app.use(logger('dev')); // @TODO set accordingly to real env
 app.use(bodyParser.json());

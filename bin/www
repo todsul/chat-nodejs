@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var app = require('../server/server');
-var debug = require('debug')('flightfox:server');
+var debug = require('debug')('chat-nodejs:server');
 var http = require('http');
 var clusterEvents = require('../server/services/clusterEvents');
 

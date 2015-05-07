@@ -2,7 +2,7 @@ var parameters = {
     dev: {
         server: {
             schema: 'http://',
-            host: 'localhost',
+            host: 'chat-nodejs.localhost',
             port: 3000,
 
             getBaseUrl: function() {
@@ -11,11 +11,11 @@ var parameters = {
         },
 
         persistence: {
-            connectionString: 'mongodb://localhost/flightfox_dev'
+            connectionString: 'mongodb://chat-nodejs.localhost/dev'
         },
 
         session: {
-            secret: 'flightoxxofthgilf'
+            secret: 'lauren'
         }
     },
 
@@ -31,11 +31,11 @@ var parameters = {
         },
 
         persistence: {
-            connectionString: 'mongodb://localhost/flightfox_prod'
+            connectionString: 'mongodb://chat-nodejs.localhost/prod'
         },
 
         session: {
-            secret: 'flightoxxofthgilf'
+            secret: 'lauren'
         }
     }
 };

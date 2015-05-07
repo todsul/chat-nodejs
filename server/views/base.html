@@ -1,24 +1,12 @@
 <html lang="en">
     <head>
         <meta charSet="utf-8" />
-        <title>{% block title %}Flightfox{% endblock %}</title>
-        <link rel="stylesheet" href="/public/css/{{ styles }}" type="text/css" media="screen">
+        <title>{% block title %}Chat - node.js{% endblock %}</title>
+        <link rel="stylesheet" href="/public/css/styles.css" type="text/css" media="screen">
     </head>
     <body>
         <div id="head">
-            <div class="cell">
-                <a id="logo" href="/"><img src="/public/img/logo.svg" onerror="this.onerror=null; this.src='/public/img/logo.png'" alt="Fligthfox"></a>
-                <div id="breadcrumbs">
-                    <a href="">Dashboard</a> > <a href="">Trips</a> > <span>Canada 2015</span>
-                </div>
-                <div id="user_menu">
-                    {% if req.isAuthenticated() %}
-                        <a href="/signout" class="sign-out">Sign Out</a>
-                    {% else %}
-                        <a href="/signin" class="sign-in">Sign In</a>
-                    {% endif %}
-                </div>
-            </div>
+            <a id="logo" href="/"><img src="/public/img/fox.svg" onerror="this.onerror=null; this.src='/public/img/fox.png'" alt="Fligthfox"></a>
         </div>
         <div id="main">
             <div class="cell">
@@ -26,9 +14,9 @@
             </div>
         </div>
         <div id="foot">
-            <div class="cell">
-                <div class="love">Made with Miles</div>
-            </div>
+            {% if req.isAuthenticated() %}
+                <a href="/signout" class="sign-out">Sign Out</a>
+            {% endif %}
         </div>
         {% block js %}{% endblock %}
     </body>

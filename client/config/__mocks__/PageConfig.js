@@ -1,7 +1,7 @@
 var PageConfig = jest.genMockFromModule('../PageConfig');
 
 PageConfig.getBaseUrl = jest.genMockFunction().mockImplementation(function() {
-    return 'https://flightfox.test';
+    return 'https://chat-nodejs.test';
 });
 
 PageConfig.getClientId = jest.genMockFunction().mockImplementation(function() {

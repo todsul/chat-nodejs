@@ -8,24 +8,11 @@ var Presence = require('./Presence');
 var Dashboard = React.createClass({
     render: function() {
         return (
-            <div>
-                <div id="menu"></div>
-                <div id="canvas">
-                    <div className="panel">
-                        <div id="messages">
-                            <h2>Discussion</h2>
-                            <MessageComposer />
-                            <MessageList />
-                            <MessageMore />
-                            <Presence />
-                        </div>
-                    </div>
-                    <div className="panel">
-                        <div id="trips">
-                            <h2>Itineraries</h2>
-                        </div>
-                    </div>
-                </div>
+            <div id="messages">
+                <MessageComposer />
+                <MessageList />
+                <MessageMore />
+                <Presence />
             </div>
         );
     }

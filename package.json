@@ -1,7 +1,7 @@
 {
-  "name": "Flightfox",
+  "name": "chat-nodejs",
   "version": "1.0.0",
-  "description": "Flightfox",
+  "description": "Chat - node.js",
   "main": "server/server.js",
   "dependencies": {
     "body-parser": "~1.10.2",
@@ -47,7 +47,7 @@
     "watchify": "^2.4.0"
   },
   "scripts": {
-    "debug": "NODE_ENV=dev DEBUG=flightfox nodemon ./bin/www",
+    "debug": "NODE_ENV=dev DEBUG=chat-nodejs nodemon ./bin/www",
     "start": "node ./bin/www",
     "test": "jest"
   },
@@ -64,11 +64,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/todsul/flightfox.git"
+    "url": "https://github.com/todsul/chat-nodejs.git"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/todsul/flightfox/issues"
+    "url": "https://github.com/todsul/chat-nodejs/issues"
   },
-  "homepage": "https://github.com/todsul/flightfox"
+  "homepage": "https://github.com/todsul/chat-nodejs"
 }
