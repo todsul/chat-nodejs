@@ -4,10 +4,8 @@
 
 ### Setup
 
-* Install Node
-    - Download binaries and install node.js
-* Install Mongo
-    - Download binaries from mongodb.org
+* Download binaries and install node.js
+* Download binaries from mongodb.org, then run:
 
     ```
     tar -zxvf [dir]
@@ -17,7 +15,7 @@
     export PATH=/usr/local/mongodb/bin:$PATH
     ```
 
-* Install Modules
+* Install all project node modules:
 
     ```
     npm install
