@@ -89,4 +89,4 @@ $ sudo NODE_ENV=prod naught start --cwd ./releases/LATEST_RELEASE_DIR/bin/ www
 
 Step 3. Replace LATEST_RELEASE_DIR for the name of the dir with the latest release. For further deployments, gulp deploy command will take care of updating naught for the latest code.
 
-> If you want to kill the node process id that listens on port 3000 you can `$ sudo kill ```sudo lsof -t -i:3000``
+> To kill the node process id on port 3000 `$ sudo kill 'sudo lsof -t -i:3000'`
