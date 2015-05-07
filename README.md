@@ -8,14 +8,20 @@
     - Download binaries and install node.js
 * Install Mongo
     - Download binaries from mongodb.org
-    - tar -zxvf [dir]
-    - mkdir -p /usr/local/mongodb
-    - cp -R -n [dir] /usr/local/mongodb
-    - vi ~/.bash_profile
-    - export PATH=/usr/local/mongodb/bin:$PATH
+
+    ```
+    tar -zxvf [dir]
+    mkdir -p /usr/local/mongodb
+    cp -R -n [dir] /usr/local/mongodb
+    vi ~/.bash_profile
+    export PATH=/usr/local/mongodb/bin:$PATH
+    ```
+
 * Install Modules
 
+    ```
     npm install
+    ```
 
 ### Start
 
