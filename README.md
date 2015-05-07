@@ -5,6 +5,7 @@
 ### Setup
 
 Step 1. Download and install node.js
+
 Step 2. Download mongo from mongodb.org, then run:
 
 ```
@@ -39,30 +40,36 @@ gulp reset-db
 
 ### Setup
 
-* Install MongoDB (http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
+Step 1. Install MongoDB (http://docs.mongodb.org/manual/tutorial/install-mongodb-on-ubuntu/)
 
-    $ echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
-    $ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+```
+$ echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+```
 
-    $ sudo apt-get update
-    $ sudo apt-get install build-essential
-    $ sudo apt-get install -y mongodb-org
-    $ sudo curl -sL https://deb.nodesource.com/setup | sudo bash -
-    $ sudo apt-get install -y nodejs
-    $ sudo npm install --global gulp
-    $ sudo npm install --global naught
-    $ sudo apt-get install git git-core
+Step 2. Install other deps
 
-* Git Config
+```
+$ sudo apt-get update
+$ sudo apt-get install build-essential
+$ sudo apt-get install -y mongodb-org
+$ sudo curl -sL https://deb.nodesource.com/setup | sudo bash -
+$ sudo apt-get install -y nodejs
+$ sudo npm install --global gulp
+$ sudo npm install --global naught
+$ sudo apt-get install git git-core
+```
 
-    $ git config --global user.name "Your Name"
-    $ git config --global user.email "youremail@example.com"
+Step 3. Config git
 
-If by running sudo the terminal throws "sudo unable to resolve host" grab the host name shown in the error and edit /etc/hosts. Put it there like this:
+```
+$ git config --global user.name "Your Name"
+$ git config --global user.email "youremail@example.com"
+```
 
-    127.0.1.1 ip-172-30-0-136
+Step 4. Setup nginx
 
-Where ip-172-30-0-136 is the host that can't be resolved
+> If by running sudo the terminal throws "sudo unable to resolve host" grab the host name shown in the error and edit /etc/hosts. Put it there like this: `127.0.1.1 ip-172-30-0-136`, where ip-172-30-0-136 is the host that can't be resolved.
 
 * If you want to kill the node process id that listens on port 3000 you can
 
