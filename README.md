@@ -4,33 +4,35 @@
 
 ### Setup
 
-* Download binaries and install node.js
-* Download binaries from mongodb.org, then run:
+Step 1. Download and install node.js
+Step 2. Download mongo from mongodb.org, then run:
 
-    ```
-    tar -zxvf [dir]
-    mkdir -p /usr/local/mongodb
-    cp -R -n [dir] /usr/local/mongodb
-    vi ~/.bash_profile
-    export PATH=/usr/local/mongodb/bin:$PATH
-    ```
+```
+tar -zxvf [dir]
+mkdir -p /usr/local/mongodb
+cp -R -n [dir] /usr/local/mongodb
+vi ~/.bash_profile
+export PATH=/usr/local/mongodb/bin:$PATH
+```
 
-* Install all project node modules:
+Step 3. Install all project node modules:
 
-    ```
-    npm install
-    ```
+```
+npm install
+```
 
 ### Start
 
-* mongod
-* gulp reset-db
-* [New Window] gulp watch
-* [New Window] npm run-script debug
+```
+mongod
+gulp reset-db
+[New Window] gulp watch
+[New Window] npm run-script debug
+```
 
 ### Test
 
-* npm test
+`npm test`
 
 ## Prod
 
