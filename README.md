@@ -83,7 +83,7 @@ Step 4. Setup nginx by copying the nginx configs from dist/*
 
 > If by running sudo the terminal throws "sudo unable to resolve host" grab the host name shown in the error and edit /etc/hosts. Put it there like this: `127.0.1.1 ip-172-30-0-136`, where ip-172-30-0-136 is the host that can't be resolved.
 
-### Deployment
+### Deploy
 
 Step 1. Run the deploy for the first time
 
