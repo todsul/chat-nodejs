@@ -67,29 +67,26 @@ $ git config --global user.name "Your Name"
 $ git config --global user.email "youremail@example.com"
 ```
 
-Step 4. Setup nginx
+Step 4. Setup nginx by copying the nginx configs from dist/*
 
 > If by running sudo the terminal throws "sudo unable to resolve host" grab the host name shown in the error and edit /etc/hosts. Put it there like this: `127.0.1.1 ip-172-30-0-136`, where ip-172-30-0-136 is the host that can't be resolved.
 
-* If you want to kill the node process id that listens on port 3000 you can
+### Deployment
 
-    $ sudo kill `sudo lsof -t -i:3000`
+Step 1. Run the deploy for the first time
 
-* Copy the nginx configs from dist/*
-* For the first time setup, make sure to run
+`$ gulp deploy`
 
-    $ gulp deploy
+Step 2. Setup Naught
 
-* Since naught hasn't been started yet we need to create a symlink for bin/www so naught can execute it outside the project code dir.
+> Since naught hasn't been started yet we need to create a symlink for bin/www so naught can execute it outside the project code dir.
 
-    $ ln -s /var/www/chat-nodejs/releases/LATEST_RELEASE_DIR/bin/www /var/www/chat-nodejs/www
+```
+$ ln -s /var/www/chat-nodejs/releases/LATEST_RELEASE_DIR/bin/www /var/www/chat-nodejs/www
+$ cd /var/www/chat-nodejs
+$ sudo NODE_ENV=prod naught start --cwd ./releases/LATEST_RELEASE_DIR/bin/ www
+```
 
-* cd into chat-nodejs working dir:
+Step 3. Replace LATEST_RELEASE_DIR for the name of the dir with the latest release. For further deployments, gulp deploy command will take care of updating naught for the latest code.
 
-    $ cd /var/www/chat-nodejs
-
-* Then start naught:
-
-    $ sudo NODE_ENV=prod naught start --cwd ./releases/LATEST_RELEASE_DIR/bin/ www
-
-* Replace LATEST_RELEASE_DIR for the name of the dir with the latest release. For further deployments, gulp deploy command will take care of updating naught for the latest code.
+> If you want to kill the node process id that listens on port 3000 you can `$ sudo kill ```sudo lsof -t -i:3000``
