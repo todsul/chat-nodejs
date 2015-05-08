@@ -47,6 +47,12 @@ gulp reset-db
 
 `npm test`
 
+The app includes fixtures for these users:
+
+* email: `user1@example.com` password: `password`
+* email: `user2@example.com` password: `password`
+* email: `user3@example.com` password: `password`
+
 ## Prod
 
 
