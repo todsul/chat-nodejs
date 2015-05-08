@@ -19,9 +19,9 @@ function dropDatabase() {
 
 // Fixtures are meant to run sequentially.
 function userFixtures() {
-    var user1 = new User({full_name: 'User 1', email: 'user1@example.com', password: 'password'});
-    var user2 = new User({full_name: 'User 2', email: 'user2@example.com', password: 'password'});
-    var user3 = new User({full_name: 'User 3', email: 'user3@example.com', password: 'password'});
+    var user1 = new User({full_name: 'User1 Test', email: 'user1@example.com', password: 'password'});
+    var user2 = new User({full_name: 'User2 Test', email: 'user2@example.com', password: 'password'});
+    var user3 = new User({full_name: 'User3 Test', email: 'user3@example.com', password: 'password'});
 
     sequentialSave([user1, user2, user3], function(savedUsers) {
         users = savedUsers;
